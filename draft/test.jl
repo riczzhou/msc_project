@@ -2,9 +2,9 @@ using LinearAlgebra, BandedMatrices
 n = 4
 bw = 2
 U = BandedMatrix(rand(n, n), (0, bw))
-for i in 1:n
-    U[i, i] = 1.0
-end
+# for i in 1:n
+#     U[i, i] = 1.0
+# end
 display(U)
 
 D1 = U[1:2, 1:2]
@@ -19,9 +19,39 @@ X1 = X[1:2, :]
 X2 = X[3:4, :]
 
 Y2 = [1 0 ; 0 1]
-Y1 = -inv(D1*tril(X1, -1) + B1*X2)
+Y1 = inv(X1) * inv(D1)
 
 Yt = [Y1 Y2]
 triu(X * Yt) - inv(U)
 norm(triu(X * Yt) - inv(U))
 
+
+n = 2*2
+bw = 2
+U = BandedMatrix(rand(n, n), (0, bw))
+# for i in 1:n
+#     U[i, i] = 1.0
+# end
+display(U)
+
+
+E2 = zeros(n, 2)
+
+E2[end-1:end, :] = [1 0 ; 0 1]
+X = U \ E2
+Y = zeros(n, 2)
+Y[n-1:n, :] = [1 0 ; 0 1]
+
+
+a = 0
+println(X)
+for i in n-2 : -2 : 1
+    Xi = X[i: i+1, :]
+    print(Xi)
+end 
+a
+
+
+# A = similar(X)
+
+[i for i in n-2 : -2 : 0]
