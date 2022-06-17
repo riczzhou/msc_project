@@ -1,0 +1,370 @@
+\documentclass[11pt]{article}
+% 中文 \documentclass[UTF8]{ctexart}
+% 编译快捷键：Command+Option+B
+
+% 显示快捷键：Command+Option+V
+
+% 正向搜索：选中代码Command+Option+J
+
+% 反向搜索：shift+command点击预览PDF
+
+
+\usepackage[utf8]{inputenc}
+
+
+\usepackage{graphicx}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm}
+
+\usepackage{physics}
+
+
+\usepackage{enumerate}
+\usepackage{hyperref}
+
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+
+
+
+
+
+\usepackage[english]{babel}
+
+
+
+\usepackage{mathtools}
+
+
+\usepackage{geometry}
+
+% \geometry{a4paper,scale=0.8}
+
+\geometry{a4paper,left=2cm,right=2cm,top=2cm,bottom=3cm}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
+
+\newcommand{\triu}{\mathop{\mathrm{triu}}}
+\newcommand{\tril}{\mathop{\mathrm{tril}}}
+\newcommand{\T}{\mathrm{T}}
+
+\newcommand{\redtext}[1]{\textcolor{red}{#1}}
+
+
+
+\title{\textbf{MSc Project Notes}}
+\author{\textit{Zhiwei Zhou}}
+% \date{April 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{02.08.2022}
+\subsection{Bidiagonal matrix}
+
+\noindent Let $\tilde{U} \in \mathbb{R}^{n \times n}$ be a bidiagonal matrix with non-zero diagonal, 
+$i.e. \ \tilde{u}_{ii} \neq 0 \ \text{for} \ i = 1, 2, \ldots , n$,
+
+\begin{align*}
+    \tilde{U} &= \mqty[
+        \tilde{u}_{11} & \tilde{u}_{12} &   &   &  \\
+          & \tilde{u}_{22} & \tilde{u}_{23} &   &  \\
+          &   & \tilde{u}_{33} & \tilde{u}_{34} &  \\
+          &   &   & \tilde{u}_{44} & \tilde{u}_{45}\\
+          &   &   &   & \tilde{u}_{55}
+        ]
+\end{align*}
+
+\noindent and $D = \diag(\tilde{u}_{ii})\ \text{for} \ i = 1, 2, \ldots , n$,
+
+
+\begin{align*}
+    D = \mqty[
+        \frac{1}{\tilde{u}_{11}} &   &   &   &  \\
+          & \frac{1}{\tilde{u}_{22}} &   &   &  \\
+          &   & \frac{1}{\tilde{u}_{33}} &   &  \\
+          &   &   & \frac{1}{\tilde{u}_{44}} &  \\
+          &   &   &   & \frac{1}{\tilde{u}_{55}}
+        ]
+\end{align*}
+
+
+\noindent replace $\frac{\tilde{u}_{i, i+1}}{\tilde{u}_{i+1, i+1}}$ by $u_{i, i+1}\ \text{for} \ i = 1, 2, \ldots , n-1$, and let $U = \tilde{U}D$,
+
+
+
+\begin{align*}
+    U &= \mqty[
+        1 & \frac{\tilde{u}_{12}}{\tilde{u}_{22}} &   &   &  \\
+          & 1 & \frac{\tilde{u}_{23}}{\tilde{u}_{33}} &   &  \\
+          &   & 1 & \frac{\tilde{u}_{34}}{\tilde{u}_{44}} &  \\
+          &   &   & 1 & \frac{\tilde{u}_{45}}{\tilde{u}_{55}}\\
+          &   &   &   & 1
+        ]\\
+    &= \mqty[
+        1 & u_{12} &   &   &  \\
+          & 1 & u_{23} &   &  \\
+          &   & 1 & u_{34} &  \\
+          &   &   & 1 & u_{45}\\
+          &   &   &   & 1
+    ].
+\end{align*}
+
+
+\noindent Let $A = U^{-1}$ be the inverse of $U$, a upper triangular matrix,
+
+
+\begin{align*}
+    A = \mqty[
+        a_{11} & a_{12} & a_{13} & a_{14} & a_{15}\\
+          & a_{22} & a_{23} & a_{24} & a_{25}\\
+          &   & a_{33} & a_{34} & a_{35}\\
+          &   &   & a_{44} & a_{45}\\
+          &   &   &   & a_{55}
+        ]
+\end{align*}
+then $I = UU^{-1} = UA$,
+
+
+\begin{align*}
+    I = \mqty[
+        1 &   &   &   &  \\
+          & 1 &   &   &  \\
+          &   & 1 &   &  \\
+          &   &   & 1 &  \\
+          &   &   &   & 1
+        ]
+    = \mqty[
+        a_{11} & a_{12} + a_{22} u_{12} & a_{13} + a_{23} u_{12} & a_{14} + a_{24} u_{12} & a_{15} + a_{25} u_{12}\\
+          & a_{22} & a_{23} + a_{33} u_{23} & a_{24} + a_{34} u_{23} & a_{25} + a_{35} u_{23}\\
+          &   & a_{33} & a_{34} + a_{44} u_{34} & a_{35} + a_{45} u_{34}\\
+          &   &   & a_{44} & a_{45} + a_{55} u_{45}\\
+          &   &   &   & a_{55}
+        ]
+    = UA.
+\end{align*}
+
+
+
+\noindent Note that $UA = \diag(a_{ii}) + \triu(UA, 1)\ \text{for} \ i = 1, 2, \ldots , n$.
+
+\noindent Find $A$ such that $\diag(a_{ii}) = I$ and $\triu(UA, 1) = 0_{n \times n}\ \text{for} \ i = 1, 2, \ldots , n$.
+
+\begin{align*}
+    xy^{\T} = \mqty[
+        x_{1} y_{1} & x_{1} y_{2} & x_{1} y_{3} & x_{1} y_{4} & x_{1} y_{5}\\
+        x_{2} y_{1} & x_{2} y_{2} & x_{2} y_{3} & x_{2} y_{4} & x_{2} y_{5}\\
+        x_{3} y_{1} & x_{3} y_{2} & x_{3} y_{3} & x_{3} y_{4} & x_{3} y_{5}\\
+        x_{4} y_{1} & x_{4} y_{2} & x_{4} y_{3} & x_{4} y_{4} & x_{4} y_{5}\\
+        x_{5} y_{1} & x_{5} y_{2} & x_{5} y_{3} & x_{5} y_{4} & x_{5} y_{5}
+    ]
+\end{align*}
+
+
+\noindent Express $A$ in form of an outer product, $i.e. \ A = xy^{\T}$ for $\forall x,y \in \mathbb{R}^{n}$, then
+\begin{align*}
+    \triu(UA, 1) = \triu(Uxy^{\T}, 1) = 0_{n \times n}
+\end{align*}
+
+
+% \begin{align*}
+%     % A = xy^{\T} &= \mqty[
+%     %     x_{1} y_{1} & x_{1} y_{2} & x_{1} y_{3} & x_{1} y_{4} & x_{1} y_{5}\\
+%     %     x_{2} y_{1} & x_{2} y_{2} & x_{2} y_{3} & x_{2} y_{4} & x_{2} y_{5}\\
+%     %     x_{3} y_{1} & x_{3} y_{2} & x_{3} y_{3} & x_{3} y_{4} & x_{3} y_{5}\\
+%     %     x_{4} y_{1} & x_{4} y_{2} & x_{4} y_{3} & x_{4} y_{4} & x_{4} y_{5}\\
+%     %     x_{5} y_{1} & x_{5} y_{2} & x_{5} y_{3} & x_{5} y_{4} & x_{5} y_{5}
+%     % ]\\
+%     A = \triu(xy^{\T}) &= \mqty[
+%         x_{1} y_{1} & x_{1} y_{2} & x_{1} y_{3} & x_{1} y_{4} & x_{1} y_{5}\\
+%           & x_{2} y_{2} & x_{2} y_{3} & x_{2} y_{4} & x_{2} y_{5}\\
+%           &   & x_{3} y_{3} & x_{3} y_{4} & x_{3} y_{5}\\
+%           &   &   & x_{4} y_{4} & x_{4} y_{5}\\
+%           &   &   &   & x_{5} y_{5}
+%     ]
+% \end{align*}
+
+
+
+% \noindent then, $UA = U\triu(xy^{\T}) = \diag(x_{i} y_{i}) + \triu(U\triu(xy^{\T}), 1)\ \text{for} \ i = 1, 2, \ldots , n$.
+
+
+\noindent Note that $\triu(e_{n} y^{\T}, 1) = 0_{n \times n}$ as,
+
+\begin{align*}
+    e_{n} y^{\T} = \mqty[
+         \\
+         \\
+         \\
+         \\
+        1
+    ]
+    \mqty[
+        y_{1} & y_{2} & y_{3} & y_{4} & y_{5}
+    ]
+    = \mqty[
+          &   &   &   &  \\
+          &   &   &   &  \\
+          &   &   &   &  \\
+          &   &   &   &  \\
+        y_{1} & y_{2} & y_{3} & y_{4} & y_{5}
+    ]
+\end{align*}
+
+\noindent solve $Ux := e_{n}$ for $x$ by backward substitution, then let $y_{i} := \frac{1}{x_{i}}$ or $x_{i} y_{i} = 1\ \text{for} \ i = 1, 2, \ldots , n$.
+
+
+\noindent Then,
+\begin{align*}
+    % UA &= U\triu(xy^{\T})\\
+    % &= \diag(x_{i} y_{i}) + \triu(Uxy^{\T}, 1)\\
+    UA &= \diag(a_{ii}) + \triu(UA, 1)\\
+    &= \diag(x_{i} y_{i}) + \triu(Uxy^{\T}, 1)\\
+    &= \diag(\underbrace{1, 1, \cdots, 1}_n) + \triu(e_{n} y^{\T}, 1)\\
+    &= I + 0_{n \times n}\\
+    &= I
+\end{align*}
+
+
+
+\subsection{Upper triangular matrix}
+
+\noindent Let $\tilde{U} \in \mathbb{R}^{n \times n}$ be a banded matrix with non-zero diagonal, upper banded width $u$, and lower banded width $0$ 
+\noindent Similarly,
+
+\begin{align*}
+    U = \mqty[
+        1 & u_{12} & u_{13} &   &  \\
+          & 1 & u_{23} & u_{24} &  \\
+          &   & 1 & u_{34} & u_{35}\\
+          &   &   & 1 & u_{45}\\
+          &   &   &   & 1
+    ]
+\end{align*}
+
+\begin{align*}
+    UA &= \mqty[
+        a_{11} & a_{12} + a_{22} u_{12} & a_{13} + a_{23} u_{12} + a_{33} u_{13} & a_{14} + a_{24} u_{12} + a_{34} u_{13} & a_{15} + a_{25} u_{12} + a_{35} u_{13}\\
+          & a_{22} & a_{23} + a_{33} u_{23} & a_{24} + a_{34} u_{23} + a_{44} u_{24} & a_{25} + a_{35} u_{23} + a_{45} u_{24}\\
+          &   & a_{33} & a_{34} + a_{44} u_{34} & a_{35} + a_{45} u_{34} + a_{55} u_{35}\\
+          &   &   & a_{44} & a_{45} + a_{55} u_{45}\\
+          &   &   &   & a_{55}
+    ]\\
+    &= \diag(a_{ii}) + \triu(UA, 1)\ \text{for} \ i = 1, 2, \ldots , n
+\end{align*}
+
+\noindent Find $A$ such that $\diag(a_{ii}) = I$ and $\triu(UA, 1) = 0_{n \times n}\ \text{for} \ i = 1, 2, \ldots , n$.
+
+\begin{align*}
+    XY^{\T} = \mqty[
+        x_{11} y_{11} + x_{12} y_{12} & x_{11} y_{21} + x_{12} y_{22} & x_{11} y_{31} + x_{12} y_{32} & x_{11} y_{41} + x_{12} y_{42} & x_{11} y_{51} + x_{12} y_{52}\\
+        x_{21} y_{11} + x_{22} y_{12} & x_{21} y_{21} + x_{22} y_{22} & x_{21} y_{31} + x_{22} y_{32} & x_{21} y_{41} + x_{22} y_{42} & x_{21} y_{51} + x_{22} y_{52}\\
+        x_{31} y_{11} + x_{32} y_{12} & x_{31} y_{21} + x_{32} y_{22} & x_{31} y_{31} + x_{32} y_{32} & x_{31} y_{41} + x_{32} y_{42} & x_{31} y_{51} + x_{32} y_{52}\\
+        x_{41} y_{11} + x_{42} y_{12} & x_{41} y_{21} + x_{42} y_{22} & x_{41} y_{31} + x_{42} y_{32} & x_{41} y_{41} + x_{42} y_{42} & x_{41} y_{51} + x_{42} y_{52}\\
+        x_{51} y_{11} + x_{52} y_{12} & x_{51} y_{21} + x_{52} y_{22} & x_{51} y_{31} + x_{52} y_{32} & x_{51} y_{41} + x_{52} y_{42} & \redtext{x_{51}} y_{51} + x_{52} y_{52}
+    ]
+\end{align*}
+
+
+
+\noindent Express $A$ in outer product, $i.e. \ A = XY^{\T}$, for $\forall X,Y \in \mathbb{R}^{n \times 2}$,
+
+
+\begin{align*}
+    \triu(UA, 1) = \triu(UXY^{\T}, 1) = 0_{n \times n}
+\end{align*}
+
+
+\noindent Note that $\triu(\mqty[e_{n-1} & e_{n}] Y^{\T}, \textcolor{red}{2}) = 0_{n \times n}$ as,
+
+\begin{align*}
+    \mqty[e_{n-1} & e_{n}] Y^{\T} = \mqty[
+          &   \\
+          &   \\
+          &   \\
+        1 &   \\
+          & 1 \\
+    ]
+    \mqty[
+        y_{11} & y_{21} & y_{31} & y_{41} & y_{51}\\
+        y_{12} & y_{22} & y_{32} & y_{42} & y_{52}
+    ]
+    = \mqty[
+          &   &   &   &  \\
+          &   &   &   &  \\
+          &   &   &   &  \\
+        y_{11} & y_{21} & y_{31} & y_{41} & y_{51}\\
+        y_{12} & y_{22} & y_{32} & y_{42} & y_{52}
+    ]
+\end{align*}
+
+
+\noindent solve $UX = U\mqty[x_{1} & x_{2}] := \mqty[e_{n-1} & e_{n}]$ for $x_{1}$ and $x_{2}$ by backward substitution,
+% \noindent then, $UA = U\triu(XY^{\T}) = U$?
+
+
+\section{09.06.2022}
+
+\subsection{Notation}
+
+
+
+\begin{align*}
+    A &= \mqty[
+        a_{11} & a_{12} \\
+        a_{21} & a_{22} 
+        ]
+\end{align*}
+
+
+\subsection{Bidiagonal matrix}
+
+
+
+
+
+
+
+\noindent Let $U \in \mathbb{R}^{n \times n}$ be a bidiagonal matrix with non-zero diagonal, 
+$i.e. \ u_{ii} \neq 0 \ \text{for} \ i = 1, 2, \ldots , n$,
+
+\begin{align*}
+    U &= \mqty[
+        d_{1} & b_{1} &   &   &  \\
+          & d_{2} & b_{1} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & d_{n-1} & b_{n-1}\\
+          &   &   &   & d_{n}
+        ]
+\end{align*}
+
+
+\noindent Let $x \in \mathbb{R}^{n}$
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
