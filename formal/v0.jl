@@ -1,5 +1,5 @@
-
-function BackwardSubstitution(U, b)
+using BenchmarkTools, LinearAlgebra, LazyArrays, BandedMatrices, Test
+function BackwardSubstitutionV(U, b)
     T = eltype(U)
     n = size(U)[2]
     x = zeros(T, n)
@@ -14,8 +14,7 @@ function BackwardSubstitution(U, b)
     x
 end
 
-
-function BandedBackwardSubstitution(U, b, bw)
+function BandedBackwardSubstitutionV(U, b, bw)
     T = eltype(U)
     n = size(U)[2]
     x = zeros(T, n)
@@ -30,64 +29,99 @@ function BandedBackwardSubstitution(U, b, bw)
     x
 end
 
-
-function TEST_BackwardSubstitution()
-    for _ in 1:10
-        n = rand(1:2000)
-        U = big.(triu(rand(n, n)))
-        U += I
-        b = big.(rand(n))
-        x = BackwardSubstitution(U, b)
-        println(U * x ≈ b)
+function BandedBackwardSubstitutionM(U, B, bw)
+    T = eltype(U)
+    n = size(U)[2]
+    l = size(B)[2]
+    X = zeros(T, n, l)
+    for j in l : -1 : 1
+        X[:, j] = BandedBackwardSubstitutionV(U, B[:, j], bw)
     end
+    X
 end
 
-function TEST_BandedBackwardSubstitution()
-    for _ in 1:10
-        n = rand(1:2000)
-        bw = rand(1:n)
-        U = big.(BandedMatrix(rand(n, n), (0, bw)))
-        U += I
-        b = big.(rand(n))
-        x = BandedBackwardSubstitution(U, b, bw)
-        println(U * x ≈ b)
+function BackwardSubstitutionM(U, B)
+    T = eltype(U)
+    n = size(U)[2]
+    l = size(B)[2]
+    X = zeros(T, n, l)
+    for j in l : -1 : 1
+        X[:, j] = BackwardSubstitutionV(U, B[:, j])
     end
+    X
 end
-
-
-TEST_BackwardSubstitution()
-TEST_BandedBackwardSubstitution()
-
-
 
 function InvseBidiagonalUpper(U)
     T = eltype(U)
     n = size(U)[2]
     e_n = zeros(T, n)
     e_n[n] = one(T)
-    x = BandedBackwardSubstitution(U, e_n, 1)
+    x = BandedBackwardSubstitutionV(U, e_n, 1)
     y = inv.(U[diagind(U)] .* x)
     Uinv = triu(x * y')
     Uinv
 end
 
 
+@testset "AAA" begin
+    @testset "Backward substitution" begin
+        @testset "For vector b" begin
+            for _ in 1:5
+                n = rand(1:1000)
+                U = big.(triu(rand(n, n))) + I
+                b = big.(rand(n))
+                x = BackwardSubstitutionV(U, b)
+                @test U * x ≈ b
+            end
+        end
+        
+        @testset "For banded U and vector b" begin
+            for _ in 1:5
+                n = rand(1:1000)
+                bw = rand(1:n-1)
+                U = big.(BandedMatrix(rand(n, n), (0, bw)))
+                U += I
+                b = big.(rand(n))
+                x = BandedBackwardSubstitutionV(U, b, bw)
+                @test U * x ≈ b
+            end
+        end
+        
+        @testset "For matrix B" begin
+            for _ in 1:5
+                n = rand(1:1000)
+                k = rand(1:10)
+                bw = rand(1:n-1)
+                U = big.(triu(rand(n, n))) + I
+                B = big.(rand(n, k))
+                X = BackwardSubstitutionM(U, B)
+                @test U * X ≈ B
+            end
+        end
+    
+        @testset "For banded U and matrix B" begin
+            for _ in 1:5
+                n = rand(1:1000)
+                k = rand(1:10)
+                bw = rand(1:n-1)
+                U = big.(BandedMatrix(rand(n, n), (0, bw)))
+                U += I
+                B = big.(rand(n, k))
+                X = BandedBackwardSubstitutionM(U, B, bw)
+                @test U * X ≈ B
+            end
+        end
+    end
 
-function TEST_InvseBidiagonalUpper()
-    for _ in 1:10
-        n = rand(1:2000)
-        # bw = rand(1:n)
-        bw = 1
-        U = big.(BandedMatrix(rand(n, n), (0, bw)))
-        U += I
-        Uinv = InvseBidiagonalUpper(U)
-        println(U * Uinv ≈ I)
+
+    @testset "Inverse of Bidiagonal U" begin
+        for _ in 1:5
+            n = rand(1:1000)
+            bw = 1
+            U = big.(BandedMatrix(rand(n, n), (0, bw))) + I
+            Uinv = InvseBidiagonalUpper(U)
+            @test U * Uinv ≈ I
+        end
     end
 end
-
-TEST_InvseBidiagonalUpper()
-
-
-
-
 

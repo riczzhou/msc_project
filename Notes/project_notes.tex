@@ -362,7 +362,7 @@ then $I = UU^{-1} = UA$,
 
 
 
-\subsection{Bidiagonal matrix}
+\subsection{Bidiagonal matrix (upper)}
 
 
 
@@ -372,12 +372,12 @@ then $I = UU^{-1} = UA$,
 
 \begin{align*}
     U &= \mqty[
-        d_{1} & u_{1} &   &   &  \\
-          & d_{2} & u_{1} &   &  \\
+        d_{1} & b_{1} &   &   &  \\
+          & d_{2} & b_{2} &   &  \\
           &   & \ddots & \ddots &  \\
-          &   &   & d_{n-1} & u_{n-1}\\
+          &   &   & d_{n-1} & b_{n-1}\\
           &   &   &   & d_{n}
-        ]
+    ] \in \mathbb{R}^{n \times n}
 \end{align*}
 
 
@@ -391,7 +391,7 @@ then $I = UU^{-1} = UA$,
         x_{n-1} \\
         x_{n}
         ]
-    \in \mathbb{R}^n
+    \in \mathbb{R}^{n \times 1}
     &
     y &= \mqty[
         y_{1} \\
@@ -400,11 +400,225 @@ then $I = UU^{-1} = UA$,
         y_{n-1} \\
         y_{n}
         ]
-    \in \mathbb{R}^n
+    \in \mathbb{R}^{n \times 1}
     &
     y^{\T} &= \mqty[
         y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+        ] \in \mathbb{R}^{1 \times n}
+\end{align*}
+
+
+
+\begin{align*}
+    xy^{\T} &= \mqty[
+        x_{1} \\
+        x_{2} \\
+        \vdots \\
+        x_{n-1} \\
+        x_{n}
         ]
+        \mqty[
+        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+        ]\\
+    &= \mqty[
+        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
+        x_{2} y_{1} & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        x_{4} y_{1} & x_{4} y_{2} & \cdots & x_{4} y_{n-1} & x_{4} y_{n}\\
+        x_{5} y_{1} & x_{5} y_{2} & \cdots & x_{5} y_{n-1} & x_{5} y_{n}
+        ]\\
+    &= x\mqty[
+            y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+            ]\\
+    &= \mqty[
+        xy_{1} & xy_{2} & \cdots & xy_{n-1} & xy_{n}
+        ]
+\end{align*}
+
+
+
+
+\begin{align*}
+    \triu(xy^{\T}) &= \mqty[
+        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
+        0 & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        0 & 0 & \cdots & x_{4} y_{n-1} & x_{4} y_{n}\\
+        0 & 0 & \cdots & 0 & x_{5} y_{n}
+        ]\\
+    &= \mqty[
+        \mqty[
+            x_{1:1} \\
+            0_{n-1}
+            ]y_{1} &
+        \mqty[
+            x_{1:2} \\
+            0_{n-2}
+            ]y_{2} &
+        \cdots &
+        \mqty[
+            x_{1:n-1} \\
+            0
+            ]y_{n-1} &
+        x y_{n} 
+        ]
+\end{align*}
+
+
+\begin{align*}
+    U^{-1} &= \triu(xy^{\T}) \\
+    I &= U \triu(xy^{\T})
+\end{align*}
+
+$n$-th column, 
+\begin{align*}
+    e_{n} &= U \triu(xy^{\T})e_{n} \\
+    &= U x y_{n}    
+\end{align*}
+
+
+
+% \begin{align*}
+%     x :&= \alpha U^{-1} e_{n} \\
+%     Ux &= \alpha e_{n} \\
+%     e_{n} &= U x y_{n} \\
+%         &= \alpha e_{n} y_{n} \\
+%     y_n :&= \frac{1}{\alpha}
+% \end{align*}
+
+\begin{align*}
+    x :&= U^{-1} e_{n} \\
+    % e_{n} &= U x \\
+    e_{n} &= U x y_{n} \\
+        &= U U^{-1} e_{n} y_{n} \\
+        &= e_{n} y_{n} \\
+    y_n :&= 1
+\end{align*}
+
+
+$(n-1)$-th column, 
+
+\begin{align*}
+    e_{n-1} &= U \triu(xy^{\T})e_{n-1} \\
+    &= U \mqty[
+        x_{1:n-1} \\
+        0
+        ]y_{n-1}   
+\end{align*}
+
+$(n-1)$-th row of $(n-1)$-th column, 
+
+\begin{align*}
+    e_{i}^{\T} e_{j} = \delta_{ij} 
+\end{align*}
+
+\begin{align*}
+    e_{n-1}^{\T} e_{n-1} = 1 &= e_{n-1}^{\T} U \mqty[
+        x_{1:n-1} \\
+        0
+        ]y_{n-1} \\
+        &= \mqty[
+            0_{n-2} & d_{n-1} & b_{n-1}
+        ] \mqty[
+            x_{1:n-1} \\
+            0
+        ]y_{n-1} \\
+        & = d_{n-1} x_{n-1} y_{n-1} \\
+    y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
+\end{align*}
+
+
+\begin{align*}
+    % x :&= U^{-1} e_n\\
+    e_{n} &= U x \\
+    e_{n}^{\T} e_{n} = 1 &= e_{n}^{\T} U x \\
+        &= \mqty[
+            0_{n-1} & d_{n}
+        ] x \\
+        &= d_{n} x_{n} \\
+    y_{n} :&= 1 \\
+        :&= (d_{n} x_{n})^{-1}
+    % y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
+\end{align*}
+
+\begin{align*}
+    x :&= U^{-1} e_n \\
+    y_{i} :&= (d_{i} x_{i})^{-1}
+\end{align*}
+
+
+
+% \noindent Let $x \in \mathbb{R}^{n}$
+
+
+\subsection{Tridiagonal matrix (Upper)}
+
+
+
+
+% \noindent Let $U \in \mathbb{R}^{n \times n}$ be a bidiagonal matrix with non-zero diagonal, 
+% $i.e. \ u_{ii} \neq 0 \ \text{for} \ i = 1, 2, \ldots , n$,
+
+
+$n = 2k$
+
+\begin{align*}
+    U &= \mqty[
+        d_{1} & b^{1}_{1} & b^{2}_{1} &   &   &   &   &   &  \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} &   &   &   &   &  \\
+          &   & d_{3} & b^{1}_{3} & b^{2}_{3} &   &   &   &  \\
+          &   &   & d_{4} & b^{1}_{4} & b^{2}_{4} &   &   &  \\
+          &   &   &   & \ddots & \ddots & \ddots &   &  \\
+          &   &   &   &   & d_{n-3} & b^{1}_{n-3} & b^{2}_{n-3} &  \\
+          &   &   &   &   &   & d_{n-2} & b^{1}_{n-2} & b^{2}_{n-2}\\
+          &   &   &   &   &   &   & d_{n-1} & b^{1}_{n-1}\\
+          &   &   &   &   &   &   &   & d_{n}
+    ]\\
+    &= \mqty[
+        \mqty[d_{1} & b^{1}_{1} \\ & d_{2}] & \mqty[b^{2}_{1} &  \\ b^{1}_{2} & b^{2}_{2}] &   &   &  \\
+          & \mqty[d_{3} & b^{1}_{3} \\ & d_{4}] & \mqty[b^{2}_{3} & \\ b^{1}_{4} & b^{2}_{4}] &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & \mqty[d_{n-3} & b^{1}_{n-3} \\ & d_{n-2}] & \mqty[b^{2}_{n-3} & \\ b^{1}_{n-2} & b^{2}_{n-2}] \\
+          &   &   &   & \mqty[d_{n-1} & b^{1}_{n-1}\\ & d_{n}]
+    ]\\
+    &= \mqty[
+        D_{1} & B_{1} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k-1} & B_{k-1}\\
+          &   &   &   & D_{k}
+    ] \in \mathbb{R}^{n \times n} = \mathbb{R}^{2k \times 2k}
+\end{align*}
+
+
+$$
+\mqty[d_{n-3} & b^{1}_{n-3} \\ & d_{n-2}]
+$$
+
+
+
+\begin{align*}
+    x &= \mqty[
+        x_{1} \\
+        x_{2} \\
+        \vdots \\
+        x_{n-1} \\
+        x_{n}
+        ]
+    \in \mathbb{R}^{n \times 1}
+    &
+    y &= \mqty[
+        y_{1} \\
+        y_{2} \\
+        \vdots \\
+        y_{n-1} \\
+        y_{n}
+        ]
+    \in \mathbb{R}^{n \times 1}
+    &
+    y^{\T} &= \mqty[
+        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+        ] \in \mathbb{R}^{1 \times n}
 \end{align*}
 
 
@@ -547,13 +761,6 @@ $(n-1)$-th row of $(n-1)$-th column,
 \end{align*}
 
 
-
-% \noindent Let $x \in \mathbb{R}^{n}$
-
-
-
-
-
 % Note it’s possible to figure out the “true” Y1 as follows:
  
 % julia> Y1 = X[1:2,1:2] \ inv(U)[1:2,1:2]
@@ -593,6 +800,7 @@ $(n-1)$-th row of $(n-1)$-th column,
  
 % julia> Y1 ≈ inv(X1) * inv(D1)
 % true
+
 
 
 

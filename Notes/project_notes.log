@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  18 JUN 2022 08:51
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  18 JUN 2022 17:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -453,17 +453,17 @@ LaTeX Font Info:    Trying to load font information for U+rsfs on input line 73.
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ) [1
 
-] [2] [3] [4] [5] [6] (./project_notes.aux)
+] [2] [3] [4] [5] [6] [7] [8] [9] (./project_notes.aux)
 Package rerunfilecheck Info: File `project_notes.out' has not changed.
-(rerunfilecheck)             Checksum: 92A8EDDFA6F645BA1DBC22A96E5B066D;751.
+(rerunfilecheck)             Checksum: A060E0A5BF71EF5DA4301194BE257F25;999.
  ) 
 Here is how much of TeX's memory you used:
  13471 strings out of 476179
  212902 string characters out of 5809544
- 563448 words of memory out of 5000000
+ 565708 words of memory out of 5000000
  34012 multiletter control sequences out of 15000+600000
  480249 words of font info for 80 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,24n,77p,363b,351s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,24n,77p,363b,353s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on project_notes.pdf (6 pages).
+Output written on project_notes.pdf (9 pages).
