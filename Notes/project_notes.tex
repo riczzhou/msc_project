@@ -61,6 +61,8 @@
 
 \newcommand{\redtext}[1]{\textcolor{red}{#1}}
 
+\newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
 
 
 \title{\textbf{MSc Project Notes}}
@@ -332,7 +334,7 @@ then $I = UU^{-1} = UA$,
 \end{align*}
 
 
-\subsubsection*{Matrices}
+\subsubsection*{Matrices and Columns}
 
 \begin{align*}
     A &= \mqty[
@@ -348,11 +350,36 @@ then $I = UU^{-1} = UA$,
     ,\ a_{i} \in \mathbb{R}^{m}
 \end{align*}
 
-\subsubsection*{Columns}
-
 \begin{align*}
     Ae_{i} &:= a_{i}\\
     e_{i} &= i\text{-th column of }I\\
+        % &= 
+        % \begin{cases}
+        %     dasdsa\\
+        %     dsadsa
+        % \end{cases}
+\end{align*}
+
+\subsubsection*{Block Matrices and Block Columns}
+
+\begin{align*}
+    A &= \mqty[
+        A_{11} & A_{12} & \cdots & A_{1l} \\
+        A_{21} & A_{22} & \cdots & A_{1l} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        A_{k1} & A_{k2} & \cdots & A_{kl}
+        ],\ A_{ij} \in \mathbb{R}^{m \times n} \\
+    &= \mqty[
+        A_{1} & A_{2} & \cdots & A_{l}
+        ]
+    \in \mathbb{R}^{km \times ln}
+    ,\ A_{i} \in \mathbb{R}^{km \times n}
+\end{align*}
+
+
+\begin{align*}
+    AE_{i} &\coloneqq A_{i}\\
+    E_{i} &= i\text{-th block column of }I\\
         % &= 
         % \begin{cases}
         %     dasdsa\\
@@ -424,8 +451,8 @@ then $I = UU^{-1} = UA$,
         x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
         x_{2} y_{1} & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
         \vdots & \vdots & \ddots & \vdots & \vdots\\
-        x_{4} y_{1} & x_{4} y_{2} & \cdots & x_{4} y_{n-1} & x_{4} y_{n}\\
-        x_{5} y_{1} & x_{5} y_{2} & \cdots & x_{5} y_{n-1} & x_{5} y_{n}
+        x_{n-1} y_{1} & x_{n-1} y_{2} & \cdots & x_{n-1} y_{n-1} & x_{n-1} y_{n}\\
+        x_{n} y_{1} & x_{n} y_{2} & \cdots & x_{n} y_{n-1} & x_{n} y_{n}
         ]\\
     &= x\mqty[
             y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
@@ -550,7 +577,7 @@ $(n-1)$-th row of $(n-1)$-th column,
 
 % \noindent Let $x \in \mathbb{R}^{n}$
 
-
+\newpage
 \subsection{Tridiagonal matrix (Upper)}
 
 
@@ -578,8 +605,8 @@ $n = 2k$
         \mqty[d_{1} & b^{1}_{1} \\ & d_{2}] & \mqty[b^{2}_{1} &  \\ b^{1}_{2} & b^{2}_{2}] &   &   &  \\
           & \mqty[d_{3} & b^{1}_{3} \\ & d_{4}] & \mqty[b^{2}_{3} & \\ b^{1}_{4} & b^{2}_{4}] &   &  \\
           &   & \ddots & \ddots &  \\
-          &   &   & \mqty[d_{n-3} & b^{1}_{n-3} \\ & d_{n-2}] & \mqty[b^{2}_{n-3} & \\ b^{1}_{n-2} & b^{2}_{n-2}] \\
-          &   &   &   & \mqty[d_{n-1} & b^{1}_{n-1}\\ & d_{n}]
+          &   &   & \mqty[d_{2k-3} & b^{1}_{2k-3} \\ & d_{2k-2}] & \mqty[b^{2}_{2k-3} & \\ b^{1}_{2k-2} & b^{2}_{2k-2}] \\
+          &   &   &   & \mqty[d_{2k-1} & b^{1}_{2k-1}\\ & d_{2k}]
     ]\\
     &= \mqty[
         D_{1} & B_{1} &   &   &  \\
@@ -587,219 +614,235 @@ $n = 2k$
           &   & \ddots & \ddots &  \\
           &   &   & D_{k-1} & B_{k-1}\\
           &   &   &   & D_{k}
-    ] \in \mathbb{R}^{n \times n} = \mathbb{R}^{2k \times 2k}
+    ] \in \mathbb{R}^{2k \times 2k}
 \end{align*}
 
-
-$$
-\mqty[d_{n-3} & b^{1}_{n-3} \\ & d_{n-2}]
-$$
-
-
-
 \begin{align*}
-    x &= \mqty[
-        x_{1} \\
-        x_{2} \\
+    X &= \mqty[
+        X_{1} \\
+        X_{2} \\
         \vdots \\
-        x_{n-1} \\
-        x_{n}
+        X_{k-1} \\
+        X_{k}
         ]
-    \in \mathbb{R}^{n \times 1}
+    \in \mathbb{R}^{2k \times 2}
     &
-    y &= \mqty[
-        y_{1} \\
-        y_{2} \\
+    Y &= \mqty[
+        Y_{1} \\
+        Y_{2} \\
         \vdots \\
-        y_{n-1} \\
-        y_{n}
+        Y_{k-1} \\
+        Y_{k}
         ]
-    \in \mathbb{R}^{n \times 1}
+    \in \mathbb{R}^{2k \times 2}
     &
-    y^{\T} &= \mqty[
-        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
-        ] \in \mathbb{R}^{1 \times n}
+    Y^{\T} &= \mqty[
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
+        ] \in \mathbb{R}^{2 \times 2k}
 \end{align*}
 
 
 
 \begin{align*}
-    xy^{\T} &= \mqty[
-        x_{1} \\
-        x_{2} \\
+    XY^{\T} &= \mqty[
+        X_{1} \\
+        X_{2} \\
         \vdots \\
-        x_{n-1} \\
-        x_{n}
+        X_{k-1} \\
+        X_{k}
         ]
         \mqty[
-        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
         ]\\
     &= \mqty[
-        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
-        x_{2} y_{1} & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
+        X_{1} Y_{1}^{\T} & X_{1} Y_{2}^{\T} & \cdots & X_{1} Y_{k-1}^{\T} & x_{1} Y_{k}^{\T}\\
+        X_{2} Y_{1}^{\T} & X_{2} Y_{2}^{\T} & \cdots & X_{2} Y_{k-1}^{\T} & x_{2} Y_{k}^{\T}\\
         \vdots & \vdots & \ddots & \vdots & \vdots\\
-        x_{4} y_{1} & x_{4} y_{2} & \cdots & x_{4} y_{n-1} & x_{4} y_{n}\\
-        x_{5} y_{1} & x_{5} y_{2} & \cdots & x_{5} y_{n-1} & x_{5} y_{n}
+        X_{k-1} Y_{1}^{\T} & X_{k-1} Y_{2}^{\T} & \cdots & X_{k-1} Y_{k-1}^{\T} & X_{k-1} Y_{k}^{\T}\\
+        X_{k} Y_{1}^{\T} & X_{k} Y_{2}^{\T} & \cdots & X_{k} Y_{k-1}^{\T} & X_{k} Y_{k}^{\T}
         ]\\
-    &= x\mqty[
-            y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+    &= X\mqty[
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
             ]\\
     &= \mqty[
-        xy_{1} & xy_{2} & \cdots & xy_{n-1} & xy_{n}
+        XY_{1}^{\T} & XY_{2}^{\T} & \cdots & XY_{k-1}^{\T} & XY_{k}^{\T}
         ]
 \end{align*}
 
-
-
+\begin{align*}
+    \triu(X_{k}) &\coloneqq X_{k} \\
+    \triu(Y_{k}^{\T}) &\coloneqq Y_{k}^{\T} \\
+    \triu(X_{k} Y_{k}^{\T}) &= X_{k} Y_{k}^{\T}
+\end{align*}
 
 \begin{align*}
-    \triu(xy^{\T}) &= \mqty[
-        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
-        0 & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
+    \triu(XY^{\T}) &= \mqty[
+        \triu(X_{1} Y_{1}^{\T}) & X_{1} Y_{2}^{\T} & \cdots & X_{1} Y_{k-1}^{\T} & X_{1} Y_{k}^{\T}\\
+        0_{2 \times 2} & \triu(X_{2} Y_{2}^{\T}) & \cdots & X_{2} Y_{k-1}^{\T} & X_{2} Y_{k}^{\T}\\
         \vdots & \vdots & \ddots & \vdots & \vdots\\
-        0 & 0 & \cdots & x_{4} y_{n-1} & x_{4} y_{n}\\
-        0 & 0 & \cdots & 0 & x_{5} y_{n}
+        0_{2 \times 2} & 0_{2 \times 2} & \cdots & \triu(X_{k-1} Y_{k-1}^{\T}) & X_{k-1} Y_{k}^{\T}\\
+        0_{2 \times 2} & 0_{2 \times 2} & \cdots & 0_{2 \times 2} & X_{k} Y_{k}^{\T}
         ]\\
     &= \mqty[
         \mqty[
-            x_{1:1} \\
-            0_{n-1}
-            ]y_{1} &
+            \triu(X_{1} Y_{1}^{\T}) \\
+            0_{2(k-1) \times 2}
+            ] &
         \mqty[
-            x_{1:2} \\
-            0_{n-2}
-            ]y_{2} &
+            X_{1} Y_{2}^{\T} \\
+            \triu(X_{2} Y_{2}^{\T}) \\
+            0_{2(k-2) \times 2}
+            ] &
         \cdots &
         \mqty[
-            x_{1:n-1} \\
-            0
-            ]y_{n-1} &
-        x y_{n} 
+            X_{1:k-2}Y_{k-1}^{\T} \\
+            \triu(X_{k-1}Y_{k-1}^{\T}) \\
+            0_{2 \times 2}
+            ] &
+        X Y_{k}^{\T}
         ]
 \end{align*}
 
 
 \begin{align*}
-    U^{-1} &= \triu(xy^{\T}) \\
-    I &= U \triu(xy^{\T})
+    U^{-1} &= \triu(XY^{\T}) \\
+    I &= U \triu(XY^{\T})
 \end{align*}
 
-$n$-th column, 
 \begin{align*}
-    e_{n} &= U \triu(xy^{\T})e_{n} \\
-    &= U x y_{n}    
+    E_{i} &= \mqty[0 & \cdots & 0 & I_{2 \times 2} & 0 & \cdots & 0]^{\T}
 \end{align*}
 
 
 
-% \begin{align*}
-%     x :&= \alpha U^{-1} e_{n} \\
-%     Ux &= \alpha e_{n} \\
-%     e_{n} &= U x y_{n} \\
-%         &= \alpha e_{n} y_{n} \\
-%     y_n :&= \frac{1}{\alpha}
-% \end{align*}
+
+$k$-th block column, 
+\begin{align*}
+    E_{k} &= U \triu(XY^{\T})E_{k} \\
+    &= U X Y_{k}^{\T}
+\end{align*}
+
 
 \begin{align*}
-    x :&= U^{-1} e_{n} \\
+    X &\coloneqq U^{-1} E_{k} \\
     % e_{n} &= U x \\
-    e_{n} &= U x y_{n} \\
-        &= U U^{-1} e_{n} y_{n} \\
-        &= e_{n} y_{n} \\
-    y_n :&= 1
+    E_{k} &= U X Y_{k}^{\T} \\
+        &= U U^{-1} E_{k} Y_{k}^{\T} \\
+        &= E_{k} Y_{k}^{\T} \\
+    Y_{k}^{\T} &\coloneqq I_{2 \times 2}
 \end{align*}
 
 
-$(n-1)$-th column, 
+$(k-1)$-th block column, 
 
 \begin{align*}
-    e_{n-1} &= U \triu(xy^{\T})e_{n-1} \\
+    E_{k-1} &= U \triu(XY^{\T})E_{k-1} \\
     &= U \mqty[
-        x_{1:n-1} \\
-        0
-        ]y_{n-1}   
+        X_{1:k-2}Y_{k-1}^{\T} \\
+        \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        0_{2 \times 2}
+        ]
 \end{align*}
 
-$(n-1)$-th row of $(n-1)$-th column, 
+$(k-1)$-th block row of $(k-1)$-th block column, 
 
 \begin{align*}
-    e_{i}^{\T} e_{j} = \delta_{ij} 
+    E_{i}^{\T} E_{j} = 
+    \begin{cases}
+        I_{2 \times 2}, & \text{if} \ i=j \ ;\\
+        0_{2 \times 2}, & \text{otherwise}.
+    \end{cases} 
 \end{align*}
 
 \begin{align*}
-    e_{n-1}^{\T} e_{n-1} = 1 &= e_{n-1}^{\T} U \mqty[
-        x_{1:n-1} \\
-        0
-        ]y_{n-1} \\
+    E_{k-1}^{\T} E_{k-1} = I_{2 \times 2} &= E_{k-1}^{\T} U \mqty[
+        X_{1:k-2}Y_{k-1}^{\T} \\
+        \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        0_{2 \times 2}
+        ] \\
         &= \mqty[
-            0_{n-2} & d_{n-1} & u_{n-1}
+            0_{2 \times 2(k-2)} & D_{k-1} & B_{k-1}
         ] \mqty[
-            x_{1:n-1} \\
-            0
-        ]y_{n-1} \\
-        & = d_{n-1} x_{n-1} y_{n-1} \\
-    y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
+            X_{1:k-2}Y_{k-1}^{\T} \\
+            \triu(X_{k-1}Y_{k-1}^{\T}) \\
+            0_{2 \times 2}
+            ] \\
+        & = D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        % &= \triu(D_{k-1}X_{k-1}Y_{k-1}^{\T}) \ (\text{as}\  D_{k-1} = \triu(D_{k-1}))\\
+    Y_{k-1}^{\T} &\coloneqq (D_{k-1} X_{k-1})^{-1}
+\end{align*}
+
+\begin{align*}
+    D_{k-1} &= \triu(D_{k-1})\\
+    D_{k-1}^{-1} &= \triu(D_{k-1}^{-1})\\
+    Y_{k-1}^{\T} &\coloneqq (D_{k-1} X_{k-1})^{-1}\\
+    D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) &= D_{k-1} \triu(X_{k-1}(D_{k-1} X_{k-1})^{-1})\\
+        &= D_{k-1} \triu(X_{k-1} X_{k-1}^{-1} D_{k-1}^{-1})\\
+        &= D_{k-1} \triu(D_{k-1}^{-1})\\
+        &= D_{k-1} D_{k-1}^{-1}\\
+        &= I_{2 \times 2}
 \end{align*}
 
 
 \begin{align*}
-    % x :&= U^{-1} e_n\\
-    e_{n} &= U x \\
-    e_{n}^{\T} e_{n} = 1 &= e_{n}^{\T} U x \\
+    X &\coloneqq U^{-1} E_k\\
+    E_{k} &= U X \\
+    E_{k}^{\T} E_{k} = I_{2 \times 2} &= E_{k}^{\T} U X \\
         &= \mqty[
-            0_{n-1} & d_{n}
-        ] x \\
-        &= d_{n} x_{n} \\
-    y_{n} :&= 1 \\
-        :&= (d_{n} x_{n})^{-1}
+            0_{2 \times 2(k-1)} & D_{k}
+        ] X \\
+        &= D_{k} X_{k} \\
+    Y_{k} &\coloneqq I_{2 \times 2} \\
+        &\coloneqq (D_{k} X_{k})^{-1}
     % y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
 \end{align*}
 
 \begin{align*}
-    x :&= U^{-1} e_n \\
-    y_{i} :&= (d_{i} x_{i})^{-1}
+    X &\coloneqq U^{-1} E_{k} \\
+    Y_{i} &\coloneqq (D_{i} X_{i})^{-1}
 \end{align*}
 
 
-% Note it’s possible to figure out the “true” Y1 as follows:
- 
-% julia> Y1 = X[1:2,1:2] \ inv(U)[1:2,1:2]
-% 2×2 Matrix{Float64}:
-%  -0.424131  -0.812504
-%   0.771323  -1.01595
- 
-% julia> Yt = [Y1 Y2]
-% 2×4 Matrix{Float64}:
-%  -0.424131  -0.812504  1.0  0.0
-%   0.771323  -1.01595   0.0  1.0
- 
-% julia> norm(triu(X * Yt) - inv(U))
-% 1.1102230246251565e-16
 
 
- 
-% Let’s check where I went wrong:
- 
-% julia> U * [triu(X[1:2,:]); zeros(2,2)] * Y1
-% 4×2 Matrix{Float64}:
-%   0.891017  -0.208778
-%  -0.309325   0.407429
-%   0.0        0.0
-%   0.0        0.0
- 
-% This is not E_{n-1}! Because I need to multiply through by Y1 first:
- 
-% julia> U * [triu(X[1:2,:] * Y1); zeros(2,2)]
-% 4×2 Matrix{Float64}:
-%  1.0  -1.11022e-16
-%  0.0   1.0
-%  0.0   0.0
-%  0.0   0.0
- 
-% Therefore the equation that needs to be solved is D1*triu(X1 * Y1) == I. Since D1 is itself upper triangular we can define Y1 := inv(X1) * inv(D1):
- 
-% julia> Y1 ≈ inv(X1) * inv(D1)
-% true
+
+
+
+
+
+\newpage
+$n = 2k + 1$
+\begin{align*}
+    U &= \mqty[
+        \mqty[d_{1}] & \mqty[b^{1}_{1} & b^{2}_{1}] &   &   &  \\
+          & \mqty[d_{2} & b^{1}_{2} \\ & d_{3}] & \mqty[b^{2}_{2} & \\ b^{1}_{3} & b^{2}_{3}] &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & \mqty[d_{2k-2} & b^{1}_{2k-2} \\ & d_{2k-1}] & \mqty[b^{2}_{2k-2} & \\ b^{1}_{2k-1} & b^{2}_{2k-1}] \\
+          &   &   &   & \mqty[d_{2k} & b^{1}_{2k}\\ & d_{2k+1}]
+    ]\\
+    &= \mqty[
+        \tilde{D_{0}} & \tilde{B_{0}} &   &   &  \\
+          & D_{1} & B_{1} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k-1} & B_{k-1}\\
+          &   &   &   & D_{k}
+    ] \in \mathbb{R}^{(2k+1) \times (2k+1)}
+\end{align*}
+
+
+
+
+% \begin{equation}
+%     \left[\begin{array}{ll|ll|l}
+%     a & b & c & & \\
+%     & d & e & f & \\
+%     \hline & & g & h & i \\
+%     & & j & R \\
+%     \hline & & l
+%     \end{array}\right]
+% \end{equation}
+
+
 
 
 
