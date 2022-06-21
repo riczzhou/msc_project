@@ -51,7 +51,7 @@ function BackwardSubstitutionM(U, B)
     X
 end
 
-function InvseBidiagonalUpper(U)
+function InverseBidiagonalUpper(U)
     T = eltype(U)
     n = size(U)[2]
     e_n = zeros(T, n)
@@ -63,7 +63,39 @@ function InvseBidiagonalUpper(U)
 end
 
 
-@testset "AAA" begin
+function invR(A)
+    A' * inv(A * A')
+end
+function invL(A)
+    inv(A' * A) * A'
+end
+
+function InverseBlockBiagonalUpper(U, bw)
+    n = size(U)[2]
+    r = rem(n, bw)
+    E_k = one(U)[:, n-bw+1:n]
+    X = qr(U) \ E_k
+    Yt = zero(X')
+    for i in n : -bw : r+bw
+        Di = U[i-bw+1:i, i-bw+1:i]
+        Xi = X[i-bw+1:i, :]
+        Yti = qr(Di * Xi) \ I
+        Yt[:, i-bw+1:i] = Yti
+    end
+    D0 = U[1:r, 1:r]
+    D0inv = qr(D0) \ I
+    X0 = X[1:r, :]
+    Yt0 = invR(D0 * X0)
+    Yt[:, 1:r] = Yt0
+    Uinv = triu(X * Yt)
+    Uinv
+end
+
+
+
+
+
+@testset "Part I" begin
     @testset "Backward substitution" begin
         @testset "For vector b" begin
             for _ in 1:5
@@ -102,7 +134,7 @@ end
         @testset "For banded U and matrix B" begin
             for _ in 1:5
                 n = rand(1:1000)
-                k = rand(1:10)
+                k = rand(1:100)
                 bw = rand(1:n-1)
                 U = big.(BandedMatrix(rand(n, n), (0, bw)))
                 U += I
@@ -119,8 +151,20 @@ end
             n = rand(1:1000)
             bw = 1
             U = big.(BandedMatrix(rand(n, n), (0, bw))) + I
-            Uinv = InvseBidiagonalUpper(U)
+            Uinv = InverseBidiagonalUpper(U)
             @test U * Uinv ≈ I
+            @test Uinv * U ≈ I
+        end
+    end
+
+    @testset "Inverse of BlockBidiagonal U" begin
+        for _ in 1:5
+            n = rand(1:1000)
+            bw = rand(1:n-1)
+            U = big.(BandedMatrix(rand(n, n), (0, bw))) + I
+            Uinv = InverseBlockBiagonalUpper(U, bw)
+            @test U * Uinv ≈ I
+            @test Uinv * U ≈ I
         end
     end
 end
