@@ -792,14 +792,14 @@ $(k-1)$-th block row of $(k-1)$-th block column,
             0_{2 \times 2(k-1)} & D_{k}
         ] X \\
         &= D_{k} X_{k} \\
-    Y_{k} &\coloneqq I_{2 \times 2} \\
+    Y_{k}^{\T} &\coloneqq I_{2 \times 2} \\
         &\coloneqq (D_{k} X_{k})^{-1}
     % y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
 \end{align*}
 
 \begin{align*}
     X &\coloneqq U^{-1} E_{k} \\
-    Y_{i} &\coloneqq (D_{i} X_{i})^{-1}
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1}
 \end{align*}
 
 
@@ -821,16 +821,20 @@ $n = 2k + 1$
           &   &   &   & \mqty[d_{2k} & b^{1}_{2k}\\ & d_{2k+1}]
     ]\\
     &= \mqty[
-        \tilde{D_{0}} & \tilde{B_{0}} &   &   &  \\
-          & D_{1} & B_{1} &   &  \\
+        \tilde{D_{1}} & \tilde{B_{1}} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
           &   & \ddots & \ddots &  \\
-          &   &   & D_{k-1} & B_{k-1}\\
-          &   &   &   & D_{k}
+          &   &   & D_{k} & B_{k}\\
+          &   &   &   & D_{k+1}
     ] \in \mathbb{R}^{(2k+1) \times (2k+1)}
 \end{align*}
 
 
-
+\begin{align*}
+    X &\coloneqq U^{-1} E_{k+1} \\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1} \ \text{for}\ i = 2,\ \cdots,\ k+1 \\
+    Y_{1}^{\T} &\coloneqq (D_{1} X_{1})^{+} = (D_{1} X_{1})^{\T} (D_{1} X_{1} (D_{1} X_{1})^{\T})^{-1}
+\end{align*}
 
 % \begin{equation}
 %     \left[\begin{array}{ll|ll|l}
@@ -842,6 +846,41 @@ $n = 2k + 1$
 %     \end{array}\right]
 % \end{equation}
 
+
+
+
+
+
+\newpage
+\subsection{Banded matrix (Upper)}
+
+$n = ku + r, \ 0\leq r<u$
+
+\begin{align*}
+    U &= \mqty[
+        d_{1} & b^{1}_{1} & b^{2}_{1} & \cdots & b^{u}_{1} &   &   &   \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} & \cdots & b^{u}_{2} &   &   \\
+          &   & \ddots & \ddots & \ddots & \cdots & \ddots &   \\
+          &   &   & \ddots & \ddots & \ddots & \cdots & b^{u}_{n-u} \\
+          &   &   &   & \ddots & \ddots & \ddots & \vdots \\
+          &   &   &   &   & \ddots & \ddots & b^{2}_{n-2} \\
+          &   &   &   &   &   & \ddots & b^{1}_{n-1} \\
+          &   &   &   &   &   &   & d_{n} \\
+    ]\\
+    &= \mqty[
+        D_{1} & B_{1} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k} & B_{k}\\
+          &   &   &   & D_{k+1}
+    ] \in \mathbb{R}^{n \times n} = \mathbb{R}^{(ku + r) \times (ku + r)}
+\end{align*}
+
+
+\begin{align*}
+    r &= 0, \ D_{i} \in \mathbb{R}^{u \times u}, B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ i = 2,\ \cdots,\ k+1 \\
+    r &= 0, \ D_{i} \in \mathbb{R}^{u \times u}, B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ r = 0 \\
+\end{align*}
 
 
 
