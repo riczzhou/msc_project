@@ -1,0 +1,986 @@
+\documentclass[11pt]{article}
+% 中文 \documentclass[UTF8]{ctexart}
+% 编译快捷键：Command+Option+B
+
+% 显示快捷键：Command+Option+V
+
+% 正向搜索：选中代码Command+Option+J
+
+% 反向搜索：shift+command点击预览PDF
+
+
+\usepackage[utf8]{inputenc}
+
+
+\usepackage{graphicx}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{bm}
+
+\usepackage{nicematrix}
+\usepackage{tikz}
+\usepackage{physics}
+
+
+\usepackage{enumerate}
+\usepackage{hyperref}
+
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+
+
+
+
+
+\usepackage[english]{babel}
+
+
+
+\usepackage{mathtools}
+
+
+\usepackage{geometry}
+
+% \geometry{a4paper,scale=0.8}
+
+\geometry{a4paper,left=2cm,right=2cm,top=2cm,bottom=3cm}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
+
+\newcommand{\triu}{\mathop{\mathrm{triu}}}
+\newcommand{\tril}{\mathop{\mathrm{tril}}}
+\newcommand{\T}{\mathrm{T}}
+
+\newcommand{\redtext}[1]{\textcolor{red}{#1}}
+
+\newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+
+
+\title{\textbf{Meeting Notes}}
+\author{\textit{Zhiwei Zhou}}
+% \date{April 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{28.06.2022 Meeting}
+
+\subsection{Notation}
+
+\subsubsection*{Vectors}
+
+\begin{align*}
+    b = \mqty[
+        b_{1} \\
+        b_{2} \\
+        \vdots \\
+        b_{n}
+        ]
+    \in \mathbb{R}^n
+\end{align*}
+
+
+\subsubsection*{Matrices and Columns}
+
+\begin{align*}
+    A &= \mqty[
+        a_{11} & a_{12} & \cdots & a_{1n} \\
+        a_{21} & a_{22} & \cdots & a_{1n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \cdots & a_{mn}
+        ]\\
+    &= \mqty[
+        a_{1} & a_{2} & \cdots & a_{n}
+        ]
+    \in \mathbb{R}^{m \times n}
+    ,\ a_{i} \in \mathbb{R}^{m}
+\end{align*}
+
+\begin{align*}
+    Ae_{i} &:= a_{i}\\
+    e_{i} &= i\text{-th column of }I\\
+        % &= 
+        % \begin{cases}
+        %     dasdsa\\
+        %     dsadsa
+        % \end{cases}
+\end{align*}
+
+\subsubsection*{Block Matrices and Block Columns}
+
+\begin{align*}
+    A &= \mqty[
+        A_{11} & A_{12} & \cdots & A_{1l} \\
+        A_{21} & A_{22} & \cdots & A_{1l} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        A_{k1} & A_{k2} & \cdots & A_{kl}
+        ],\ A_{ij} \in \mathbb{R}^{m \times n} \\
+    &= \mqty[
+        A_{1} & A_{2} & \cdots & A_{l}
+        ]
+    \in \mathbb{R}^{km \times ln}
+    ,\ A_{i} \in \mathbb{R}^{km \times n}
+\end{align*}
+
+
+\begin{align*}
+    AE_{i} &\coloneqq A_{i}\\
+    E_{i} &= i\text{-th block column of }I\\
+        % &= 
+        % \begin{cases}
+        %     dasdsa\\
+        %     dsadsa
+        % \end{cases}
+\end{align*}
+
+
+
+\subsection{Bidiagonal matrix (upper)}
+
+
+
+
+% \noindent Let $U \in \mathbb{R}^{n \times n}$ be a bidiagonal matrix with non-zero diagonal, 
+% $i.e. \ u_{ii} \neq 0 \ \text{for} \ i = 1, 2, \ldots , n$,
+
+\begin{align*}
+    U &= \mqty[
+        d_{1} & b_{1} &   &   &  \\
+          & d_{2} & b_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & d_{n-1} & b_{n-1}\\
+          &   &   &   & d_{n}
+    ] \in \mathbb{R}^{n \times n}
+\end{align*}
+
+
+
+
+\begin{align*}
+    x &= \mqty[
+        x_{1} \\
+        x_{2} \\
+        \vdots \\
+        x_{n-1} \\
+        x_{n}
+        ]
+    \in \mathbb{R}^{n \times 1}
+    &
+    y &= \mqty[
+        y_{1} \\
+        y_{2} \\
+        \vdots \\
+        y_{n-1} \\
+        y_{n}
+        ]
+    \in \mathbb{R}^{n \times 1}
+    &
+    y^{\T} &= \mqty[
+        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+        ] \in \mathbb{R}^{1 \times n}
+\end{align*}
+
+
+
+\begin{align*}
+    xy^{\T} &= \mqty[
+        x_{1} \\
+        x_{2} \\
+        \vdots \\
+        x_{n-1} \\
+        x_{n}
+        ]
+        \mqty[
+        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+        ]\\
+    &= \mqty[
+        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
+        x_{2} y_{1} & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        x_{n-1} y_{1} & x_{n-1} y_{2} & \cdots & x_{n-1} y_{n-1} & x_{n-1} y_{n}\\
+        x_{n} y_{1} & x_{n} y_{2} & \cdots & x_{n} y_{n-1} & x_{n} y_{n}
+        ]\\
+    &= x\mqty[
+            y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
+            ]\\
+    &= \mqty[
+        xy_{1} & xy_{2} & \cdots & xy_{n-1} & xy_{n}
+        ]
+\end{align*}
+
+
+
+
+\begin{align*}
+    \triu(xy^{\T}) &= \mqty[
+        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
+        0 & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        0 & 0 & \cdots & x_{4} y_{n-1} & x_{4} y_{n}\\
+        0 & 0 & \cdots & 0 & x_{5} y_{n}
+        ]\\
+    &= \mqty[
+        \mqty[
+            x_{1:1} \\
+            0_{n-1}
+            ]y_{1} &
+        \mqty[
+            x_{1:2} \\
+            0_{n-2}
+            ]y_{2} &
+        \cdots &
+        \mqty[
+            x_{1:n-1} \\
+            0
+            ]y_{n-1} &
+        x y_{n} 
+        ]
+\end{align*}
+
+
+\begin{align*}
+    U^{-1} &= \triu(xy^{\T}) \\
+    I &= U \triu(xy^{\T})
+\end{align*}
+
+$n$-th column, 
+\begin{align*}
+    e_{n} &= U \triu(xy^{\T})e_{n} \\
+    &= U x y_{n}    
+\end{align*}
+
+
+
+% \begin{align*}
+%     x :&= \alpha U^{-1} e_{n} \\
+%     Ux &= \alpha e_{n} \\
+%     e_{n} &= U x y_{n} \\
+%         &= \alpha e_{n} y_{n} \\
+%     y_n :&= \frac{1}{\alpha}
+% \end{align*}
+
+\begin{align*}
+    x :&= U^{-1} e_{n} \\
+    % e_{n} &= U x \\
+    e_{n} &= U x y_{n} \\
+        &= U U^{-1} e_{n} y_{n} \\
+        &= e_{n} y_{n} \\
+    y_n :&= 1
+\end{align*}
+
+
+$(n-1)$-th column, 
+
+\begin{align*}
+    e_{n-1} &= U \triu(xy^{\T})e_{n-1} \\
+    &= U \mqty[
+        x_{1:n-1} \\
+        0
+        ]y_{n-1}   
+\end{align*}
+
+$(n-1)$-th row of $(n-1)$-th column, 
+
+\begin{align*}
+    e_{i}^{\T} e_{j} = \delta_{ij} 
+\end{align*}
+
+\begin{align*}
+    e_{n-1}^{\T} e_{n-1} = 1 &= e_{n-1}^{\T} U \mqty[
+        x_{1:n-1} \\
+        0
+        ]y_{n-1} \\
+        &= \mqty[
+            0_{n-2} & d_{n-1} & b_{n-1}
+        ] \mqty[
+            x_{1:n-1} \\
+            0
+        ]y_{n-1} \\
+        & = d_{n-1} x_{n-1} y_{n-1} \\
+    y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
+\end{align*}
+
+
+\begin{align*}
+    % x :&= U^{-1} e_n\\
+    e_{n} &= U x \\
+    e_{n}^{\T} e_{n} = 1 &= e_{n}^{\T} U x \\
+        &= \mqty[
+            0_{n-1} & d_{n}
+        ] x \\
+        &= d_{n} x_{n} \\
+    y_{n} :&= 1 \\
+        :&= (d_{n} x_{n})^{-1}
+    % y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
+\end{align*}
+
+\begin{align*}
+    x :&= U^{-1} e_n \\
+    y_{i} :&= (d_{i} x_{i})^{-1}
+\end{align*}
+
+
+
+% \noindent Let $x \in \mathbb{R}^{n}$
+
+\newpage
+\subsection{Tridiagonal matrix (Upper)}
+
+
+
+
+% \noindent Let $U \in \mathbb{R}^{n \times n}$ be a bidiagonal matrix with non-zero diagonal, 
+% $i.e. \ u_{ii} \neq 0 \ \text{for} \ i = 1, 2, \ldots , n$,
+
+
+$n = 2k$
+
+\begin{align*}
+    U &= \mqty[
+        d_{1} & b^{1}_{1} & b^{2}_{1} &   &   &   &   &   &  \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} &   &   &   &   &  \\
+          &   & d_{3} & b^{1}_{3} & b^{2}_{3} &   &   &   &  \\
+          &   &   & d_{4} & b^{1}_{4} & b^{2}_{4} &   &   &  \\
+          &   &   &   & \ddots & \ddots & \ddots &   &  \\
+          &   &   &   && \ddots & \ddots & \ddots &  \\
+          &   &   &   &&   & d_{n-3} & b^{1}_{n-3} & b^{2}_{n-3} &  \\
+          &   &   &   &&   &   & d_{n-2} & b^{1}_{n-2} & b^{2}_{n-2}\\
+          &   &   &   &&   &   &   & d_{n-1} & b^{1}_{n-1}\\
+          &   &   &   &&  &   &   &   & d_{n}
+    ]\\
+    &= \mqty[
+        \mqty[d_{1} & b^{1}_{1} \\ & d_{2}] & \mqty[b^{2}_{1} &  \\ b^{1}_{2} & b^{2}_{2}] &   &   &  \\
+          & \mqty[d_{3} & b^{1}_{3} \\ & d_{4}] & \mqty[b^{2}_{3} & \\ b^{1}_{4} & b^{2}_{4}] &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & \mqty[d_{2k-3} & b^{1}_{2k-3} \\ & d_{2k-2}] & \mqty[b^{2}_{2k-3} & \\ b^{1}_{2k-2} & b^{2}_{2k-2}] \\
+          &   &   &   & \mqty[d_{2k-1} & b^{1}_{2k-1}\\ & d_{2k}]
+    ]\\
+    &= \mqty[
+        D_{1} & B_{1} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k-1} & B_{k-1}\\
+          &   &   &   & D_{k}
+    ] \in \mathbb{R}^{2k \times 2k}
+\end{align*}
+
+\begin{align*}
+    X &= \mqty[
+        X_{1} \\
+        X_{2} \\
+        \vdots \\
+        X_{k-1} \\
+        X_{k}
+        ]
+    \in \mathbb{R}^{2k \times 2}
+    &
+    Y &= \mqty[
+        Y_{1} \\
+        Y_{2} \\
+        \vdots \\
+        Y_{k-1} \\
+        Y_{k}
+        ]
+    \in \mathbb{R}^{2k \times 2}
+    &
+    Y^{\T} &= \mqty[
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
+        ] \in \mathbb{R}^{2 \times 2k}
+\end{align*}
+
+
+
+\begin{align*}
+    XY^{\T} &= \mqty[
+        X_{1} \\
+        X_{2} \\
+        \vdots \\
+        X_{k-1} \\
+        X_{k}
+        ]
+        \mqty[
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
+        ]\\
+    &= \mqty[
+        X_{1} Y_{1}^{\T} & X_{1} Y_{2}^{\T} & \cdots & X_{1} Y_{k-1}^{\T} & x_{1} Y_{k}^{\T}\\
+        X_{2} Y_{1}^{\T} & X_{2} Y_{2}^{\T} & \cdots & X_{2} Y_{k-1}^{\T} & x_{2} Y_{k}^{\T}\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        X_{k-1} Y_{1}^{\T} & X_{k-1} Y_{2}^{\T} & \cdots & X_{k-1} Y_{k-1}^{\T} & X_{k-1} Y_{k}^{\T}\\
+        X_{k} Y_{1}^{\T} & X_{k} Y_{2}^{\T} & \cdots & X_{k} Y_{k-1}^{\T} & X_{k} Y_{k}^{\T}
+        ]\\
+    &= X\mqty[
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
+            ]\\
+    &= \mqty[
+        XY_{1}^{\T} & XY_{2}^{\T} & \cdots & XY_{k-1}^{\T} & XY_{k}^{\T}
+        ]
+\end{align*}
+
+\begin{align*}
+    \triu(X_{k}) &\coloneqq X_{k} \\
+    \triu(Y_{k}^{\T}) &\coloneqq Y_{k}^{\T} \\
+    \triu(X_{k} Y_{k}^{\T}) &= X_{k} Y_{k}^{\T}
+\end{align*}
+
+\begin{align*}
+    \triu(XY^{\T}) &= \mqty[
+        \triu(X_{1} Y_{1}^{\T}) & X_{1} Y_{2}^{\T} & \cdots & X_{1} Y_{k-1}^{\T} & X_{1} Y_{k}^{\T}\\
+        0_{2 \times 2} & \triu(X_{2} Y_{2}^{\T}) & \cdots & X_{2} Y_{k-1}^{\T} & X_{2} Y_{k}^{\T}\\
+        \vdots & \vdots & \ddots & \vdots & \vdots\\
+        0_{2 \times 2} & 0_{2 \times 2} & \cdots & \triu(X_{k-1} Y_{k-1}^{\T}) & X_{k-1} Y_{k}^{\T}\\
+        0_{2 \times 2} & 0_{2 \times 2} & \cdots & 0_{2 \times 2} & X_{k} Y_{k}^{\T}
+        ]\\
+    &= \mqty[
+        \mqty[
+            \triu(X_{1} Y_{1}^{\T}) \\
+            0_{2(k-1) \times 2}
+            ] &
+        \mqty[
+            X_{1} Y_{2}^{\T} \\
+            \triu(X_{2} Y_{2}^{\T}) \\
+            0_{2(k-2) \times 2}
+            ] &
+        \cdots &
+        \mqty[
+            X_{1:k-2}Y_{k-1}^{\T} \\
+            \triu(X_{k-1}Y_{k-1}^{\T}) \\
+            0_{2 \times 2}
+            ] &
+        X Y_{k}^{\T}
+        ]
+\end{align*}
+
+
+\begin{align*}
+    U^{-1} &= \triu(XY^{\T}) \\
+    I &= U \triu(XY^{\T})
+\end{align*}
+
+\begin{align*}
+    E_{i} &= \mqty[0 & \cdots & 0 & I_{2 \times 2} & 0 & \cdots & 0]^{\T}
+\end{align*}
+
+
+
+
+$k$-th block column, 
+\begin{align*}
+    E_{k} &= U \triu(XY^{\T})E_{k} \\
+    &= U X Y_{k}^{\T}
+\end{align*}
+
+
+\begin{align*}
+    X &\coloneqq U^{-1} E_{k} \\
+    % e_{n} &= U x \\
+    E_{k} &= U X Y_{k}^{\T} \\
+        &= U U^{-1} E_{k} Y_{k}^{\T} \\
+        &= E_{k} Y_{k}^{\T} \\
+    Y_{k}^{\T} &\coloneqq I_{2 \times 2}
+\end{align*}
+
+
+$(k-1)$-th block column, 
+
+\begin{align*}
+    E_{k-1} &= U \triu(XY^{\T})E_{k-1} \\
+    &= U \mqty[
+        X_{1:k-2}Y_{k-1}^{\T} \\
+        \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        0_{2 \times 2}
+        ]
+\end{align*}
+
+$(k-1)$-th block row of $(k-1)$-th block column, 
+
+\begin{align*}
+    E_{i}^{\T} E_{j} = 
+    \begin{cases}
+        I_{2 \times 2}, & \text{if} \ i=j \ ;\\
+        0_{2 \times 2}, & \text{otherwise}.
+    \end{cases} 
+\end{align*}
+
+\begin{align*}
+    E_{k-1}^{\T} E_{k-1} = I_{2 \times 2} &= E_{k-1}^{\T} U \mqty[
+        X_{1:k-2}Y_{k-1}^{\T} \\
+        \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        0_{2 \times 2}
+        ] \\
+        &= \mqty[
+            0_{2 \times 2(k-2)} & D_{k-1} & B_{k-1}
+        ] \mqty[
+            X_{1:k-2}Y_{k-1}^{\T} \\
+            \triu(X_{k-1}Y_{k-1}^{\T}) \\
+            0_{2 \times 2}
+            ] \\
+        & = D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        % &= \triu(D_{k-1}X_{k-1}Y_{k-1}^{\T}) \ (\text{as}\  D_{k-1} = \triu(D_{k-1}))\\
+    Y_{k-1}^{\T} &\coloneqq (D_{k-1} X_{k-1})^{-1}
+\end{align*}
+
+\begin{align*}
+    D_{k-1} &= \triu(D_{k-1})\\
+    D_{k-1}^{-1} &= \triu(D_{k-1}^{-1})\\
+    Y_{k-1}^{\T} &\coloneqq (D_{k-1} X_{k-1})^{-1}\\
+    D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) &= D_{k-1} \triu(X_{k-1}(D_{k-1} X_{k-1})^{-1})\\
+        &= D_{k-1} \triu(X_{k-1} X_{k-1}^{-1} D_{k-1}^{-1})\\
+        &= D_{k-1} \triu(D_{k-1}^{-1})\\
+        &= D_{k-1} D_{k-1}^{-1}\\
+        &= I_{2 \times 2}
+\end{align*}
+
+
+\begin{align*}
+    X &\coloneqq U^{-1} E_k\\
+    E_{k} &= U X \\
+    E_{k}^{\T} E_{k} = I_{2 \times 2} &= E_{k}^{\T} U X \\
+        &= \mqty[
+            0_{2 \times 2(k-1)} & D_{k}
+        ] X \\
+        &= D_{k} X_{k} \\
+    Y_{k}^{\T} &\coloneqq I_{2 \times 2} \\
+        &\coloneqq (D_{k} X_{k})^{-1}
+    % y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
+\end{align*}
+
+\begin{align*}
+    X &\coloneqq U^{-1} E_{k} \\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1}
+\end{align*}
+
+
+
+
+
+
+
+
+
+\newpage
+$n = 2k + 1$
+\begin{align*}
+    U &= \mqty[
+        \mqty[d_{1}] & \mqty[b^{1}_{1} & b^{2}_{1}] &   &   &  \\
+          & \mqty[d_{2} & b^{1}_{2} \\ & d_{3}] & \mqty[b^{2}_{2} & \\ b^{1}_{3} & b^{2}_{3}] &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & \mqty[d_{2k-2} & b^{1}_{2k-2} \\ & d_{2k-1}] & \mqty[b^{2}_{2k-2} & \\ b^{1}_{2k-1} & b^{2}_{2k-1}] \\
+          &   &   &   & \mqty[d_{2k} & b^{1}_{2k}\\ & d_{2k+1}]
+    ]\\
+    &= \mqty[
+        \tilde{D_{1}} & \tilde{B_{1}} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k} & B_{k}\\
+          &   &   &   & D_{k+1}
+    ] \in \mathbb{R}^{(2k+1) \times (2k+1)}
+\end{align*}
+
+
+\begin{align*}
+    X &\coloneqq U^{-1} E_{k+1} \\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1} \ \text{for}\ i = 2,\ \cdots,\ k+1 \\
+    Y_{1}^{\T} &\coloneqq (D_{1} X_{1})^{+} = (D_{1} X_{1})^{\T} (D_{1} X_{1} (D_{1} X_{1})^{\T})^{-1}
+\end{align*}
+
+% \begin{equation}
+%     \left[\begin{array}{ll|ll|l}
+%     a & b & c & & \\
+%     & d & e & f & \\
+%     \hline & & g & h & i \\
+%     & & j & R \\
+%     \hline & & l
+%     \end{array}\right]
+% \end{equation}
+
+
+
+
+
+
+\newpage
+\subsection{Banded matrix (Upper)}
+
+$n = ku + r, \ 0\leq r<u$
+
+\begin{align*}
+    U &= \mqty[
+        d_{1} & b^{1}_{1} & b^{2}_{1} & \cdots & b^{u}_{1} &   &   &   \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} & \cdots & b^{u}_{2} &   &   \\
+          &   & \ddots & \ddots & \ddots & \cdots & \ddots &   \\
+          &   &   & \ddots & \ddots & \ddots & \cdots & b^{u}_{n-u} \\
+          &   &   &   & \ddots & \ddots & \ddots & \vdots \\
+          &   &   &   &   & \ddots & \ddots & b^{2}_{n-2} \\
+          &   &   &   &   &   & \ddots & b^{1}_{n-1} \\
+          &   &   &   &   &   &   & d_{n} \\
+    ]\\
+    % &= \mqty[
+    %     D_{1} & B_{1} &   &   &  \\
+    %       & D_{2} & B_{2} &   &  \\
+    %       &   & \ddots & \ddots &  \\
+    %       &   &   & D_{k} & B_{k}\\
+    %       &   &   &   & D_{k+1}
+    % ] \in \mathbb{R}^{n \times n} = \mathbb{R}^{(ku + r) \times (ku + r)}
+\end{align*}
+
+
+$r = 0,\ n = ku, $
+\begin{align*}
+    U &= \mqty[
+        D_{1} & B_{1} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k-1} & B_{k-1}\\
+          &   &   &   & D_{k}
+    ] \in \mathbb{R}^{ku \times ku},\\
+    D_{i} &\in \mathbb{R}^{u \times u}, \ B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ i = 1,\ 2,\ \cdots,\ k.
+\end{align*}
+
+\begin{align*}
+    X &= \mqty[
+        X_{1} \\
+        X_{2} \\
+        \vdots \\
+        X_{k}
+        ]
+    \in \mathbb{R}^{ku \times u}
+    &
+    Y &= \mqty[
+        Y_{1} \\
+        Y_{2} \\
+        \vdots \\
+        Y_{k}
+        ]
+    \in \mathbb{R}^{ku \times u}
+    &
+    Y^{\T} &= \mqty[
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k}^{\T}
+        ] \in \mathbb{R}^{u \times ku}
+\end{align*}
+
+
+\begin{align*}
+    X_{i},\ Y_{i}^{\T} &\in \mathbb{R}^{u \times u},\ \text{for} \ i = 1,\ 2,\ \cdots,\ k \\
+    X &\coloneqq U^{-1} E_{k} \\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1}
+\end{align*}
+
+
+
+$r \neq 0,\ n = ku+r, $
+\begin{align*}
+    U &= \mqty[
+        \tilde{D}_{1} & \tilde{B}_{1} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k} & B_{k}\\
+          &   &   &   & D_{k+1}
+    ] \in \mathbb{R}^{(ku + r) \times (ku + r)},\\
+    \tilde{D}_{1} &\in \mathbb{R}^{r \times r}, \ \tilde{B}_{1} \in \mathbb{R}^{r \times u};\\
+    D_{i} &\in \mathbb{R}^{u \times u}, \ B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ i =  2,\ \cdots,\ k+1.
+\end{align*}
+
+
+\begin{align*}
+    X &= \mqty[
+        \tilde{X}_{1} \\
+        X_{2} \\
+        \vdots \\
+        X_{k+1}
+        ]
+    \in \mathbb{R}^{(ku + r) \times u}
+    &
+    Y &= \mqty[
+        \tilde{Y}_{1} \\
+        Y_{2} \\
+        \vdots \\
+        Y_{k+1}
+        ]
+    \in \mathbb{R}^{(ku + r) \times u}
+    &
+    Y^{\T} &= \mqty[
+        \tilde{Y}_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k+1}^{\T}
+        ] \in \mathbb{R}^{u \times (ku + r)}
+\end{align*}
+
+
+\begin{align*}
+    \tilde{X}_{1} &\in \mathbb{R}^{r \times u} \\
+    \tilde{Y}_{1}^{\T} &\in \mathbb{R}^{u \times r} \\
+    X_{i},\ Y_{i}^{\T} &\in \mathbb{R}^{u \times u} \ \text{for} \ i = 2,\ \cdots,\ k+1 \\
+    X &\coloneqq U^{-1} E_{k+1} \\
+    \tilde{Y}_{1}^{\T} &\coloneqq (D_{1} X_{1})^{+} = (D_{1} X_{1})^{\T} (D_{1} X_{1} (D_{1} X_{1})^{\T})^{-1} \\
+    \triu(D_{1} X_{1} \tilde{Y}_{1}^{\T}) &= I_{r \times r}\\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1} \ \text{for}\ i = 2,\ \cdots,\ k+1 
+\end{align*}
+
+
+
+\newpage
+\section{Test}
+
+\begin{align*}
+    \begin{bNiceMatrix}
+        d_{1} & b^{1}_{1} & b^{2}_{1} & \cdots & b^{u}_{1} &   &   &   \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} & \cdots & b^{u}_{2} &   &   \\
+          &   & \ddots & \ddots & \ddots & \cdots & \ddots &   \\
+          &   &   & \ddots & \ddots & \ddots & \cdots & b^{u}_{n-u} \\
+          &   &   &   & \ddots & \ddots & \ddots & \vdots \\
+          &   &   &   &   & \ddots & \ddots & b^{2}_{n-2} \\
+          &   &   &   &   &   & \ddots & b^{1}_{n-1} \\
+          &   &   &   &   &   &   & d_{n} \\
+        \CodeAfter
+        \OverBrace[shorten,yshift=3pt]{1-2}{1-5}{\text{bandwidth}=u}
+        % \OverBrace[shorten,yshift=3pt]{1-4}{2-6}{B}
+    \end{bNiceMatrix}
+\end{align*}
+
+%用array环境构造复杂矩阵
+$
+% @{内容} 添加任意内容，不占表项计数
+%  此处添加一个负值空白，表示向左移-5pt的距离,l代表左
+\begin{array}{c@{\hspace{-5pt}}l}
+%第一行，第一列
+\left(\begin{array}{ccc|ccc}
+    a   & \cdots & a & b & \cdots &b\\
+        & \ddots & \vdots & \vdots & \ddots \\
+        &        & a & b \\ \hline
+        &        &   & c &\cdots &c \\
+        &        &   & \vdots && \vdots \\
+    \multicolumn{3}{c|}{\raisebox{2ex}[0pt]{\Huge 0}}
+\end{array}\right)
+&
+%第一行第二列
+%效果是两个括号标识符
+\begin{array}{l}
+%left 仅仅与$\right$配对  ，什么都不输出
+\left.\rule{0mm}{7mm}\right\}p\\
+\\
+\left.\rule{0mm}{7mm}\right\}q\\
+\end{array}
+\\[-5pt]
+%第二行第二列
+\begin{array}{cc}
+\underbrace{\rule{17mm}{0mm}}_m%\underbrace{text}横向大括号
+\underbrace{\rule{17mm}{0mm}}_m%用下划线加字母的方式指定标识符
+\end{array}
+\end{array}
+$
+
+
+
+% \NiceMatrixOptions{nullify-dots,code-for-first-col = \color{blue}, code-for-first-row=\color{blue}}
+$\begin{pNiceMatrix}[first-row,first-col]
+& & \Ldots[line-style={solid,<->},shorten=0pt]^{n \text{ columns}} \\
+& 1 & 1 & 1 & \Ldots & 1 \\
+& 1 & 1 & 1 & & 1 \\
+\Vdots[line-style={solid,<->}]_{n \text{ rows}} & 1 & 1 & 1 & & 1 \\
+& 1 & 1 & 1 & & 1 \\
+& 1 & 1 & 1 & \Ldots & 1
+\end{pNiceMatrix}$
+
+
+\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle }
+\setcounter{MaxMatrixCols}{12}
+\newcommand{\blue}{\color{blue}}
+\[\begin{pNiceMatrix}[last-row,last-col,nullify-dots,xdots/line-style={dashed,blue}]
+1& & & \Vdots & & & & \Vdots \\
+& \Ddots[line-style=standard] \\
+& & 1 \\
+\Cdots[color=blue,line-style=dashed]& & & \blue 0 &
+\Cdots & & & \blue 1 & & & \Cdots & \blue \leftarrow i \\
+& & & & 1 \\
+& & &\Vdots & & \Ddots[line-style=standard] & & \Vdots \\
+& & & & & & 1 \\
+\Cdots & & & \blue 1 & \Cdots & & \Cdots & \blue 0 & & & \Cdots & \blue \leftarrow j \\
+& & & & & & & & 1 \\
+& & & & & & & & & \Ddots[line-style=standard] \\
+& & & \Vdots & & & & \Vdots & & & 1 \\
+& & & \blue \overset{\uparrow}{i} & & & & \blue \overset{\uparrow}{j} \\
+\end{pNiceMatrix}\]
+
+
+
+
+\begin{align*}
+    % \NiceMatrixOptions{nullify-dots,code-for-first-col = \color{blue}, code-for-first-row=\color{blue}}
+    \begin{pNiceMatrix}[first-row,first-col]
+    & & \Ldots[line-style={solid,<->},shorten=0pt]^{n \text{ columns}} \\
+    & 1 & 1 & 1 & \Ldots & 1 \\
+    & 1 & 1 & 1 & & 1 \\
+    \Vdots[line-style={solid,<->}]_{n \text{ rows}} & 1 & 1 & 1 & & 1 \\
+    & 1 & 1 & 1 & & 1 \\
+    & 1 & 1 & 1 & \Ldots & 1
+    \end{pNiceMatrix}
+\end{align*}
+
+
+
+\begin{align*}
+    \begin{pNiceMatrix}
+        \Block[borders={bottom,right,tikz=dashed}]{2-2}{}
+        1 & 2 & 0 & 0 & 0 & 0 \\
+        4 & 5 & 0 & 0 & 0 & 0 \\
+        0 & 0 & \Block[borders={bottom,top,right,left,tikz=dashed}]{2-2}{}
+        7 & 1 & 0 & 0 \\
+        0 & 0 & -1 & 2 & 0 & 0 \\
+        0 & 0 & 0 & 0 & \Block[borders={left,top,tikz=dashed}]{2-2}{}
+        3 & 4 \\
+        0 & 0 & 0 & 0 & 1 & 4
+    \end{pNiceMatrix}
+\end{align*}
+
+\begin{align*}
+    &\begin{bNiceMatrix}
+        \Block[borders={bottom,right,tikz=dashed}]{2-2}{}
+        d_{1} & b^{1}_{1} & 
+        \Block[borders={bottom,right,tikz=dashed}]{2-2}{}
+        b^{2}_{1} &   &   &   &   &   &   &   \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} &   &   &   &   &   &  \\
+          &   & \Block[borders={bottom,right,left,tikz=dashed}]{2-2}{}
+        d_{3} & b^{1}_{3} & \Block[borders={bottom,top,right,tikz=dashed}]{2-2}{}
+        b^{2}_{3} &   &   &   &   &  \\
+          &   &   & d_{4} & b^{1}_{4} & b^{2}_{4} &   &   &   &  \\
+          &   &   &   & \Block[borders={left,right,bottom,tikz=dashed}]{2-2}{}
+        \ddots &   & \Block[borders={bottom,top,right,tikz=dashed}]{2-2}{}
+        \ddots &   &   &  \\
+          &   &   &   &   & \ddots &   & \ddots &   &  \\
+          &   &   &   &   &   & \Block[borders={left,right,bottom,tikz=dashed}]{2-2}{}
+        d_{2k-3} & b^{1}_{2k-3} & \Block[borders={bottom,top,tikz=dashed}]{2-2}{}
+        b^{2}_{2k-3} &  \\
+          &   &   &   &   &   &   & d_{2k-2} & b^{1}_{2k-2} & b^{2}_{2k-2}\\
+          &   &   &   &   &   &   &   & \Block[borders={left,tikz=dashed}]{2-2}{}
+        d_{2k-1} & b^{1}_{2k-1}\\
+          &   &   &   &   &   &   &   &   & d_{2k}
+    \end{bNiceMatrix}\\
+    &= \mqty[
+        \mqty[d_{1} & b^{1}_{1} \\ & d_{2}] & \mqty[b^{2}_{1} &  \\ b^{1}_{2} & b^{2}_{2}] &   &   &  \\
+          & \mqty[d_{3} & b^{1}_{3} \\ & d_{4}] & \mqty[b^{2}_{3} & \\ b^{1}_{4} & b^{2}_{4}] &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & \mqty[d_{2k-3} & b^{1}_{2k-3} \\ & d_{2k-2}] & \mqty[b^{2}_{2k-3} & \\ b^{1}_{2k-2} & b^{2}_{2k-2}] \\
+          &   &   &   & \mqty[d_{2k-1} & b^{1}_{2k-1}\\ & d_{2k}]
+    ]\\
+\end{align*}
+
+\begin{align*}
+    \begin{bNiceMatrix}
+        1 & 2 & 0 & 0 & 0 & 0 \\
+        4 & 5 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 7 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 2 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 3 & 4 \\
+        0 & 0 & 0 & 0 & 1 & 4
+        \CodeAfter
+        \SubMatrix[{1-1}{3-3}]
+        \SubMatrix[{1-4}{3-4}]
+    \end{bNiceMatrix}
+\end{align*}
+
+\begin{align*}
+    \begin{bNiceMatrix}
+        d_{1}       & b^{1}_{1} & \Cdots & b^{r-2}_{1} & b^{r-1}_{1} \\
+                    & d_{2}     &       &   & b^{r-2}_{2} \\
+                    &           & \Ddots    &   & \Vdots \\
+                    &           &       & d_{r-1} & b^{1}_{r-1} \\
+                    &           &   &   & d_{r}
+    \end{bNiceMatrix}
+    & \begin{bNiceMatrix}
+        b^{r}_{1}   & \Cdots    & b^{u}_{1} &   &   &   &   &   &   \\
+        b^{r-1}_{2} & b^{r}_{2} &           & b^{u}_{2} &   &   &   &   &   \\
+        \Vdots      &           & \Ddots    &   &  \\
+        b^{2}_{r-1} \\
+        b^{1}_{r}   & b^{2}_{r} & \Cdots    & b^{u}_{r} 
+    \end{bNiceMatrix}\\
+     & \begin{bNiceMatrix}
+        d_{1} & b^{1}_{1} & \Cdots & b^{r-2}_{1} & b^{r-1}_{1} \\
+        0 & d_{2} &   &   & b^{r-2}_{2} \\
+        \Vdots & \Ddots[draw-first] & \Ddots &   & \Vdots \\
+          &   &   & d_{r-1} & b^{1}_{r-1} \\
+        0 & \Cdots &   & 0 & d_{r}
+    \end{bNiceMatrix}\\
+\end{align*}
+
+
+
+\begin{align*}
+    \begin{bNiceMatrix}
+        d_{1}       & b^{1}_{1}   & \Cdots      & b^{r-2}_{1} & b^{r-1}_{1} \\
+                    & d_{2}       &             &             & b^{r-2}_{2} \\
+                    &             & \Ddots      &             & \Vdots      \\
+                    &             &             & d_{r-1}     & b^{1}_{r-1} \\
+                    &             &             &             & d_{r}       \\
+    \end{bNiceMatrix}
+    &
+    \begin{bNiceMatrix}
+        b^{r}_{1}   & b^{r+1}_{1} & \Cdots      & b^{u-1}_{1} & b^{u}_{1}  &             &             &             &             \\
+        b^{r-1}_{2} &             &             &             &            & b^{u}_{2}   &             &             &             \\
+        \Vdots      &             &             &             &            &             &  \Ddots     &             &             \\
+        b^{2}_{r-1} &             &             &             &            &             &             & b^{u}_{r-1} &             \\
+        b^{1}_{r}   & b^{2}_{r}   & \Cdots      &             &            &             &             & b^{u-1}_{r} & b^{u}_{r}   \\
+    \end{bNiceMatrix}
+\end{align*}
+
+\begin{align*}
+    \begin{bNiceMatrix}
+        d_{1}       & \Cdots      & b^{r-1}_{1} \\
+                    & \Ddots      & \Vdots      \\
+                    &             & d_{r}       
+    \end{bNiceMatrix}
+    &
+    \begin{bNiceMatrix}
+        b^{r}_{1}   & \Cdots      & b^{u}_{1}  &             &             \\
+        \Vdots      &             &            & \Ddots      &             \\
+        b^{1}_{r}   & \Cdots      &            &             & b^{u}_{r}   \\
+    \end{bNiceMatrix}
+    & \\
+    &
+     \begin{bNiceMatrix}
+        b^{r}_{1}   & \Cdots      & b^{u}_{1}  &             &             \\
+        \Vdots      &             &            & \Ddots      &             \\
+        b^{1}_{r}   & \Cdots      &            &             & b^{u}_{r}   \\
+    \end{bNiceMatrix}
+    &
+    \begin{bNiceMatrix}
+        b^{r}_{1}   & \Cdots      & b^{u}_{1}  &             &             \\
+        \Vdots      &             &            & \Ddots      &             \\
+        b^{1}_{r}   & \Cdots      &            &             & b^{u}_{r}   \\
+    \end{bNiceMatrix}
+\end{align*}
+
+
+\begin{align*}
+    \begin{bNiceMatrix}
+        d_{1}       & \Cdots & b^{r-1}_{1} & b^{r}_{1}   & \Cdots & b^{u}_{1}  &        &               \\
+                    & \Ddots & \Vdots      & \Vdots      &        &            & \Ddots &               \\
+                    &        & d_{r}       & b^{1}_{r}   & \Cdots &            &        & b^{u}_{r}     \\
+                    &        &             & d_{r+1}     & \Cdots &            &        & b^{u-1}_{r+1} \\
+                    &        &             &             &        &            &        &               \\
+                    &        &             &             &        & \Ddots     &        & \Vdots        \\
+                    &        &             &             &        &            &        &               \\
+                    &        &             &             &        &            &        & d_{r+u}       \\
+    \end{bNiceMatrix}
+\end{align*}
+
+
+
+
+
+
+
+\end{document}
+
+
+
+

@@ -22,6 +22,8 @@
 \usepackage{mathrsfs}
 \usepackage{bm}
 
+\usepackage{nicematrix}
+\usepackage{tikz}
 \usepackage{physics}
 
 
@@ -867,26 +869,190 @@ $n = ku + r, \ 0\leq r<u$
           &   &   &   &   &   & \ddots & b^{1}_{n-1} \\
           &   &   &   &   &   &   & d_{n} \\
     ]\\
-    &= \mqty[
+    % &= \mqty[
+    %     D_{1} & B_{1} &   &   &  \\
+    %       & D_{2} & B_{2} &   &  \\
+    %       &   & \ddots & \ddots &  \\
+    %       &   &   & D_{k} & B_{k}\\
+    %       &   &   &   & D_{k+1}
+    % ] \in \mathbb{R}^{n \times n} = \mathbb{R}^{(ku + r) \times (ku + r)}
+\end{align*}
+
+
+$r = 0,\ n = ku, $
+\begin{align*}
+    U &= \mqty[
         D_{1} & B_{1} &   &   &  \\
           & D_{2} & B_{2} &   &  \\
           &   & \ddots & \ddots &  \\
-          &   &   & D_{k} & B_{k}\\
-          &   &   &   & D_{k+1}
-    ] \in \mathbb{R}^{n \times n} = \mathbb{R}^{(ku + r) \times (ku + r)}
+          &   &   & D_{k-1} & B_{k-1}\\
+          &   &   &   & D_{k}
+    ] \in \mathbb{R}^{ku \times ku},\\
+    D_{i} &\in \mathbb{R}^{u \times u}, \ B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ i = 1,\ 2,\ \cdots,\ k.
+\end{align*}
+
+\begin{align*}
+    X &= \mqty[
+        X_{1} \\
+        X_{2} \\
+        \vdots \\
+        X_{k}
+        ]
+    \in \mathbb{R}^{ku \times u}
+    &
+    Y &= \mqty[
+        Y_{1} \\
+        Y_{2} \\
+        \vdots \\
+        Y_{k}
+        ]
+    \in \mathbb{R}^{ku \times u}
+    &
+    Y^{\T} &= \mqty[
+        Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k}^{\T}
+        ] \in \mathbb{R}^{u \times ku}
 \end{align*}
 
 
 \begin{align*}
-    r &= 0, \ D_{i} \in \mathbb{R}^{u \times u}, B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ i = 2,\ \cdots,\ k+1 \\
-    r &= 0, \ D_{i} \in \mathbb{R}^{u \times u}, B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ r = 0 \\
+    X_{i},\ Y_{i}^{\T} &\in \mathbb{R}^{u \times u},\ \text{for} \ i = 1,\ 2,\ \cdots,\ k \\
+    X &\coloneqq U^{-1} E_{k} \\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1}
 \end{align*}
 
 
 
+$r \neq 0,\ n = ku+r, $
+\begin{align*}
+    U &= \mqty[
+        \tilde{D}_{1} & \tilde{B}_{1} &   &   &  \\
+          & D_{2} & B_{2} &   &  \\
+          &   & \ddots & \ddots &  \\
+          &   &   & D_{k} & B_{k}\\
+          &   &   &   & D_{k+1}
+    ] \in \mathbb{R}^{(ku + r) \times (ku + r)},\\
+    \tilde{D}_{1} &\in \mathbb{R}^{r \times r}, \ \tilde{B}_{1} \in \mathbb{R}^{r \times u};\\
+    D_{i} &\in \mathbb{R}^{u \times u}, \ B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ i =  2,\ \cdots,\ k+1.
+\end{align*}
+
+
+\begin{align*}
+    X &= \mqty[
+        \tilde{X}_{1} \\
+        X_{2} \\
+        \vdots \\
+        X_{k+1}
+        ]
+    \in \mathbb{R}^{(ku + r) \times u}
+    &
+    Y &= \mqty[
+        \tilde{Y}_{1} \\
+        Y_{2} \\
+        \vdots \\
+        Y_{k+1}
+        ]
+    \in \mathbb{R}^{(ku + r) \times u}
+    &
+    Y^{\T} &= \mqty[
+        \tilde{Y}_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k+1}^{\T}
+        ] \in \mathbb{R}^{u \times (ku + r)}
+\end{align*}
+
+
+\begin{align*}
+    \tilde{X}_{1} &\in \mathbb{R}^{r \times u} \\
+    \tilde{Y}_{1}^{\T} &\in \mathbb{R}^{u \times r} \\
+    X_{i},\ Y_{i}^{\T} &\in \mathbb{R}^{u \times u} \ \text{for} \ i = 2,\ \cdots,\ k+1 \\
+    X &\coloneqq U^{-1} E_{k+1} \\
+    \tilde{Y}_{1}^{\T} &\coloneqq (D_{1} X_{1})^{+} = (D_{1} X_{1})^{\T} (D_{1} X_{1} (D_{1} X_{1})^{\T})^{-1} \\
+    \triu(D_{1} X_{1} \tilde{Y}_{1}^{\T}) &= I_{r \times r}\\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1} \ \text{for}\ i = 2,\ \cdots,\ k+1 
+\end{align*}
 
 
 
+\newpage
+\section{Test}
+
+\begin{align*}
+    \begin{bNiceMatrix}
+        d_{1} & b^{1}_{1} & b^{2}_{1} & \cdots & b^{u}_{1} &   &   &   \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} & \cdots & b^{u}_{2} &   &   \\
+          &   & \ddots & \ddots & \ddots & \cdots & \ddots &   \\
+          &   &   & \ddots & \ddots & \ddots & \cdots & b^{u}_{n-u} \\
+          &   &   &   & \ddots & \ddots & \ddots & \vdots \\
+          &   &   &   &   & \ddots & \ddots & b^{2}_{n-2} \\
+          &   &   &   &   &   & \ddots & b^{1}_{n-1} \\
+          &   &   &   &   &   &   & d_{n} \\
+        \CodeAfter
+        \OverBrace[shorten,yshift=3pt]{1-2}{1-5}{\text{bandwidth}=u}
+        % \OverBrace[shorten,yshift=3pt]{1-4}{2-6}{B}
+    \end{bNiceMatrix}
+\end{align*}
+
+%用array环境构造复杂矩阵
+$
+% @{内容} 添加任意内容，不占表项计数
+%  此处添加一个负值空白，表示向左移-5pt的距离,l代表左
+\begin{array}{c@{\hspace{-5pt}}l}
+%第一行，第一列
+\left(\begin{array}{ccc|ccc}
+    a   & \cdots & a & b & \cdots &b\\
+        & \ddots & \vdots & \vdots & \ddots \\
+        &        & a & b \\ \hline
+        &        &   & c &\cdots &c \\
+        &        &   & \vdots && \vdots \\
+    \multicolumn{3}{c|}{\raisebox{2ex}[0pt]{\Huge 0}}
+\end{array}\right)
+&
+%第一行第二列
+%效果是两个括号标识符
+\begin{array}{l}
+%left 仅仅与$\right$配对  ，什么都不输出
+\left.\rule{0mm}{7mm}\right\}p\\
+\\
+\left.\rule{0mm}{7mm}\right\}q\\
+\end{array}
+\\[-5pt]
+%第二行第二列
+\begin{array}{cc}
+\underbrace{\rule{17mm}{0mm}}_m%\underbrace{text}横向大括号
+\underbrace{\rule{17mm}{0mm}}_m%用下划线加字母的方式指定标识符
+\end{array}
+\end{array}
+$
+
+
+
+% \NiceMatrixOptions{nullify-dots,code-for-first-col = \color{blue}, code-for-first-row=\color{blue}}
+$\begin{pNiceMatrix}[first-row,first-col]
+& & \Ldots[line-style={solid,<->},shorten=0pt]^{n \text{ columns}} \\
+& 1 & 1 & 1 & \Ldots & 1 \\
+& 1 & 1 & 1 & & 1 \\
+\Vdots[line-style={solid,<->}]_{n \text{ rows}} & 1 & 1 & 1 & & 1 \\
+& 1 & 1 & 1 & & 1 \\
+& 1 & 1 & 1 & \Ldots & 1
+\end{pNiceMatrix}$
+
+
+\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle }
+\setcounter{MaxMatrixCols}{12}
+\newcommand{\blue}{\color{blue}}
+\[\begin{pNiceMatrix}[last-row,last-col,nullify-dots,xdots/line-style={dashed,blue}]
+1& & & \Vdots & & & & \Vdots \\
+& \Ddots[line-style=standard] \\
+& & 1 \\
+\Cdots[color=blue,line-style=dashed]& & & \blue 0 &
+\Cdots & & & \blue 1 & & & \Cdots & \blue \leftarrow i \\
+& & & & 1 \\
+& & &\Vdots & & \Ddots[line-style=standard] & & \Vdots \\
+& & & & & & 1 \\
+\Cdots & & & \blue 1 & \Cdots & & \Cdots & \blue 0 & & & \Cdots & \blue \leftarrow j \\
+& & & & & & & & 1 \\
+& & & & & & & & & \Ddots[line-style=standard] \\
+& & & \Vdots & & & & \Vdots & & & 1 \\
+& & & \blue \overset{\uparrow}{i} & & & & \blue \overset{\uparrow}{j} \\
+\end{pNiceMatrix}\]
 
 \end{document}
 
