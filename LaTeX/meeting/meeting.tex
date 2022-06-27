@@ -36,7 +36,7 @@
 \usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
 
 
-
+\usepackage{rotating}
 
 
 \usepackage[english]{babel}
@@ -75,7 +75,7 @@
 
 \maketitle
 
-\section{28.06.2022 Meeting}
+\section{28.06.2022 Meeting draft}
 
 \subsection{Notation}
 
@@ -729,6 +729,93 @@ $r \neq 0,\ n = ku+r, $
 
 
 \newpage
+
+\section{28.06.2022 Meeting formal}
+Consider an upper banded matrix $U \in \mathbb{R}^{n \times n}$,
+
+\begin{align}
+    U = 
+    \begin{bNiceMatrix}
+        d_{1} & b^{1}_{1} & b^{2}_{1} & \Cdots & b^{u}_{1} &   &   &   \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} & \Cdots & b^{u}_{2} &   &   \\
+          &   & \Ddots & \Ddots &  &   & \Ddots &   \\
+          &   &   &   &   &   &   & b^{u}_{n-u} \\
+          &   &   &   &   &   &   & \Vdots \\
+          &   &   &   &   &   &   & b^{2}_{n-2} \\
+          &   &   &   &   &   &   & b^{1}_{n-1} \\
+          &   &   &   &   &   &   & d_{n} \\
+    \end{bNiceMatrix}\label{U_banded}.
+\end{align}
+% \nonumber
+
+\noindent Then try to show that its inverse can be repersent as the upper triangular part of an outer product,
+\textit{i.e.}\ ,
+\begin{align}
+    U^{-1} = \triu(XY^{\T}) \label{main_eqn}
+\end{align}
+
+\noindent Let $X,\ Y \in \mathbb{R}^{n \times u}$, consider the following cases of $n$,
+
+\subsection*{\bm{$n = ku$}}
+
+then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
+
+
+\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
+\setcounter{MaxMatrixCols}{30}
+\begin{align}
+    U &=
+    \begin{bNiceMatrix}[first-row,first-col]
+          & \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} & \hspace*{1mm} &
+            \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} & \hspace*{1mm} &
+            \hspace*{1mm} & \Cdots & \hspace*{1mm} &
+            \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} & \hspace*{1mm} \\
+        \hspace*{1mm} &
+            d_{1} & \Cdots & b^{u-1}_{1} & b^{u}_{1} &&&&&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
+            & \Ddots & \Vdots & \Vdots & \Ddots &&&&&&&\\
+        \hspace*{1mm} &
+            && d_{u} & b^{1}_{u} & \Cdots & b^{u}_{u} &&&&&&\\
+        \hspace*{1mm} &
+            &&& d_{u+1} & \Cdots & b^{u-1}_{u+1} & b^{u}_{u+1} &&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
+            &&&& \Ddots & \Vdots & \Vdots & \Ddots &&&&\\
+        \hspace*{1mm} &
+            &&&&& d_{2u} & b^{1}_{2u} & \Cdots & b^{u}_{2u} &&&\\
+        \hspace*{1mm} &
+            &&&&&& \hspace*{1mm} & \Cdots & \hspace*{1mm} & \hspace*{1mm} &&\\
+        \Vdots &
+            &&&&&&& \Ddots & \Vdots & \Vdots & \Ddots &\\
+        \hspace*{1mm} &
+            &&&&&&&& \hspace*{1mm} & \hspace*{1mm} & \Cdots & \hspace*{8mm}\\
+        \hspace*{1mm} &
+            &&&&&&&&& d_{(k-1)u} & \Cdots & b^{u}_{(k-1)u} \\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
+            &&&&&&&&&& \Ddots & \Vdots \\
+        \hspace*{1mm} &
+            &&&&&&&&&&& d_{ku}\\
+    \end{bNiceMatrix} \nonumber \\
+    &= 
+    \begin{bNiceMatrix}
+        D_{1}   & B_{1} &           &           &  \\
+                & D_{2} & B_{2}     &           &  \\
+                &       & \ddots    & \ddots    &  \\
+                &       &           & D_{k-1}   & B_{k-1}\\
+                &       &           &           & D_{k}
+    \end{bNiceMatrix} \label{U_block_bi}
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+\newpage
 \section{Test}
 
 \begin{align*}
@@ -974,6 +1061,162 @@ $\begin{pNiceMatrix}[first-row,first-col]
 \end{align*}
 
 
+% \NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
+% \setcounter{MaxMatrixCols}{30}
+% \begin{align*}
+%     \begin{bNiceMatrix}[first-row,first-col]
+%           & \underset{\downarrow}{1} & \Cdots & \underset{\downarrow}{r} & \underset{\downarrow}{r+1} & \Cdots & \underset{\downarrow}{u} & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18\\
+%         1 \rightarrow & d_{1} & \Cdots & b^{r-1}_{1} & b^{r}_{1} & \Cdots & b^{u}_{1} &&&&&&&&&&&&\\
+%         \Vdots[line-style={solid,<->}]_{r} && \Ddots & \Vdots & \Vdots &&& \Ddots &&&&&&&&&&&\\
+%         r \rightarrow &&& d_{r} & b^{1}_{r} & \Cdots &&& b^{u}_{r} &&&&&&&&&&\\
+%         % 
+%         1+r \rightarrow &&&& d_{1+r} & \Cdots &   &   & b^{u-1}_{1+r} & b^{u}_{r+1} &&&&&&&&&\\
+%           &&&&&&&&&&&&&&&&&&\\
+%         \Vdots[line-style={solid,<->}]_{u} &&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&&&&&&\\
+%           &&&&&&&&&&&&&&&&&&\\
+%         u+r \rightarrow  &&&&&&&& d_{u+r} & b^{1}_{u+r} && \Cdots && b^{u}_{u+r} &&&&&\\
+%         % 
+%           &&&&&&&&& \hspace*{5mm} &&& \Cdots && \hspace*{5mm} & \hspace*{5mm} &&&\\
+%           &&&&&&&&&&&&&&&&&&\\
+%           &&&&&&&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&\\
+%           &&&&&&&&&&&&&&&&&&\\
+%           &&&&&&&&&&&&& \hspace*{5mm} & \hspace*{5mm} && \Cdots && \hspace*{5mm}\\
+%         % 
+%         n-u+1 \rightarrow &&&&&&&&&&&&&& d_{n-u+1} && \Cdots && b^{u}_{n-u+1}\\
+%          &&&&&&&&&&&&&&&&&&  \\
+%         \Vdots[line-style={solid,<->}]_{u} &&&&&&&&&&&&&&&& \Ddots && \Vdots \\
+%         a &&&&&&&&&&&&&&&&&&  \\
+%         n \rightarrow &&&&&&&&&&&&&&&&&& d_{n}\\
+%     \end{bNiceMatrix}
+% \end{align*}
+
+
+
+\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
+\setcounter{MaxMatrixCols}{30}
+\begin{align*}
+    \begin{bNiceMatrix}[first-row,first-col]
+          & \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$r$\end{turn}} & \hspace*{1mm}
+          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}
+          & \hspace*{1mm} && \Cdots && \hspace*{1mm}
+          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}\\
+        \hspace*{1mm} & d_{1} & \Cdots & b^{r-1}_{1} & b^{r}_{1} & \Cdots & b^{u}_{1} &&&&&&&&&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$r$\end{sideways}} && \Ddots & \Vdots & \Vdots &&& \Ddots &&&&&&&&&&&\\
+        \hspace*{1mm} &&& d_{r} & b^{1}_{r} & \Cdots &&& b^{u}_{r} &&&&&&&&&&\\
+        % 
+        \hspace*{1mm} &&&& d_{1+r} & \Cdots &   &   & b^{u-1}_{1+r} & b^{u}_{r+1} &&&&&&&&&\\
+          &&&&&&&&&&&&&&&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&&&&&&\\
+          &&&&&&&&&&&&&&&&&&\\
+        \hspace*{1mm}  &&&&&&&& d_{u+r} & b^{1}_{u+r} && \Cdots && b^{u}_{u+r} &&&&&\\
+        % 
+        \hspace*{1mm} &&&&&&&&& \hspace*{5mm} &&& \Cdots && \hspace*{5mm} & \hspace*{5mm} &&&\\
+          &&&&&&&&&&&&&&&&&&\\
+        \Vdots &&&&&&&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&\\
+          &&&&&&&&&&&&&&&&&&\\
+        \hspace*{1mm} &&&&&&&&&&&&& \hspace*{5mm} & \hspace*{5mm} && \Cdots && \hspace*{5mm}\\
+        % 
+        \hspace*{1mm} &&&&&&&&&&&&&& d_{n-u+1} && \Cdots && b^{u}_{n-u+1}\\
+         &&&&&&&&&&&&&&&&&&  \\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&&&&&&&&&&&&&&& \Ddots && \Vdots \\
+         &&&&&&&&&&&&&&&&&&  \\
+        \hspace*{1mm} &&&&&&&&&&&&&&&&&& d_{n}\\
+    \end{bNiceMatrix}
+\end{align*}
+
+
+\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
+\setcounter{MaxMatrixCols}{30}
+\begin{align*}
+    \begin{bNiceMatrix}[first-row,first-col]
+          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}
+          & \hspace*{1mm} && \Cdots && \hspace*{1mm}
+          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}\\
+        % 
+        \hspace*{1mm} & d_{1} & \Cdots &   &   & b^{u-1}_{1} & b^{u}_{r+1} &&&&&&&&&\\
+          &&&&&&&&&&&&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&& \Ddots && \Vdots & \Vdots && \Ddots &&&&&&&\\
+          &&&&&&&&&&&&&&&\\
+        \hspace*{1mm}  &&&&& d_{u} & b^{1}_{u} && \Cdots && b^{u}_{u} &&&&&\\
+        % 
+        \hspace*{1mm} &&&&&& \hspace*{5mm} &&& \Cdots && \hspace*{5mm} & \hspace*{5mm} &&&\\
+          &&&&&&&&&&&&&&&&\\
+        \Vdots &&&&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&\\
+          &&&&&&&&&&&&&&&\\
+        \hspace*{1mm} &&&&&&&&&& \hspace*{5mm} & \hspace*{5mm} && \Cdots && \hspace*{5mm}\\
+        % 
+        \hspace*{1mm} &&&&&&&&&&& d_{n-u+1} && \Cdots && b^{u}_{n-u+1}\\
+         &&&&&&&&&&&&&&&  \\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&&&&&&&&&&&& \Ddots && \Vdots \\
+         &&&&&&&&&&&&&&&  \\
+        \hspace*{1mm} &&&&&&&&&&&&&&& d_{n}\\
+    \end{bNiceMatrix}
+\end{align*}
+
+
+% \begin{sideways}将要打印的内容旋转90度\end{sideways}
+% \begin{turn}{45}将要打印的内容旋转自定义角度\end{turn}
+% \begin{rotate}{120}将要打印的内容旋转自定义角度，但是旋转结果并不能保证被旋转对象所需要的空间\end{rotate}
+
+
+\NiceMatrixOptions{
+    code-for-first-row = \scriptstyle,
+    code-for-last-col = \scriptstyle
+    }
+\begin{align*}
+    \begin{bNiceMatrix}[vlines,first-row,last-col]
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    \end{bNiceMatrix}
+\end{align*}
+
+\NiceMatrixOptions{
+    code-for-first-row = \scriptstyle,
+    code-for-first-col = \scriptstyle,
+    code-for-last-row = \scriptstyle,
+    code-for-last-col = \scriptstyle
+    }
+\setcounter{MaxMatrixCols}{30}
+\begin{align*}
+    \begin{bNiceMatrix}[first-row,first-col,last-row,last-col]
+        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
+        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
+        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
+        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
+    \end{bNiceMatrix}
+\end{align*}
+
+
+\NiceMatrixOptions{
+    code-for-first-row = \scriptstyle,
+    code-for-first-col = \scriptstyle,
+    }
+\setcounter{MaxMatrixCols}{30}
+\begin{align*}
+    \begin{bNiceMatrix}[first-row,first-col]
+        % \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$1$\end{turn}}
+        % \Vdots[line-style={solid,<->}]_{\begin{sideways}$1$\end{sideways}}
+          && \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} &&&\hspace*{1mm} 
+        &&&&&&\\
+         & d_{1} & b^{1}_{1} & b^{2}_{1} & \Cdots && b^{u}_{1} &&&&&&\\
+        \hspace*{1mm} & b^{-1}_{1} & d_{2} & \Ddots &&&& \Ddots &&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$l$\end{sideways}}
+            & b^{-2}_{1} & \Ddots & \Ddots &&&&&&&&&\\
+         & \Vdots &&&&&&&&&&&\\
+        \hspace*{1mm} & b^{-l}_{1} &&&&&&&&&&&\\
+         && \Ddots &&&&&&&&&&\\
+         &&&&&&&&&&&& b^{u}_{n-u}\\
+         &&&&&&&&&&&&  \\
+         &&&&&&&&&&&& \Vdots \\
+         &&&&&&&&&&&& b^{2}_{n-2}\\
+         &&&&&&&&&&&& b^{1}_{n-1}\\
+         &&&&&&&& b^{-l}_{n-l} & \Cdots & b^{-2}_{n-2} & b^{-1}_{n-1} & d_{n}\\
+    \end{bNiceMatrix}
+\end{align*}
 
 
 
