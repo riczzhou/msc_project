@@ -77,265 +77,7 @@
 
 \section{28.06.2022 Meeting draft}
 
-\subsection{Notation}
 
-\subsubsection*{Vectors}
-
-\begin{align*}
-    b = \mqty[
-        b_{1} \\
-        b_{2} \\
-        \vdots \\
-        b_{n}
-        ]
-    \in \mathbb{R}^n
-\end{align*}
-
-
-\subsubsection*{Matrices and Columns}
-
-\begin{align*}
-    A &= \mqty[
-        a_{11} & a_{12} & \cdots & a_{1n} \\
-        a_{21} & a_{22} & \cdots & a_{1n} \\
-        \vdots & \vdots & \ddots & \vdots \\
-        a_{m1} & a_{m2} & \cdots & a_{mn}
-        ]\\
-    &= \mqty[
-        a_{1} & a_{2} & \cdots & a_{n}
-        ]
-    \in \mathbb{R}^{m \times n}
-    ,\ a_{i} \in \mathbb{R}^{m}
-\end{align*}
-
-\begin{align*}
-    Ae_{i} &:= a_{i}\\
-    e_{i} &= i\text{-th column of }I\\
-        % &= 
-        % \begin{cases}
-        %     dasdsa\\
-        %     dsadsa
-        % \end{cases}
-\end{align*}
-
-\subsubsection*{Block Matrices and Block Columns}
-
-\begin{align*}
-    A &= \mqty[
-        A_{11} & A_{12} & \cdots & A_{1l} \\
-        A_{21} & A_{22} & \cdots & A_{1l} \\
-        \vdots & \vdots & \ddots & \vdots \\
-        A_{k1} & A_{k2} & \cdots & A_{kl}
-        ],\ A_{ij} \in \mathbb{R}^{m \times n} \\
-    &= \mqty[
-        A_{1} & A_{2} & \cdots & A_{l}
-        ]
-    \in \mathbb{R}^{km \times ln}
-    ,\ A_{i} \in \mathbb{R}^{km \times n}
-\end{align*}
-
-
-\begin{align*}
-    AE_{i} &\coloneqq A_{i}\\
-    E_{i} &= i\text{-th block column of }I\\
-        % &= 
-        % \begin{cases}
-        %     dasdsa\\
-        %     dsadsa
-        % \end{cases}
-\end{align*}
-
-
-
-\subsection{Bidiagonal matrix (upper)}
-
-
-
-
-% \noindent Let $U \in \mathbb{R}^{n \times n}$ be a bidiagonal matrix with non-zero diagonal, 
-% $i.e. \ u_{ii} \neq 0 \ \text{for} \ i = 1, 2, \ldots , n$,
-
-\begin{align*}
-    U &= \mqty[
-        d_{1} & b_{1} &   &   &  \\
-          & d_{2} & b_{2} &   &  \\
-          &   & \ddots & \ddots &  \\
-          &   &   & d_{n-1} & b_{n-1}\\
-          &   &   &   & d_{n}
-    ] \in \mathbb{R}^{n \times n}
-\end{align*}
-
-
-
-
-\begin{align*}
-    x &= \mqty[
-        x_{1} \\
-        x_{2} \\
-        \vdots \\
-        x_{n-1} \\
-        x_{n}
-        ]
-    \in \mathbb{R}^{n \times 1}
-    &
-    y &= \mqty[
-        y_{1} \\
-        y_{2} \\
-        \vdots \\
-        y_{n-1} \\
-        y_{n}
-        ]
-    \in \mathbb{R}^{n \times 1}
-    &
-    y^{\T} &= \mqty[
-        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
-        ] \in \mathbb{R}^{1 \times n}
-\end{align*}
-
-
-
-\begin{align*}
-    xy^{\T} &= \mqty[
-        x_{1} \\
-        x_{2} \\
-        \vdots \\
-        x_{n-1} \\
-        x_{n}
-        ]
-        \mqty[
-        y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
-        ]\\
-    &= \mqty[
-        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
-        x_{2} y_{1} & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
-        \vdots & \vdots & \ddots & \vdots & \vdots\\
-        x_{n-1} y_{1} & x_{n-1} y_{2} & \cdots & x_{n-1} y_{n-1} & x_{n-1} y_{n}\\
-        x_{n} y_{1} & x_{n} y_{2} & \cdots & x_{n} y_{n-1} & x_{n} y_{n}
-        ]\\
-    &= x\mqty[
-            y_{1} & y_{2} & \cdots & y_{n-1} & y_{n}
-            ]\\
-    &= \mqty[
-        xy_{1} & xy_{2} & \cdots & xy_{n-1} & xy_{n}
-        ]
-\end{align*}
-
-
-
-
-\begin{align*}
-    \triu(xy^{\T}) &= \mqty[
-        x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n-1} & x_{1} y_{n}\\
-        0 & x_{2} y_{2} & \cdots & x_{2} y_{n-1} & x_{2} y_{n}\\
-        \vdots & \vdots & \ddots & \vdots & \vdots\\
-        0 & 0 & \cdots & x_{4} y_{n-1} & x_{4} y_{n}\\
-        0 & 0 & \cdots & 0 & x_{5} y_{n}
-        ]\\
-    &= \mqty[
-        \mqty[
-            x_{1:1} \\
-            0_{n-1}
-            ]y_{1} &
-        \mqty[
-            x_{1:2} \\
-            0_{n-2}
-            ]y_{2} &
-        \cdots &
-        \mqty[
-            x_{1:n-1} \\
-            0
-            ]y_{n-1} &
-        x y_{n} 
-        ]
-\end{align*}
-
-
-\begin{align*}
-    U^{-1} &= \triu(xy^{\T}) \\
-    I &= U \triu(xy^{\T})
-\end{align*}
-
-$n$-th column, 
-\begin{align*}
-    e_{n} &= U \triu(xy^{\T})e_{n} \\
-    &= U x y_{n}    
-\end{align*}
-
-
-
-% \begin{align*}
-%     x :&= \alpha U^{-1} e_{n} \\
-%     Ux &= \alpha e_{n} \\
-%     e_{n} &= U x y_{n} \\
-%         &= \alpha e_{n} y_{n} \\
-%     y_n :&= \frac{1}{\alpha}
-% \end{align*}
-
-\begin{align*}
-    x :&= U^{-1} e_{n} \\
-    % e_{n} &= U x \\
-    e_{n} &= U x y_{n} \\
-        &= U U^{-1} e_{n} y_{n} \\
-        &= e_{n} y_{n} \\
-    y_n :&= 1
-\end{align*}
-
-
-$(n-1)$-th column, 
-
-\begin{align*}
-    e_{n-1} &= U \triu(xy^{\T})e_{n-1} \\
-    &= U \mqty[
-        x_{1:n-1} \\
-        0
-        ]y_{n-1}   
-\end{align*}
-
-$(n-1)$-th row of $(n-1)$-th column, 
-
-\begin{align*}
-    e_{i}^{\T} e_{j} = \delta_{ij} 
-\end{align*}
-
-\begin{align*}
-    e_{n-1}^{\T} e_{n-1} = 1 &= e_{n-1}^{\T} U \mqty[
-        x_{1:n-1} \\
-        0
-        ]y_{n-1} \\
-        &= \mqty[
-            0_{n-2} & d_{n-1} & b_{n-1}
-        ] \mqty[
-            x_{1:n-1} \\
-            0
-        ]y_{n-1} \\
-        & = d_{n-1} x_{n-1} y_{n-1} \\
-    y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
-\end{align*}
-
-
-\begin{align*}
-    % x :&= U^{-1} e_n\\
-    e_{n} &= U x \\
-    e_{n}^{\T} e_{n} = 1 &= e_{n}^{\T} U x \\
-        &= \mqty[
-            0_{n-1} & d_{n}
-        ] x \\
-        &= d_{n} x_{n} \\
-    y_{n} :&= 1 \\
-        :&= (d_{n} x_{n})^{-1}
-    % y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
-\end{align*}
-
-\begin{align*}
-    x :&= U^{-1} e_n \\
-    y_{i} :&= (d_{i} x_{i})^{-1}
-\end{align*}
-
-
-
-% \noindent Let $x \in \mathbb{R}^{n}$
-
-\newpage
 \subsection{Tridiagonal matrix (Upper)}
 
 
@@ -731,19 +473,84 @@ $r \neq 0,\ n = ku+r, $
 \newpage
 
 \section{28.06.2022 Meeting formal}
+
+\subsection{Notation}
+
+\noindent This notes use Householder notation and start indexing at one.
+
+\begin{align*}
+    \text{Scalars, lower case Greek letters: }& \alpha,\, \beta,\, \gamma,\, \chi,\, etc.\\
+    \text{Vectors, lower case Roman letter: }& a,\, b,\, c,\, x,\, etc.\\
+    \text{Matrix, upper case Roman letter: }& A,\, B,\, C,\, X,\, etc.\\
+\end{align*}
+
+\subsection{Repersentation}
+
+\subsubsection*{Matrix \& Vector}
+\begin{align*}
+    x   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            \chi_{1} \\
+            \chi_{2} \\
+            \Vdots   \\
+            \chi_{n} 
+        \end{bNiceMatrix} \in \mathbb{R}^{n}\\
+    A   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            \alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n} \\
+            \alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n} \\
+            \Vdots      & \Vdots      & \Vdots & \Vdots      \\
+            \alpha_{m1} & \alpha_{m2} & \cdots & \alpha_{1n} \\
+        \end{bNiceMatrix}\\
+        =&
+        \begin{bNiceMatrix}[vlines,margin]
+            a_{1} & a_{2} & \cdots & a_{n} 
+        \end{bNiceMatrix}\in \mathbb{R}^{m \times n}\\
+\end{align*}
+
+\subsubsection*{Block Matrix \& Block Vector}
+\begin{align*}
+    x   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            x_{1} \\
+            x_{2} \\
+            \Vdots   \\
+            x_{n} 
+        \end{bNiceMatrix} \in \mathbb{R}^{kn},\, x_{i} \in \mathbb{R}^{k}\\
+    A   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            A_{11} & A_{12} & \cdots & A_{1n} \\
+            A_{21} & A_{22} & \cdots & A_{2n} \\
+            \Vdots & \Vdots & \Vdots & \Vdots      \\
+            A_{m1} & A_{m2} & \cdots & A_{1n} \\
+        \end{bNiceMatrix}\\
+        =&
+        \begin{bNiceMatrix}[vlines,margin]
+            A_{1} & A_{2} & \cdots & A_{n} 
+        \end{bNiceMatrix}\in \mathbb{R}^{lm \times kn},\, A_{ij} \in \mathbb{R}^{l \times k}
+\end{align*}
+
+
+
+
+
+\newpage
+\subsection{Content}
+
+
 Consider an upper banded matrix $U \in \mathbb{R}^{n \times n}$,
 
 \begin{align}
     U = 
-    \begin{bNiceMatrix}
-        d_{1} & b^{1}_{1} & b^{2}_{1} & \Cdots & b^{u}_{1} &   &   &   \\
-          & d_{2} & b^{1}_{2} & b^{2}_{2} & \Cdots & b^{u}_{2} &   &   \\
+    \begin{bNiceMatrix}[margin]
+        \alpha_{1} & \beta^{1}_{1} & \beta^{2}_{1} & \Cdots & \beta^{u}_{1} &   &   &   \\
+          & \alpha_{2} & \beta^{1}_{2} & \beta^{2}_{2} & \Cdots & \beta^{u}_{2} &   &   \\
           &   & \Ddots & \Ddots &  &   & \Ddots &   \\
-          &   &   &   &   &   &   & b^{u}_{n-u} \\
+          &   &   &   &   &   &   & \beta^{u}_{n-u} \\
           &   &   &   &   &   &   & \Vdots \\
-          &   &   &   &   &   &   & b^{2}_{n-2} \\
-          &   &   &   &   &   &   & b^{1}_{n-1} \\
-          &   &   &   &   &   &   & d_{n} \\
+          &   &   &   &   &   &   & \beta^{2}_{n-2} \\
+          &   &   &   &   &   &   & \beta^{1}_{n-1} \\
+          &   &   &   &   &   &   & \alpha_{n} \\
     \end{bNiceMatrix}\label{U_banded}.
 \end{align}
 % \nonumber
@@ -756,7 +563,7 @@ Consider an upper banded matrix $U \in \mathbb{R}^{n \times n}$,
 
 \noindent Let $X,\ Y \in \mathbb{R}^{n \times u}$, consider the following cases of $n$,
 
-\subsection*{\bm{$n = ku$}}
+\subsection*{Case 1, \bm{$n = ku$}}
 
 then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
 
@@ -765,53 +572,258 @@ then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
 \setcounter{MaxMatrixCols}{30}
 \begin{align}
     U &=
-    \begin{bNiceMatrix}[first-row,first-col]
+    \begin{bNiceMatrix}[first-row,first-col,margin]
           & \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} & \hspace*{1mm} &
             \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} & \hspace*{1mm} &
             \hspace*{1mm} & \Cdots & \hspace*{1mm} &
             \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} & \hspace*{1mm} \\
+        % 
         \hspace*{1mm} &
-            d_{1} & \Cdots & b^{u-1}_{1} & b^{u}_{1} &&&&&&&&\\
+            \alpha_{1} & \Cdots & \beta^{u-1}_{1} & \beta^{u}_{1} &&&&&&&&\\
         \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
             & \Ddots & \Vdots & \Vdots & \Ddots &&&&&&&\\
         \hspace*{1mm} &
-            && d_{u} & b^{1}_{u} & \Cdots & b^{u}_{u} &&&&&&\\
+            && \alpha_{u} & \beta^{1}_{u} & \Cdots & \beta^{u}_{u} &&&&&&\\
+        % 
         \hspace*{1mm} &
-            &&& d_{u+1} & \Cdots & b^{u-1}_{u+1} & b^{u}_{u+1} &&&&&\\
+            &&& \alpha_{u+1} & \Cdots & \beta^{u-1}_{u+1} & \beta^{u}_{u+1} &&&&&\\
         \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
             &&&& \Ddots & \Vdots & \Vdots & \Ddots &&&&\\
         \hspace*{1mm} &
-            &&&&& d_{2u} & b^{1}_{2u} & \Cdots & b^{u}_{2u} &&&\\
+            &&&&& \alpha_{2u} & \beta^{1}_{2u} & \Cdots & \beta^{u}_{2u} &&&\\
+        % 
         \hspace*{1mm} &
-            &&&&&& \hspace*{1mm} & \Cdots & \hspace*{1mm} & \hspace*{1mm} &&\\
+            &&&&&&&&&&&\\
         \Vdots &
-            &&&&&&& \Ddots & \Vdots & \Vdots & \Ddots &\\
+            &&&&&&  & \ddots &&& \ddots &\\
         \hspace*{1mm} &
-            &&&&&&&& \hspace*{1mm} & \hspace*{1mm} & \Cdots & \hspace*{8mm}\\
+            &&&&&&&&&&&\\
+        % 
         \hspace*{1mm} &
-            &&&&&&&&& d_{(k-1)u} & \Cdots & b^{u}_{(k-1)u} \\
+            &&&&&&&&& \alpha_{(k-1)u+1} & \Cdots & \beta^{u-1}_{(k-1)u+1} \\
         \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
             &&&&&&&&&& \Ddots & \Vdots \\
         \hspace*{1mm} &
-            &&&&&&&&&&& d_{ku}\\
-    \end{bNiceMatrix} \nonumber \\
+            &&&&&&&&&&& \alpha_{ku}\\
+    \end{bNiceMatrix}
+    \nonumber \\
     &= 
-    \begin{bNiceMatrix}
+    \begin{bNiceMatrix}[margin]
         D_{1}   & B_{1} &           &           &  \\
                 & D_{2} & B_{2}     &           &  \\
                 &       & \ddots    & \ddots    &  \\
                 &       &           & D_{k-1}   & B_{k-1}\\
                 &       &           &           & D_{k}
-    \end{bNiceMatrix} \label{U_block_bi}
+    \end{bNiceMatrix}\in \mathbb{R}^{ku \times ku},\, D_{i},\,B_{i} \in \mathbb{R}^{u \times u} \ \text{for} \ i =  1,\, 2,\, \dots,\, k.
+    \label{U_block_bi}
+\end{align}
+
+\noindent Repersent the $n$-dimensional identity matrix $I_{n \times n}$ in block form,
+
+\begin{align*}
+    I_{n \times n} = I_{ku \times ku} = \diag(\underbrace{I_{u \times u},\ I_{u \times u},\ \cdots,\ I_{u \times u}}_{k}) =
+    \begin{bNiceMatrix}[vlines,margin]
+        E_{1} & E_{2} & \cdots & E_{k}
+    \end{bNiceMatrix}.
+\end{align*}
+
+
+\noindent then, its block columns $E_{i}$ for $i =  1,\, 2,\, \dots,\, k$ satisfies
+
+\begin{align*}
+    E_{i} &\in \mathbb{R}^{ku \times u} \\
+    E_{i}^{\T} E_{j} &= 
+    \begin{cases}
+        I_{u \times u}, & \text{if} \ i=j \ ;\\
+        0_{u \times u}, & \text{otherwise}.
+    \end{cases}.
+\end{align*}
+
+
+\noindent To find $X$ and $Y$ such that \eqref{main_eqn} holds, let
+
+\begin{align*}
+    X =
+    \begin{bNiceMatrix}[margin]
+        X_{1} \\
+        X_{2} \\
+        \vdots \\
+        X_{k-1} \\
+        X_{k}
+    \end{bNiceMatrix} \in \mathbb{R}^{ku \times u},\,
+    Y = 
+    \begin{bNiceMatrix}[margin]
+        Y_{1} \\
+        Y_{2} \\
+        \vdots \\
+        Y_{k-1} \\
+        Y_{k}
+    \end{bNiceMatrix} \in \mathbb{R}^{ku \times u},\, X_{i},\,Y_{i} \in \mathbb{R}^{u \times u}\ \text{for} \ i =  1,\, 2,\, \dots,\, k,
+\end{align*}
+
+\noindent and let $X_{k}$ and $Y_{k}$ be upper triangular matrix.
+
+
+\noindent For the outer product form, 
+
+\begin{align*}
+    Y^{\T} &=
+        \begin{bNiceMatrix}[vlines,margin]
+            Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
+        \end{bNiceMatrix} \in \mathbb{R}^{u \times ku} \\
+    XY^{\T} &=
+        \begin{bNiceMatrix}[margin]
+            X_{1} \\
+            X_{2} \\
+            \vdots \\
+            X_{k-1} \\
+            X_{k}
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}[vlines,margin]
+            Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
+        \end{bNiceMatrix} \\
+        &= \begin{bNiceMatrix}[vlines,margin]
+            X_{1} Y_{1}^{\T} & X_{1} Y_{2}^{\T} & \cdots & X_{1} Y_{k-1}^{\T} & x_{1} Y_{k}^{\T}\\
+            X_{2} Y_{1}^{\T} & X_{2} Y_{2}^{\T} & \cdots & X_{2} Y_{k-1}^{\T} & x_{2} Y_{k}^{\T}\\
+            \vdots & \vdots & \vdots & \vdots & \vdots\\
+            X_{k-1} Y_{1}^{\T} & X_{k-1} Y_{2}^{\T} & \cdots & X_{k-1} Y_{k-1}^{\T} & X_{k-1} Y_{k}^{\T}\\
+            X_{k} Y_{1}^{\T} & X_{k} Y_{2}^{\T} & \cdots & X_{k} Y_{k-1}^{\T} & X_{k} Y_{k}^{\T}
+        \end{bNiceMatrix} \\
+        &= X
+        \begin{bNiceMatrix}[vlines,margin]
+            Y_{1}^{\T} & Y_{2}^{\T} & \cdots & Y_{k-1}^{\T} & Y_{k}^{\T}
+        \end{bNiceMatrix} \\
+        &= 
+        \begin{bNiceMatrix}[vlines,margin]
+            XY_{1}^{\T} & XY_{2}^{\T} & \cdots & XY_{k-1}^{\T} & XY_{k}^{\T}
+        \end{bNiceMatrix} \in \mathbb{R}^{ku \times ku},
+\end{align*}
+
+\noindent and its the upper triangular componnent,
+
+\begin{align}
+    \triu(XY^{\T}) &= 
+        \begin{bNiceMatrix}[vlines,margin]
+            \triu(X_{1} Y_{1}^{\T}) & X_{1} Y_{2}^{\T} & \cdots & X_{1} Y_{k-1}^{\T} & X_{1} Y_{k}^{\T}\\
+            0_{u \times u} & \triu(X_{2} Y_{2}^{\T}) & \cdots & X_{2} Y_{k-1}^{\T} & X_{2} Y_{k}^{\T}\\
+            \vdots & \vdots & \vdots & \vdots & \vdots\\
+            0_{u \times u} & 0_{u \times u} & \cdots & \triu(X_{k-1} Y_{k-1}^{\T}) & X_{k-1} Y_{k}^{\T}\\
+            0_{u \times u} & 0_{u \times u} & \cdots & 0_{u \times u} & X_{k} Y_{k}^{\T}
+        \end{bNiceMatrix}
+        \nonumber \\
+        &= 
+        \begin{bNiceMatrix}[vlines,margin]
+            \triu(X_{1} Y_{1}^{\T}) & X_{1} Y_{2}^{\T}          &        & X_{1:k-2}Y_{k-1}^{\T}      &  \\
+            0_{(k-2)u \times u}     & \triu(X_{2} Y_{2}^{\T})   & \cdots & \triu(X_{k-1}Y_{k-1}^{\T}) & X Y_{k}^{\T}\\
+            0_{u \times u}          & 0_{(k-2)u \times u}       &        & 0_{u \times u}             &  
+        \end{bNiceMatrix}. \label{triuXYt}
 \end{align}
 
 
+\noindent From \eqref{main_eqn},
+
+\begin{align}
+    I_{n \times n} = U \triu(XY^{\T}). \label{focus_eqn}
+\end{align}
+
+
+\noindent For $X$ and $Y_{k}$, from \eqref{triuXYt}, the $k$-th block column of \eqref{focus_eqn} can be written as,
+
+\begin{align}
+    E_{k} &= U \triu(XY^{\T})E_{k} \nonumber \\
+    E_{k} &= U X Y_{k}^{\T} \label{eqnX_ku}
+\end{align}
+
+
+\noindent Define that
+
+\begin{align}
+    X &\coloneqq U^{-1} E_{k}; \label{X_ku} \\ 
+    Y_{k}^{\T} &\coloneqq I_{u \times u}, \label{Yk_ku}
+\end{align}
+
+\noindent which can be shown that \eqref{eqnX_ku} holds for \eqref{X_ku} and \eqref{Yk_ku} as
+
+\begin{align*}
+    U X Y_{k}^{\T} &= U U^{-1} E_{k} I_{u \times u} \\
+        &= I_{n \times n} E_{k} I_{u \times u} \\
+        &= E_{k} I_{u \times u} \\
+        &= E_{k}.
+\end{align*}
+
+
+\noindent Then, for $Y_{k-1}$, forming the $(k-1)$-th block column of \eqref{focus_eqn} from \eqref{triuXYt} first,
+
+\begin{align*}
+    E_{k-1} &= U \triu(XY^{\T})E_{k-1} \\
+    &= U 
+    \begin{bNiceMatrix}[margin]
+        X_{1:k-2}Y_{k-1}^{\T} \\
+        \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        0_{u \times u}
+    \end{bNiceMatrix}.
+\end{align*}
+
+\noindent Focusing on the $(k-1)$-th block row of $(k-1)$-th block column, 
+
+
+\begin{align*}
+    E_{k-1}^{\T} E_{k-1} = I_{2 \times 2} &= E_{k-1}^{\T} U \mqty[
+        X_{1:k-2}Y_{k-1}^{\T} \\
+        \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        0_{2 \times 2}
+        ] \\
+        &= \mqty[
+            0_{2 \times 2(k-2)} & D_{k-1} & B_{k-1}
+        ] \mqty[
+            X_{1:k-2}Y_{k-1}^{\T} \\
+            \triu(X_{k-1}Y_{k-1}^{\T}) \\
+            0_{2 \times 2}
+            ] \\
+        & = D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) \\
+        % &= \triu(D_{k-1}X_{k-1}Y_{k-1}^{\T}) \ (\text{as}\  D_{k-1} = \triu(D_{k-1}))\\
+    Y_{k-1}^{\T} &\coloneqq (D_{k-1} X_{k-1})^{-1}
+\end{align*}
+
+\begin{align*}
+    D_{k-1} &= \triu(D_{k-1})\\
+    D_{k-1}^{-1} &= \triu(D_{k-1}^{-1})\\
+    Y_{k-1}^{\T} &\coloneqq (D_{k-1} X_{k-1})^{-1}\\
+    D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) &= D_{k-1} \triu(X_{k-1}(D_{k-1} X_{k-1})^{-1})\\
+        &= D_{k-1} \triu(X_{k-1} X_{k-1}^{-1} D_{k-1}^{-1})\\
+        &= D_{k-1} \triu(D_{k-1}^{-1})\\
+        &= D_{k-1} D_{k-1}^{-1}\\
+        &= I_{2 \times 2}
+\end{align*}
+
+
+\begin{align*}
+    X &\coloneqq U^{-1} E_k\\
+    E_{k} &= U X \\
+    E_{k}^{\T} E_{k} = I_{2 \times 2} &= E_{k}^{\T} U X \\
+        &= \mqty[
+            0_{2 \times 2(k-1)} & D_{k}
+        ] X \\
+        &= D_{k} X_{k} \\
+    Y_{k}^{\T} &\coloneqq I_{2 \times 2} \\
+        &\coloneqq (D_{k} X_{k})^{-1}
+    % y_{n-1} :&= (d_{n-1} x_{n-1})^{-1}
+\end{align*}
+
+\begin{align*}
+    X &\coloneqq U^{-1} E_{k} \\
+    Y_{i}^{\T} &\coloneqq (D_{i} X_{i})^{-1}
+\end{align*}
 
 
 
 
 
 
+
+
+
+% hlines,
 
 
 
