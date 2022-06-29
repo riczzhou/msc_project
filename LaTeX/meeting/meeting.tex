@@ -661,7 +661,8 @@ then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
     \end{bNiceMatrix} \in \mathbb{R}^{ku \times u},\, X_{i},\,Y_{i} \in \mathbb{R}^{u \times u}\ \text{for} \ i =  1,\, 2,\, \dots,\, k,
 \end{align*}
 
-\noindent and let $X_{k}$ and $Y_{k}$ be upper triangular matrix.
+\noindent and let $X_{k}$ and $Y_{k}^{\T}$ be upper triangular matrix, 
+then $\triu(X_{k} Y_{k}^{\T}) = X_{k} Y_{k}^{\T}$.
 
 
 \noindent For the outer product form, 
@@ -717,7 +718,7 @@ then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
             0_{(k-2)u \times u}     & \triu(X_{2} Y_{2}^{\T})   & \cdots & \triu(X_{k-1}Y_{k-1}^{\T}) & X Y_{k}^{\T}\\
             0_{u \times u}          & 0_{(k-2)u \times u}       &        & 0_{u \times u}             &  
         \end{bNiceMatrix}. \label{triuXYt}
-\end{align}
+zz\end{align}
 
 
 \noindent From \eqref{main_eqn},
@@ -767,23 +768,39 @@ then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
 \noindent Focusing on the $(k-1)$-th block row of $(k-1)$-th block column, 
 
 
-\begin{align*}
-    E_{k-1}^{\T} E_{k-1} = I_{2 \times 2} &= E_{k-1}^{\T} U \mqty[
-        X_{1:k-2}Y_{k-1}^{\T} \\
-        \triu(X_{k-1}Y_{k-1}^{\T}) \\
-        0_{2 \times 2}
-        ] \\
-        &= \mqty[
-            0_{2 \times 2(k-2)} & D_{k-1} & B_{k-1}
-        ] \mqty[
+% \begin{bNiceMatrix}[margin]
+%     X_{1:k-2}Y_{k-1}^{\T} \\
+%     \triu(X_{k-1}Y_{k-1}^{\T}) \\
+%     0_{u \times u}
+% \end{bNiceMatrix}
+
+\begin{align}
+    E_{k-1}^{\T} E_{k-1} &= E_{k-1}^{\T} U 
+        \begin{bNiceMatrix}[margin]
             X_{1:k-2}Y_{k-1}^{\T} \\
             \triu(X_{k-1}Y_{k-1}^{\T}) \\
-            0_{2 \times 2}
-            ] \\
-        & = D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) \\
-        % &= \triu(D_{k-1}X_{k-1}Y_{k-1}^{\T}) \ (\text{as}\  D_{k-1} = \triu(D_{k-1}))\\
+            0_{u \times u}
+        \end{bNiceMatrix} \nonumber \\
+    I_{u \times u} &=
+        \begin{bNiceMatrix}[vlines,margin]
+            0_{u \times (k-2)u} & D_{k-1} & B_{k-1}
+        \end{bNiceMatrix} 
+        \begin{bNiceMatrix}[hlines,margin]
+            X_{1:k-2}Y_{k-1}^{\T} \\
+            \triu(X_{k-1}Y_{k-1}^{\T}) \\
+            0_{u \times u}
+        \end{bNiceMatrix} \nonumber \\
+    I_{u \times u} &= D_{k-1} \triu(X_{k-1}Y_{k-1}^{\T}) \label{eqnY_k_1u}
+\end{align}
+
+
+
+\noindent Define that
+
+\begin{align*}
     Y_{k-1}^{\T} &\coloneqq (D_{k-1} X_{k-1})^{-1}
 \end{align*}
+
 
 \begin{align*}
     D_{k-1} &= \triu(D_{k-1})\\
@@ -795,6 +812,11 @@ then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
         &= D_{k-1} D_{k-1}^{-1}\\
         &= I_{2 \times 2}
 \end{align*}
+
+
+
+
+
 
 
 \begin{align*}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  28 JUN 2022 20:49
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  29 JUN 2022 17:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -755,7 +755,7 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 \l__nicematrix_local_start_int=\count362
 \l__nicematrix_local_end_int=\count363
  [7] [8] [9] [10] [11]
-Overfull \hbox (9.52507pt too wide) detected at line 847
+Overfull \hbox (9.52507pt too wide) detected at line 869
 $\OMX/cmex/m/n/10.95 z }| {$
  []
 
@@ -764,12 +764,12 @@ Package rerunfilecheck Info: File `meeting.out' has not changed.
 (rerunfilecheck)             Checksum: CBB5EB3C1C23366FA6054FC268A687BB;1095.
  ) 
 Here is how much of TeX's memory you used:
- 58411 strings out of 476179
- 1194067 string characters out of 5809544
- 1779823 words of memory out of 5000000
- 78721 multiletter control sequences out of 15000+600000
+ 59201 strings out of 476179
+ 1210762 string characters out of 5809544
+ 1791416 words of memory out of 5000000
+ 79511 multiletter control sequences out of 15000+600000
  480265 words of font info for 82 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 76i,25n,97p,486b,1993s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 76i,25n,97p,486b,2045s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on meeting.pdf (15 pages).
