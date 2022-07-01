@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  23 JUN 2022 01:26
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  1 JUL 2022 08:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/zhiwei_zhou/IC/project/msc_project/Notes/project_notes
-(/Users/zhiwei_zhou/IC/project/msc_project/Notes/project_notes.tex
+**/Users/zhiwei_zhou/IC/project/msc_project/LaTeX/notes/notes
+(/Users/zhiwei_zhou/IC/project/msc_project/LaTeX/notes/notes.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24> (/usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -623,8 +623,8 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box70
 \@float@everytoks=\toks49
 \@floatcapt=\box71
-) (./project_notes.aux)
-\openout1 = `project_notes.aux'.
+) (./notes.aux)
+\openout1 = `notes.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
 LaTeX Font Info:    ... okay on input line 74.
@@ -655,8 +655,7 @@ Package hyperref Info: Link coloring OFF on input line 74.
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-)
-(/usr/local/texlive/2022/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+) (/usr/local/texlive/2022/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count351
@@ -664,9 +663,10 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 74.
 LaTeX Info: Redefining \pageref on input line 74.
 LaTeX Info: Redefining \nameref on input line 74.
- (./project_notes.out) (./project_notes.out)
+
+(./notes.out) (./notes.out)
 \@outlinefile=\write4
-\openout4 = `project_notes.out'.
+\openout4 = `notes.out'.
 
 \c@lstlisting=\count352
 
@@ -747,17 +747,17 @@ $\OMX/cmex/m/n/10.95 z }| {$
  []
 
 \l__nicematrix_l_dim=\dimen332
-[13] (./project_notes.aux)
-Package rerunfilecheck Info: File `project_notes.out' has not changed.
+[13] (./notes.aux)
+Package rerunfilecheck Info: File `notes.out' has not changed.
 (rerunfilecheck)             Checksum: 6C8D024A47D2CDD308ECE875B4348C9E;1236.
  ) 
 Here is how much of TeX's memory you used:
  28250 strings out of 476179
- 556296 string characters out of 5809544
- 950869 words of memory out of 5000000
+ 556178 string characters out of 5809544
+ 950854 words of memory out of 5000000
  48568 multiletter control sequences out of 15000+600000
  480257 words of font info for 81 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 76i,25n,94p,484b,894s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 76i,25n,94p,482b,894s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on project_notes.pdf (13 pages).
+Output written on notes.pdf (13 pages).

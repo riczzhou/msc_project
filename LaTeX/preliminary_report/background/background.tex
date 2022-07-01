@@ -1,0 +1,124 @@
+\chapter{Background}
+
+\section{Notation}
+
+\noindent This report uses Householder notation as following:
+
+\begin{align*}
+    \text{Scalars, lower case Greek letters: }& \alpha,\, \beta,\, \gamma,\, \chi,\, etc.\\
+    \text{Vectors, lower case Roman letter: }& a,\, b,\, c,\, x,\, etc.\\
+    \text{Matrix, upper case Roman letter: }& A,\, B,\, C,\, X,\, etc.\\
+\end{align*}.
+
+
+\subsection*{Matrix \& Vector}
+\begin{align*}
+    x   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            \chi_{1} \\
+            \chi_{2} \\
+            \Vdots   \\
+            \chi_{n} 
+        \end{bNiceMatrix} \in \mathbb{R}^{n}\\
+    A   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            \alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n} \\
+            \alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n} \\
+            \Vdots      & \Vdots      & \Vdots & \Vdots      \\
+            \alpha_{m1} & \alpha_{m2} & \cdots & \alpha_{1n} \\
+        \end{bNiceMatrix}\\
+        =&
+        \begin{bNiceMatrix}[vlines,margin]
+            a_{1} & a_{2} & \cdots & a_{n} 
+        \end{bNiceMatrix}\in \mathbb{R}^{m \times n}\\
+\end{align*}
+
+\subsection*{Block Matrix \& Block Vector}
+\begin{align*}
+    x   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            x_{1} \\
+            x_{2} \\
+            \Vdots   \\
+            x_{n} 
+        \end{bNiceMatrix} \in \mathbb{R}^{kn},\, x_{i} \in \mathbb{R}^{k}\\
+    A   =&
+        \begin{bNiceMatrix}[vlines,margin]
+            A_{11} & A_{12} & \cdots & A_{1n} \\
+            A_{21} & A_{22} & \cdots & A_{2n} \\
+            \Vdots & \Vdots & \Vdots & \Vdots      \\
+            A_{m1} & A_{m2} & \cdots & A_{1n} \\
+        \end{bNiceMatrix}\\
+        =&
+        \begin{bNiceMatrix}[vlines,margin]
+            A_{1} & A_{2} & \cdots & A_{n} 
+        \end{bNiceMatrix}\in \mathbb{R}^{lm \times kn},\, A_{ij} \in \mathbb{R}^{l \times k}
+\end{align*}
+
+
+
+\subsection*{Banded Matrix}
+
+
+\setcounter{MaxMatrixCols}{30}
+\NiceMatrixOptions{
+    code-for-first-row = \scriptstyle,
+    code-for-first-col = \scriptstyle,
+    code-for-last-row = \scriptstyle,
+    code-for-last-col = \scriptstyle,
+    }
+\begin{align*}
+    B =
+    \begin{bNiceMatrix}[first-row,first-col]
+          && \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} &&&\hspace*{1mm} 
+        &&&&&&\\
+         & \alpha_{1} & \beta^{1}_{1} & \beta^{2}_{1} & \Cdots && \beta^{u}_{1} &&&&&&\\
+        \hspace*{1mm} & \beta^{-1}_{1} & \alpha_{2} & \Ddots &&&& \Ddots &&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$l$\end{sideways}}
+            & \beta^{-2}_{1} & \Ddots & \Ddots &&&&&&&&&\\
+         & \Vdots &&&&&&&&&&&\\
+        \hspace*{1mm} & \beta^{-l}_{1} &&&&&&&&&&&\\
+         && \Ddots &&&&&&&&&&\\
+         &&&&&&&&&&&& \beta^{u}_{n-u}\\
+         &&&&&&&&&&&&  \\
+         &&&&&&&&&&&& \Vdots \\
+         &&&&&&&&&&&& \beta^{2}_{n-2}\\
+         &&&&&&&&&&&& \beta^{1}_{n-1}\\
+         &&&&&&&& \beta^{-l}_{n-l} & \Cdots & \beta^{-2}_{n-2} & \beta^{-1}_{n-1} & \alpha_{n}\\
+    \end{bNiceMatrix},
+\end{align*}
+
+\noindent where $\beta^{\pm i}_{j}$ is the $j$-th element on the $i$-th upper/lower band.
+
+
+
+
+\subsection*{\bm{\triu(A)}}
+
+
+\begin{align*}
+    A &=
+    \begin{bNiceMatrix}[first-row]
+          & \underset{\downarrow}{\begin{turn}{0}$2$\end{turn}} \\
+        \alpha_{11} & \alpha_{1,2} & \alpha_{1,3} & \alpha_{1,4} & \alpha_{1,5} \\
+        \alpha_{21} & \alpha_{2,2} & \alpha_{2,3} & \alpha_{2,4} & \alpha_{2,5} \\
+        \alpha_{31} & \alpha_{3,2} & \alpha_{3,3} & \alpha_{3,4} & \alpha_{3,5} \\
+        \alpha_{41} & \alpha_{4,2} & \alpha_{4,3} & \alpha_{4,4} & \alpha_{4,5} \\
+    \end{bNiceMatrix}\\
+    \triu(A, 2) &=
+    \begin{bNiceMatrix}[first-row]
+        & \underset{\downarrow}{\begin{turn}{0}$2$\end{turn}} \\
+      0 & 0 & \alpha_{1,3} & \alpha_{1,4} & \alpha_{1,5} \\
+      0 & 0 & 0 & \alpha_{2,4} & \alpha_{2,5} \\
+      0 & 0 & 0 & 0 & \alpha_{3,5} \\
+      0 & 0 & 0 & 0 & 0 \\
+  \end{bNiceMatrix}\\
+\end{align*}
+
+
+
+%  \overset{\uparrow}{j}
+
+
+
+

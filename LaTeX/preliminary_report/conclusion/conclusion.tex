@@ -1,0 +1,52 @@
+\chapter{Future work}
+
+
+\begin{itemize}
+    \item Fix the stability problem (if possible) ref. \cite{higham2002accuracy, golub2013matrix}
+    \item Learn different definition of semi-separable matrix and its properties ref. \cite{vandebril2005bibliography, vandebril2005note, vandebril2007matrix}
+    \item Learn Laplacian matrix $\bm{\Delta}$ (1D first) in the finite difference method, which is a tridiagonal matrix, and try to find a application of the above algorithm on its $LU$ decomposition as
+    \begin{align*}
+        \Delta = 
+        \begin{bNiceMatrix}
+            \times & \times &        &        \\
+            \times & \Ddots & \Ddots &        \\
+                   & \Ddots &        & \times \\
+                   &        & \times & \times
+        \end{bNiceMatrix}
+        =
+        \begin{bNiceMatrix}
+            \times &        &        &        \\
+            \times & \Ddots &        &        \\
+                   & \Ddots &        &        \\
+                   &        & \times & \times
+        \end{bNiceMatrix}
+        \begin{bNiceMatrix}
+            \times & \times &        &        \\
+                   & \Ddots & \Ddots &        \\
+                   &        &        & \times \\
+                   &        &        & \times
+        \end{bNiceMatrix}
+        = LU \ \ (\text{or}\ LL^{\T} \ \text{if } \Delta  \ \text{is posi. def.})
+    \end{align*}
+
+
+\noindent Then, if $\Delta$ has Cholesky factorization,
+    \begin{align*}
+        \Delta^{-1} = L^{-\T}L^{-1} = \tril(x y^{\T}) \triu(y x^{\T}) = \tril(\tilde{X} \tilde{Y}^{\T}) +  \triu(\tilde{Y} \tilde{X}^{\T})
+    \end{align*}
+    \item As inverse of upper bidiagonal and block upper bidiagonal matrices have solved, try to explore for block upper tridiagonal or triangular matrices
+    \item 2D Laplacian matrix for PDE, $\Delta \otimes I + I \otimes \Delta$ (if possible)
+\end{itemize}
+
+\noindent All references
+\cite{golub2013matrix,
+higham2002accuracy,
+vandebril2005note,
+higham2009cholesky,
+hunger2005floating,
+rozsa1991band,
+jain2010n,
+asplund1959inverses,
+vandebril2005bibliography,
+vandebril2007matrix,
+chandrasekaran2000fast}

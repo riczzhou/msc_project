@@ -1,0 +1,38 @@
+\chapter{Ongoing work}
+
+As the above algorithm has now been found to be unstable under \texttt{Float64} type, the current use of \texttt{BigFloat} type to avoid floating point overflow problems needs to be improved. There are currently two ideas for storing the numbers generated midway through the process to improve the floating point computing performance:
+
+\begin{itemize}
+    \item \textbf{Idea 1:} Use the fact that there are infinity pairs of $x$ and $y$ and the difference between     them are only a constant multiple, \textit{i.e.,} let $\tilde{x}$, $\tilde{y}$, and $\tilde{c}$ such        that\\
+        \begin{align*}
+            x &= \diag(c) \tilde{x}  \text{ or } x_i = c_i \tilde{x}_i \\
+            y &= (\diag(c))^{-1} \tilde{y}  \text{ or } y_j = c^{-1}_{j} \tilde{y}_j \\
+            \text{and, } U^{-1} &= \triu(x y^{\T}) \ \text{holds}.
+        \end{align*}
+        Then, 
+        \begin{align*}
+            U^{-1} &= \triu(x y^{\T}) \\
+            e_{i}^{\T} U^{-1} e_{j} &= x_i y_j \\
+                &= c_i \tilde{x}_i c^{-1}_{j} \tilde{y}_j \\
+                &= \frac{c_i}{c_{j}} \tilde{x}_i \tilde{y}_j
+        \end{align*}
+        which provides the operation of re-scaling for (possible) improving the floating point problem.
+    \item \textbf{Idea 2:} Rewrite the $x$ and $y$ in exponential form, \textit{i.e.,} let $\tilde{x}$, $\tilde{y}$, $s^{x}$, and $s^{y}$ such that
+        \begin{align*}
+            x_i &= s^{x}_{i} e^{\tilde{x}_i}  \text{ where } \tilde{x}_i = \log(|x_i|), s^{x}_{i} = sign(x_i) \\
+            y_j &= s^{y}_{j} e^{\tilde{y}_j}  \text{ where } \tilde{y}_j = \log(|y_i|), s^{y}_{j} = sign(y_i) \\
+        \end{align*}
+        using the factor that $\mathcal{O}(\log n)$ growth slower $\mathcal{O}(n)$ for (possible) improving the floating point problem. \\
+        Starting form upper bidiagonal matrix as the back-substitution process for upper bidiagonal matrix does not involve addition and the multiplication operation can keep this exponential form intact as $x_i y_j = s^{x}_{i} s^{y}_{j} e^{\tilde{x}_i + \tilde{y}_j}$
+        
+\end{itemize}
+
+\noindent The efficiency of the algorithm can also be tested, ref. \cite{golub2013matrix, hunger2005floating}
+\begin{itemize}
+    \item Time complexity ($\underbrace{u\mathcal{O}(n)}_{X} + \underbrace{k\mathcal{O}(u^3)}_{Y} + \underbrace{0.5\mathcal{O}(n^2)}_{\triu(XY^{\T}}$) \\
+    \item Space complexity \\
+    \item Benchmark test \\
+    \item \textit{etc.}
+\end{itemize}
+
+
