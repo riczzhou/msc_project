@@ -55,3 +55,18 @@ a
 # A = similar(X)
 
 [i for i in n-2 : -2 : 0]
+
+using LinearAlgebra
+Threads.nthreads()
+
+BLAS.get_num_threads()
+
+BLAS.set_num_threads(8)
+BLAS.get_num_threads()
+
+
+
+include("testforimport.jl")
+
+testforimport(1,2)
+
