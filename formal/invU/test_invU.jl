@@ -58,7 +58,7 @@ end
     for _ in 1:5
         n = rand(1:1000)
         U = big.(BandedMatrix(rand(n, n), (0, 1))) + 100*I
-        Uinv = InvBidiagUouter(U)
+        Uinv = invBidiagU(U)
         @test U * Uinv ≈ I
         @test Uinv * U ≈ I
     end
