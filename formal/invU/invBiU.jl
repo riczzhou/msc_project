@@ -21,8 +21,6 @@ function invBidiagU(U)
 end
 
 
-
-
 function invBidiagUxy(U)
     T = eltype(U)
     n = size(U)[2]
