@@ -1,7 +1,6 @@
 using LinearAlgebra
 
-
-function BackSubVec(U, b)
+function backSubVec(U, b)
     T = eltype(U)
     n = size(U)[2]
     x = zeros(T, n)
@@ -17,14 +16,14 @@ function BackSubVec(U, b)
 end
 
 
-function BandBackSubVec(U, b, bᵤ)
+function bandedBackSubVec(U, b, bw)
     T = eltype(U)
     n = size(U)[2]
     x = zeros(T, n)
     x[n] = b[n] / U[n, n]
     for i in n-1 : -1 : 1
         x[i] = b[i]
-        for j in i+1 : min(n, i+bᵤ)
+        for j in i+1 : min(n, i+bw)
             x[i] -= U[i, j] * x[j]
         end
         x[i] /= U[i, i]
@@ -33,25 +32,25 @@ function BandBackSubVec(U, b, bᵤ)
 end
 
 
-function BackSubMat(U, B)
+function backSubMat(U, B)
     T = eltype(U)
     n = size(U)[2]
     l = size(B)[2]
     X = zeros(T, n, l)
     for j in l : -1 : 1
-        X[:, j] = BackSubVec(U, B[:, j])
+        X[:, j] = backSubVec(U, B[:, j])
     end
     X;
 end
 
 
-function BandBackSubMat(U, B, bᵤ)
+function bandedBackSubMat(U, B, bw)
     T = eltype(U)
     n = size(U)[2]
     l = size(B)[2]
     X = zeros(T, n, l)
     for j in l : -1 : 1
-        X[:, j] = BandBackSubVec(U, B[:, j], bᵤ)
+        X[:, j] = bandedBackSubVec(U, B[:, j], bw)
     end
     X;
 end

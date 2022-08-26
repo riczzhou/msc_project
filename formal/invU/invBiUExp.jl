@@ -1,7 +1,7 @@
 using LinearAlgebra
 
 include("expNum.jl")
-
+include("genTestMat.jl")
 
 function expBidiagBackSubEn(U)
     n = size(U)[2]
@@ -12,7 +12,7 @@ function expBidiagBackSubEn(U)
     for i in n-1 : -1 : 1
         (sx[i], xE[i]) = expDivide(expTimes(fl2exp(-U[i, i+1]), (sx[i+1], xE[i+1])), fl2exp(U[i, i]))
     end
-    (sx, xE);
+    sx, xE;
 end
 
 function invBiUexp(U)
@@ -31,25 +31,20 @@ function invBiUexp(U)
 end
 
 
+using Test
 
-function getU(n)
-    U = rand(n,n) + (n/100)*I
-    U -= tril(U, -1) 
-    U -= triu(U, 2)
-    U
-end
 
-n = 1000
-U = getU(n)
 
-U = Bidiagonal(rand(n).+100, rand(n-1), :U)
-
+n = 5000
+U = generateTestTriangular(n, 1, Bidiagonal, Float64)
 
 En = one(U)[:, n]
 U * (U \ En) ≈ En
 x = exp2fl(expBidiagBackSubEn(U))
 U * x ≈ En
+norm(U * x - En)
 U * invBiUexp(U) ≈ I
+
 
 
 norm(U * invBiUexp(U) - I)
@@ -57,9 +52,8 @@ norm(U * inv(U) - I)
 
 
 using BenchmarkTools
-@btime UinvExp = invBiUexp(U)
+@btime UinvExp = invBiUexp(U);
 
-@btime Uinv = inv(U)
+@btime Uinv = inv(U);
 # UinvEmod = invBidiagUexpmod(U)
 
-U = Bidiagonal(rand(n).+100, rand(n-1), :U)

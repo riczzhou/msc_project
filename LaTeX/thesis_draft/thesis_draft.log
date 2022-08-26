@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  19 AUG 2022 13:11
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  26 AUG 2022 05:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -533,46 +533,24 @@ Package: verbatim 2020-07-07 v1.5u LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks44
 \verbatim@line=\toks45
 \verbatim@in@stream=\read3
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count333
-\lst@gtempboxa=\box67
-\lst@token=\toks46
-\lst@length=\count334
-\lst@currlwidth=\dimen296
-\lst@column=\count335
-\lst@pos=\count336
-\lst@lostspace=\dimen297
-\lst@width=\dimen298
-\lst@newlines=\count337
-\lst@lineno=\count338
-\lst@maxwidth=\dimen299
- (/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count339
-\lst@skipnumbers=\count340
-\lst@framebox=\box68
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2020/03/24 1.8d listings configuration
-))
-Package: listings 2020/03/24 1.8d (Carsten Heinz)
- (/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/rotating.sty
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
  (/usr/local/texlive/2022/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\c@r@tfl@t=\count341
+\c@r@tfl@t=\count333
 \rotFPtop=\skip58
 \rotFPbot=\skip59
-\rot@float@box=\box69
-\rot@mess@toks=\toks47
+\rot@float@box=\box67
+\rot@mess@toks=\toks46
 ) (/usr/local/texlive/2022/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2022/02/26 3.73 The Babel package
-\babel@savecnt=\count342
-\U@D=\dimen300
+\babel@savecnt=\count334
+\U@D=\dimen296
 \l@unhyphenated=\language87
  (/usr/local/texlive/2022/texmf-dist/tex/generic/babel/xebabel.def (/usr/local/texlive/2022/texmf-dist/tex/generic/babel/txtbabel.def))
 \bbl@readstream=\read4
-\bbl@dirlevel=\count343
+\bbl@dirlevel=\count335
  (/usr/local/texlive/2022/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
@@ -585,100 +563,107 @@ Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 Package: mathtools 2022/02/07 v1.28a mathematical typesetting tools
  (/usr/local/texlive/2022/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count344
-\calc@Bcount=\count345
-\calc@Adimen=\dimen301
-\calc@Bdimen=\dimen302
+\calc@Acount=\count336
+\calc@Bcount=\count337
+\calc@Adimen=\dimen297
+\calc@Bdimen=\dimen298
 \calc@Askip=\skip60
 \calc@Bskip=\skip61
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count346
+\calc@Ccount=\count338
 \calc@Cskip=\skip62
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-\g_MT_multlinerow_int=\count347
-\l_MT_multwidth_dim=\dimen303
+\g_MT_multlinerow_int=\count339
+\l_MT_multwidth_dim=\dimen299
 \origjot=\skip63
-\l_MT_shortvdotswithinadjustabove_dim=\dimen304
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen305
-\l_MT_above_intertext_sep=\dimen306
-\l_MT_below_intertext_sep=\dimen307
-\l_MT_above_shortintertext_sep=\dimen308
-\l_MT_below_shortintertext_sep=\dimen309
-\xmathstrut@box=\box70
-\xmathstrut@dim=\dimen310
+\l_MT_shortvdotswithinadjustabove_dim=\dimen300
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen301
+\l_MT_above_intertext_sep=\dimen302
+\l_MT_below_intertext_sep=\dimen303
+\l_MT_above_shortintertext_sep=\dimen304
+\l_MT_below_shortintertext_sep=\dimen305
+\xmathstrut@box=\box68
+\xmathstrut@dim=\dimen306
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count348
-\Gm@cntv=\count349
-\c@Gm@tempcnt=\count350
-\Gm@bindingoffset=\dimen311
-\Gm@wd@mp=\dimen312
-\Gm@odd@mp=\dimen313
-\Gm@even@mp=\dimen314
-\Gm@layoutwidth=\dimen315
-\Gm@layoutheight=\dimen316
-\Gm@layouthoffset=\dimen317
-\Gm@layoutvoffset=\dimen318
-\Gm@dimlist=\toks48
+\Gm@cnth=\count340
+\Gm@cntv=\count341
+\c@Gm@tempcnt=\count342
+\Gm@bindingoffset=\dimen307
+\Gm@wd@mp=\dimen308
+\Gm@odd@mp=\dimen309
+\Gm@even@mp=\dimen310
+\Gm@layoutwidth=\dimen311
+\Gm@layoutheight=\dimen312
+\Gm@layouthoffset=\dimen313
+\Gm@layoutvoffset=\dimen314
+\Gm@dimlist=\toks47
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count351
-\float@exts=\toks49
-\float@box=\box71
-\@float@everytoks=\toks50
-\@floatcapt=\box72
+\c@float@type=\count343
+\float@exts=\toks48
+\float@box=\box69
+\@float@everytoks=\toks49
+\@floatcapt=\box70
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/doublestroke/dsfont.sty
+Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
 ) (./thesis_draft.aux)
 \openout1 = `thesis_draft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 74.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 74.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 96.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 96.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 74.
-LaTeX Font Info:    ... okay on input line 74.
-Package hyperref Info: Link coloring OFF on input line 74.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 96.
+LaTeX Font Info:    ... okay on input line 96.
+Package hyperref Info: Link coloring OFF on input line 96.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
-
-(/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
+ (/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/usr/local/texlive/2022/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count352
+\c@section@level=\count344
 )
-LaTeX Info: Redefining \ref on input line 74.
-LaTeX Info: Redefining \pageref on input line 74.
-LaTeX Info: Redefining \nameref on input line 74.
+LaTeX Info: Redefining \ref on input line 96.
+LaTeX Info: Redefining \pageref on input line 96.
+LaTeX Info: Redefining \nameref on input line 96.
  (./thesis_draft.out) (./thesis_draft.out)
 \@outlinefile=\write4
 \openout4 = `thesis_draft.out'.
 
-\c@lstlisting=\count353
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -714,68 +699,81 @@ LaTeX Info: Redefining \nameref on input line 74.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 99.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 99.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 77.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 99.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ) [1
 
 ] [2]
-\g__nicematrix_max_cell_width_dim=\dimen319
-\c@iRow=\count354
-\c@jCol=\count355
-\l__nicematrix_cell_box=\box73
-\l__nicematrix_the_array_box=\box74
-\l__nicematrix_left_delim_dim=\dimen320
-\l__nicematrix_right_delim_dim=\dimen321
-\g__nicematrix_dp_row_zero_dim=\dimen322
-\g__nicematrix_ht_row_zero_dim=\dimen323
-\g__nicematrix_ht_row_one_dim=\dimen324
-\g__nicematrix_dp_ante_last_row_dim=\dimen325
-\g__nicematrix_ht_last_row_dim=\dimen326
-\g__nicematrix_dp_last_row_dim=\dimen327
-\g__nicematrix_ddots_int=\count356
-\g__nicematrix_iddots_int=\count357
-\g__nicematrix_delta_x_one_dim=\dimen328
-\g__nicematrix_delta_y_one_dim=\dimen329
-\g__nicematrix_delta_x_two_dim=\dimen330
-\g__nicematrix_delta_y_two_dim=\dimen331
-\l__nicematrix_initial_i_int=\count358
-\l__nicematrix_initial_j_int=\count359
-\l__nicematrix_final_i_int=\count360
-\l__nicematrix_final_j_int=\count361
-\l__nicematrix_l_dim=\dimen332
+\g__nicematrix_max_cell_width_dim=\dimen315
+\c@iRow=\count345
+\c@jCol=\count346
+\l__nicematrix_cell_box=\box71
+\l__nicematrix_the_array_box=\box72
+\l__nicematrix_left_delim_dim=\dimen316
+\l__nicematrix_right_delim_dim=\dimen317
+\g__nicematrix_dp_row_zero_dim=\dimen318
+\g__nicematrix_ht_row_zero_dim=\dimen319
+\g__nicematrix_ht_row_one_dim=\dimen320
+\g__nicematrix_dp_ante_last_row_dim=\dimen321
+\g__nicematrix_ht_last_row_dim=\dimen322
+\g__nicematrix_dp_last_row_dim=\dimen323
+\g__nicematrix_ddots_int=\count347
+\g__nicematrix_iddots_int=\count348
+\g__nicematrix_delta_x_one_dim=\dimen324
+\g__nicematrix_delta_y_one_dim=\dimen325
+\g__nicematrix_delta_x_two_dim=\dimen326
+\g__nicematrix_delta_y_two_dim=\dimen327
+\l__nicematrix_initial_i_int=\count349
+\l__nicematrix_initial_j_int=\count350
+\l__nicematrix_final_i_int=\count351
+\l__nicematrix_final_j_int=\count352
+\l__nicematrix_l_dim=\dimen328
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--218
+Overfull \hbox (21.92387pt too wide) detected at line 249
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 251--253
 
  []
 
-[3] [4] [5] [6] [7] [8] [9] [10]
-\l__nicematrix_local_start_int=\count362
-\l__nicematrix_local_end_int=\count363
- [11] [12] [13] [14] [15]
-Overfull \hbox (9.52507pt too wide) detected at line 1123
-$\OMX/cmex/m/n/10.95 z }| {$
+[3] [4] [5] [6]
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 521.
+ (/usr/local/texlive/2022/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+) [7]
+LaTeX Font Info:    Trying to load font information for U+dsrom on input line 597.
+ (/usr/local/texlive/2022/texmf-dist/tex/latex/doublestroke/Udsrom.fd
+File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
+) [8] [9] [10] [11] [12] [13] [14]
+\l__nicematrix_local_start_int=\count353
+\l__nicematrix_local_end_int=\count354
+ [15]
+Overfull \hbox (13.39647pt too wide) detected at line 1154
+[]
  []
 
-[16] [17] [18] [19] (./thesis_draft.aux)
+[16] [17] [18] [19] [20] (./thesis_draft.aux)
 Package rerunfilecheck Info: File `thesis_draft.out' has not changed.
-(rerunfilecheck)             Checksum: F1F7023D058B5F85E47DA55F639E6433;4177.
+(rerunfilecheck)             Checksum: 505AE6CAC53CF52C5E032D1AFD7A4FC6;4485.
  ) 
 Here is how much of TeX's memory you used:
- 65163 strings out of 476179
- 1345101 string characters out of 5809544
- 1861931 words of memory out of 5000000
- 85473 multiletter control sequences out of 15000+600000
- 480265 words of font info for 82 fonts, out of 8000000 for 9000
+ 47827 strings out of 476179
+ 975402 string characters out of 5809544
+ 1378618 words of memory out of 5000000
+ 68128 multiletter control sequences out of 15000+600000
+ 481168 words of font info for 89 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 76i,25n,97p,496b,2364s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 76i,25n,97p,496b,1488s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on thesis_draft.pdf (19 pages).
+Output written on thesis_draft.pdf (20 pages).

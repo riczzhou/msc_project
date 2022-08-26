@@ -1,4 +1,7 @@
 \documentclass[11pt]{article}
+% \documentclass{article}
+
+
 % 中文 \documentclass[UTF8]{ctexart}
 % 编译快捷键：Command+Option+B
 
@@ -7,6 +10,7 @@
 % 正向搜索：选中代码Command+Option+J
 
 % 反向搜索：shift+command点击预览PDF
+
 
 
 \usepackage[utf8]{inputenc}
@@ -32,7 +36,7 @@
 
 \usepackage{verbatim}
 \usepackage{url}
-\usepackage{listings}
+% \usepackage{listings}
 \usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
 
 
@@ -55,29 +59,43 @@
 \usepackage{graphicx}
 \usepackage{float}
 
+
+% \usepackage[usefamily={julia,jl}]{pythontex}
+\usepackage{dsfont}
+\usepackage{bbm}
+
 \newcommand{\diag}{\mathop{\mathrm{diag}}}
 
 \newcommand{\triu}{\mathop{\mathrm{triu}}}
 \newcommand{\tril}{\mathop{\mathrm{tril}}}
 \newcommand{\T}{\mathrm{T}}
 
-\newcommand{\redtext}[1]{\textcolor{red}{#1}}
+% \newcommand{\redtext}[1]{\textcolor{red}{#1}}
 
 \newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
 \newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+
+
+
 
 
 \title{\textbf{Thesis Contents}}
 \author{\textit{Zhiwei Zhou}}
 % \date{April 2022}
 
+
+
+
+% \usepackage{color}
+% \usepackage{xcolor}
+
+
+
+
+
 \begin{document}
 
 \maketitle
-
-
-
-
 
 
 \section*{Abstract}
@@ -85,11 +103,6 @@
 \section*{Contents}
 \section{List of Symbols}
 
-% \begin{itemize}
-%     \item $\mathbb{R}$  
-%     \item $\mathbb{R}^n$ 
-%     \item $\circ$ Hadamard product
-% \end{itemize}
 
 \section{List of Figures}
 
@@ -143,74 +156,96 @@
 \newpage
 
 
+
+\section{Julia code (Appendix)}
+
+
+
+
+
+
+% General text:
+% \qqtext \qq{} general quick quad text with argument
+% \qq{word or phrase} → word or phrase normal mode; left and right \quad
+% \qq*{word or phrase} → word or phrase starred mode; right \quad only
+
+% Special macros:
+% \qcomma or \qc →, right \quad only
+% \qcc → c.c. complex conjugate; left and right \quad unless starred \qcc* → c.c.
+
+% \qif → if left and right \quad unless starred \qif* → if
+% Similar to \qif:
+% \qthen, \qelse, \qotherwise, \qunless, \qgiven, \qusing, \qassume, \qsince,
+% \qlet, \qfor, \qall, \qeven, \qodd, \qinteger, \qand, \qor, \qas, \qin
+
+
 \section{Semiseparable}
 
 Define matrices $E_{u}(p)$ and $E_{l}(q)$ as following,
 
 \begin{align}
     E_{u}(p) = \begin{cases}
-        1 &  \text{if }\ i \leqslant j - p \ ; \\ 
-        0 &  \text{otherwise}.
+        1\qc &  \qif* i \leqslant j - p, \\ 
+        0\qc &  \text{otherwise}.
     \end{cases}
-     \quad\text{and}\quad 
+    \qand
     E_{l}(q) = \begin{cases}
-        1 &  \text{if }\ i \geqslant j - q \ ; \\ 
-        0 &  \text{otherwise}.
-    \end{cases}
-\end{align}.
+        1\qc &  \qif* i \geqslant j - q, \\ 
+        0\qc &  \text{otherwise}.
+    \end{cases}.
+\end{align}
 
 
-$i.e.$
-
+i.e.
 \begin{align}
     E_{u}(-1) &=
     \begin{bNiceMatrix}[margin]
-        1 & 1      & \Cdots &   & 1 \\
-        1 &        & \Ddots &   & \Vdots \\
-          & \Ddots & \Ddots &   &   \\
-          &        &        &   & 1 \\
-          &        &        & 1 & 1
+        1      & 1      &        & \Cdots & 1 \\
+        1      & \Ddots & \Ddots &        & \Vdots \\
+        0      & \Ddots & \Ddots & \Ddots &   \\
+        \Vdots & \Ddots & \Ddots & \Ddots & 1 \\
+        0      & \Cdots & 0      & 1      & 1
     \end{bNiceMatrix},
     & E_{u}(0) &=
     \begin{bNiceMatrix}[margin]
-        1 & 1 & \Cdots &   & 1 \\
-          &   & \Ddots &   & \Vdots \\
-          &   & \Ddots &   &   \\
-          &   &        &   & 1 \\
-          &   &        &   & 1
+        1      & 1      &        & \Cdots & 1 \\
+        0      & \Ddots & \Ddots &        & \Vdots \\
+               & \Ddots & \Ddots & \Ddots &   \\
+        \Vdots &        & \Ddots & \Ddots & 1 \\
+        0      & \Cdots &        & 0      & 1
     \end{bNiceMatrix},
     & E_{u}(1) &=
     \begin{bNiceMatrix}[margin]
-        0 & 1 & \Cdots &   & 1 \\
-          &   & \Ddots &   & \Vdots \\
-          &   & \Ddots &   &   \\
-          &   &        &   & 1 \\
-          &   &        &   & 0
-    \end{bNiceMatrix},\\
+        0      & 1      &        & \Cdots & 1 \\
+               & \Ddots & \Ddots &        & \Vdots \\
+               &        & \Ddots & \Ddots &   \\
+        \Vdots &        &        & \Ddots & 1 \\
+        0      & \Cdots &        &        & 0
+    \end{bNiceMatrix};\\
     E_{l}(-1) &=
     \begin{bNiceMatrix}[margin]
-        1 & 1      &        &   &   \\
-        1 &        & \Ddots &   &   \\
-        \Vdots & \Ddots & \Ddots &   &   \\
-          &        &        &   & 1 \\
-        1 & \Cdots &        & 1 & 1
+        1      & 1      & 0      & \Cdots & 0 \\
+        1      & \Ddots & \Ddots & \Ddots & \Vdots \\
+               & \Ddots & \Ddots & \Ddots & 0 \\
+        \Vdots &        & \Ddots & \Ddots & 1 \\
+        1      & \Cdots &        & 1      & 1
     \end{bNiceMatrix},
-    & E_{u}(0) &=
+    & E_{l}(0) &=
     \begin{bNiceMatrix}[margin]
-        1 &        &        &   &   \\
-        1 &        &        &   &   \\
-        \Vdots & \Ddots & \Ddots &   &   \\
-          &        &        &   &   \\
-        1 & \Cdots &        & 1 & 1
+        1      & 0      &        & \Cdots & 0 \\
+        1      & \Ddots & \Ddots &        & \Vdots \\
+               & \Ddots & \Ddots & \Ddots &   \\
+        \Vdots &        & \Ddots & \Ddots & 0 \\
+        1      & \Cdots &        & 1      & 1
     \end{bNiceMatrix},
-    & E_{u}(1) &=
+    & E_{l}(1) &=
     \begin{bNiceMatrix}[margin]
-        0 &        &        &   &   \\
-        1 &        &        &   &   \\
-        \Vdots & \Ddots & \Ddots &   &   \\
-          &        &        &   &   \\
-        1 & \Cdots &        & 1 & 0
-    \end{bNiceMatrix},
+        0      &        &        & \Cdots & 0 \\
+        1      & \Ddots &        &        & \Vdots \\
+               & \Ddots & \Ddots &        &   \\
+        \Vdots &        & \Ddots & \Ddots &   \\
+        1      & \Cdots &        & 1      & 0
+    \end{bNiceMatrix}.
 \end{align}
 
 where $|p| \leqslant n-1$ and $|q| \leqslant n-1$.
@@ -237,7 +272,7 @@ define symmetric \{1,1\}-semiseparable matrix, $S$
         x_{i} y_{j} &  \text{if } i \leqslant j \ ; \\ 
         x_{j} y_{i} &  \text{if } i \geqslant j .
     \end{cases}\\
-    &= \triu\left(x y^{\T}\right) + \tril\left(y x^{\T},-1\right) \\
+    &= \triu\left(x y^{\T}\right) + \tril\left(y x^{\T}, -1\right) \\
     &= \triu\left(x y^{\T}, 1\right) + \tril\left(y x^{\T}\right) \\
     &=
     \begin{bNiceMatrix}[margin]
@@ -254,17 +289,45 @@ define symmetric \{1,1\}-semiseparable matrix, $S$
 
 
 
-\section{Algorithm}
+
+
+
+\newpage
+
+\section{Matrix (basic def)}
+
+\subsection*{Matrix-Matrix Multiplication}
+\begin{align}
+    AB &= C \\
+    c_{ij} &= \sum_{k=1}^{n} a_{ik} b_{kj}
+\end{align}
+
+\subsection*{Matrix-Vector Multiplication}
+\begin{align}
+    Ax &= b \\
+    b_{i} &= \sum_{k=1}^{n} a_{ik} x_{k}
+\end{align}
+
+
+\newpage
+\section{Algorithm (Appendix)}
 
 \subsection*{Backward Subsitution}
 
+\begin{equation}
+    Ux = b
+\end{equation}
+
+
+\subsubsection*{Triangular Matrix}
 
 
 \begin{align}
-    Ux &= b \\
+% \begin{equation}
+% \begin{aligned}
     \begin{bNiceMatrix}[margin] %hlines,
         d_1 & u_{1}^{1} & u_{1}^{2} & \cdots & \cdots & u_{1}^{n-1} \\
-            & d_2 & u_{2}^{1} & u_{2}^{2} & \cdots & u_{1}^{n-2} \\
+            & d_2 & u_{2}^{1} & u_{2}^{2} & \cdots & u_{2}^{n-2} \\
         && \ddots & \ddots & \ddots & \vdots\\
         &&& d_{n-2} & u_{n-2}^{1} & u_{n-2}^{2} \\
         &&&& d_{n-1} & u_{n-1}^{1} \\
@@ -277,24 +340,147 @@ define symmetric \{1,1\}-semiseparable matrix, $S$
     \begin{bNiceMatrix}[margin] %hlines,
         b_1 \\ b_2 \\ \vdots \\ b_{n-2} \\ b_{n-1} \\ b_n
     \end{bNiceMatrix}
+% \end{aligned}
+% \end{equation}
+\end{align}
+
+% \begin{align}
+%         \begin{bNiceMatrix}[margin]
+%             d_{1} & u^{1}_{1} & u^{2}_{1} & \Cdots &   &   &   & u^{n-1}_{1}  \\
+%               & d_{2} & u^{1}_{2} & u^{2}_{2} & \Cdots &   &   & u^{n-2}_{2} \\
+%               &   & \Ddots & \Ddots & \Ddots &   &    & \Vdots \\
+%               &   &   &   &   &   &   &  \\
+%               &   &   &   &   &   &   &  \\
+%               &   &   &   &   & d_{n-2} & u_{n-2}^{1} & u_{n-2}^{2} \\
+%               &   &   &   &   &   & d_{n-1} & u_{n-1}^{1} \\
+%               &   &   &   &   &   &   & d_{n} \\
+%         \end{bNiceMatrix}
+%         \begin{bNiceMatrix}[margin] %hlines,
+%             x_1 \\ x_2 \\ \Vdots \\ \\ \\ x_{n-2} \\ x_{n-1} \\ x_n
+%         \end{bNiceMatrix}
+%         &=
+%         \begin{bNiceMatrix}[margin] %hlines,
+%             b_1 \\ b_2 \\ \Vdots \\ \\ \\ b_{n-2} \\ b_{n-1} \\ b_n
+%         \end{bNiceMatrix}
+% \end{align}
+
+\begin{align}
+    x_{n} &= b_{n} / u_{n n} \\
+    x_{i} &= \left.\left(b_{i}-\sum_{j=i+1}^{n} u_{i j} x_{j}\right) \right/ u_{i i}
+\end{align}
+
+\begin{align}
+    d_{n} x_{n} &= b_{n} & 
+        &\Rightarrow &
+        x_{n} &= \left. b_{n} \right/ d_{n} \\
+    d_{n-1} x_{n-1}+u_{n-1}^{1} x_{n} &= b_{n-1} &
+        &\Rightarrow &
+        x_{n-1} &= \left.\left(b_{n-1}-u_{n-1}^{1} x_{n}\right) \right/ d_{n-1} \\
+    d_{n-2} x_{n-2}+u_{n-2}^{1} x_{n-1}+u_{n-2}^{2} x_{n} &= b_{n-2} &
+        &\Rightarrow &
+        x_{n-2} &= \left.\left(b_{n-2}-u_{n-2}^{1} x_{n-1}-u_{n-2}^{2} x_{n}\right) \right/ d_{n-2} \\
+    & &
+        &\ \ \vdots &
+    & &
+\end{align}
+
+% \begin{align}
+%     b_{n} &= d_{n} x_{n} & 
+%         &\Rightarrow &
+%         x_{n} &= \left. b_{n} \right/ d_{n} \\
+%     b_{n-1} &= d_{n-1} x_{n-1}+u_{n-1}^{1} x_{n} &
+%         &\Rightarrow &
+%         x_{n-1} &= \left.\left(b_{n-1}-u_{n-1}^{1} x_{n}\right) \right/ d_{n-1} \\
+%     b_{n-2} &= d_{n-2} x_{n-2}+u_{n-2}^{1} x_{n-1}+u_{n-2}^{2} x_{n} &
+%         &\Rightarrow &
+%         x_{n-2} &= \left.\left(b_{n-2}-u_{n-2}^{1} x_{n-1}-u_{n-2}^{2} x_{n}\right) \right/ d_{n-2} \\
+%     & &
+%         &\ \ \vdots &
+%     & &
+% \end{align}
+
+\begin{align}
+    b_{n-k} &= d_{n-k} x_{n-k}+u_{n-k}^{1} x_{n-k+1}+u_{n-k}^{2} x_{n-k+2} + \cdots u_{n-k}^{k} x_{n-k+k}\\
+    \Rightarrow \quad x_{n-k} &= \left.\left(b_{n-k}-u_{n-k}^{1} x_{n-k+1}-u_{n-k}^{2} x_{n-k+2} - \cdots
+        u_{n-k}^{k} x_{n-k+k}\right) \right/ d_{n-k}\\
+        &= \left.\left(b_{n-k}-\sum_{j=1}^{k} u_{n-k}^{j} x_{n-k+j}\right) \right/ d_{n-k} \\
 \end{align}
 
 
-\begin{align*}
-    \begin{gathered}
-    d_{n} x_{n}=b_{n} \longrightarrow x_{n}=b_{n} / d_{n} \\
-    d_{n-1} x_{n-1}+u_{n-1}^{1} x_{n}=b_{n-1} \longrightarrow x_{n-1}=\left(b_{n-1}-u_{n-1}^{1} x_{n}\right) / d_{n-1} \\
-    d_{n-2} x_{n-2}+u_{n-2}^{\prime} x_{n-1}+u_{n-2}^{2} x_{n}=b_{n-2} \rightarrow x_{n-2}=\left(b_{n-2}-u_{12}^{1} x_{n-1}-u_{n-2}^{2} x_{n}\right) / d_{n-2} \\
-    x_{n-k}=\left(b_{n-k}-u_{n-k}^{1} x_{n-k+1}-u_{n-k}^{2} x_{n-k+2}\right. \\
-    \left.i=n-1, n-2, \cdots-1 \quad \cdots-u_{n-k}^{k} u_{n-k+k}\right) \mid d_{n-k} \\
-    x_{i}=\left(b_{i}-\sum_{k=1}^{n-i} u_{i}^{k} x_{i+k}\right)\left(d_{i}\right. \\
-    x_{n}=b_{n} / u_{n n} \\
-    x_{i}=\left(b_{i}-\sum_{j=i+1}^{n} u_{i j} x_{j}\right) / u_{i i}
-    \end{gathered}
-    \end{align*}
+\begin{align}
+    x_{i} &= \left.\left(b_{i}-\sum_{j=1}^{n-i} u_{i}^{j} x_{i+j}\right) \right/ d_{i} \\
+    x_{i} &= \left.\left(b_{i}-\sum_{j=i+1}^{n} u_{i j} x_{j}\right) \right/ u_{i i}
+\end{align}
 
 
 
+\subsubsection*{Upper Banded Matrix}
+
+
+\begin{align}
+    \begin{bNiceMatrix}[margin]
+        d_{1} & b^{1}_{1} & b^{2}_{1} & \cdots & b^{u}_{1} &   &   &   \\
+          & d_{2} & b^{1}_{2} & b^{2}_{2} & \cdots & b^{u}_{2} &   &   \\
+          &   & \ddots & \ddots & \ddots &   & \ddots &   \\
+          &   &   & \ddots & \ddots & \ddots &   & b^{u}_{n-u} \\
+          &   &   &   & \ddots & \ddots & \ddots & \vdots \\
+          &   &   &   &   & d_{n-2} & b_{n-2}^{1} & b^{2}_{n-2} \\
+          &   &   &   &   &   & d_{n-1} & b^{1}_{n-1} \\
+          &   &   &   &   &   &   & d_{n} 
+    \end{bNiceMatrix}
+    \begin{bNiceMatrix}[margin] %hlines,
+        x_1 \\ x_2 \\
+        \vdots \\ \vdots \\ \vdots \\
+        x_{n-2} \\ x_{n-1} \\ x_n
+    \end{bNiceMatrix}
+    &=
+    \begin{bNiceMatrix}[margin] %hlines,
+        b_1 \\ b_2 \\
+        \vdots \\ \vdots \\ \vdots \\
+        b_{n-2} \\ b_{n-1} \\ b_n
+    \end{bNiceMatrix}
+\end{align}
+
+
+\begin{align}
+    x_{n} &= b_{n} / u_{n n} \\
+    x_{i} &= \left.\left(b_{i}-\sum_{j=i+1}^{n} u_{i j} x_{j}\right) \right/ u_{i i}
+\end{align}
+
+\begin{align}
+    d_{n} x_{n} &= b_{n} & 
+        &\Rightarrow &
+        x_{n} &= \left. b_{n} \right/ d_{n} \\
+    d_{n-1} x_{n-1}+u_{n-1}^{1} x_{n} &= b_{n-1} &
+        &\Rightarrow &
+        x_{n-1} &= \left.\left(b_{n-1}-u_{n-1}^{1} x_{n}\right) \right/ d_{n-1} \\
+    d_{n-2} x_{n-2}+u_{n-2}^{1} x_{n-1}+u_{n-2}^{2} x_{n} &= b_{n-2} &
+        &\Rightarrow &
+        x_{n-2} &= \left.\left(b_{n-2}-u_{n-2}^{1} x_{n-1}-u_{n-2}^{2} x_{n}\right) \right/ d_{n-2} \\
+    & &
+        &\ \ \vdots &
+    & &
+\end{align}
+
+
+\begin{align}
+    b_{n-k} &= d_{n-k} x_{n-k}+u_{n-k}^{1} x_{n-k+1}+u_{n-k}^{2} x_{n-k+2} + \cdots u_{n-k}^{k} x_{n-k+k}\\
+    \Rightarrow \quad x_{n-k} &= \left.\left(b_{n-k}-u_{n-k}^{1} x_{n-k+1}-u_{n-k}^{2} x_{n-k+2} - \cdots
+        u_{n-k}^{k} x_{n-k+k}\right) \right/ d_{n-k}\\
+        &= \left.\left(b_{n-k}-\sum_{j=1}^{k} u_{n-k}^{j} x_{n-k+j}\right) \right/ d_{n-k} \\
+\end{align}
+
+
+\begin{align}
+    x_{i} &= \left.\left(b_{i}-\sum_{j=1}^{n-i} u_{i}^{j} x_{i+j}\right) \right/ d_{i} \\
+    x_{i} &= \left.\left(b_{i}-\sum_{j=i+1}^{n} u_{i j} x_{j}\right) \right/ u_{i i}
+\end{align}
+
+
+
+
+
+\newpage
 
 \section{Apply on symmetric positive definite tridiagonal matrices}
 $$\longleftarrow \text { cholesky } \mathcal{O}\left(\frac{1}{3} n^{3}\right)$$
@@ -307,12 +493,113 @@ $$\longleftarrow \text { cholesky } \mathcal{O}\left(\frac{1}{3} n^{3}\right)$$
         &= \tril\left(y x^{\T}\right) \\
     T^{-1} &= \left(U^{\T} U\right)^{-1} \\
         &= \left(U^{-1}\right)\left(U^{\T}\right)^{-1} \\
-        &= \triu \left(x y^{\T}\right) \tril \left(y x^{\T}\right)
+        &= \triu \left(x y^{\T}\right) \tril \left(y x^{\T}\right) 
 \end{align*}
 
 
+\begin{align*}
+    \left( T^{-1} \right)_{i,j} &= \sum_{k=1}^{n} 
+            \left[\triu\left(x y^{\T}\right)\right]_{i,k}
+            \left[\tril\left(y x^{\T}\right)\right]_{k,j} \\
+        &= \sum_{k=1}^{n}
+            \left( \begin{cases}
+                x_{i} y_{k} ,&  \text{if } i \leqslant j ; \\ 
+                0           ,&  \text{if } i > j .
+                   \end{cases}\right)
+            \left( \begin{cases}
+                0           ,&  \text{if } k < j ; \\ 
+                y_{k} x_{j} ,&  \text{if } k \geqslant j .
+                   \end{cases}\right) \\
+        &= \sum_{k=1}^{n}
+            \left(x_{i} y_{k} \mathbbm{1}_{\mathbb{Z} \cap \left[i,n\right]}\left( k \right)\right)
+            \left(y_{k} x_{j} \mathbbm{1}_{\mathbb{Z} \cap \left[j,n\right]}\left( k \right)\right) \\
+        &= x_{i} x_{j} \sum_{k=1}^{n}
+            y_{k}^2 \left( \mathbbm{1}_{\mathbb{Z} \cap \left[i,n\right]}\left( k \right)
+            \mathbbm{1}_{\mathbb{Z} \cap \left[j,n\right]}\left( k \right)\right) \\
+        &= x_{i} x_{j} \sum_{k=1}^{n}
+            y_{k}^2 \mathbbm{1}_{\mathbb{Z} \cap \left[\max\left(i,j \right),n\right]}\left( k \right) \\
+\end{align*}
+
+\begin{align}
+    \left( T^{-1} \right)_{i,j} = 
+    \begin{cases}
+        x_{i} x_{j} \sum_{k=j}^{n} y_{k}^2 ,&  \text{if } i \leqslant j ; \\ 
+        x_{j} x_{i} \sum_{k=i}^{n} y_{k}^2 ,&  \text{if } i \geqslant j .
+    \end{cases}
+\end{align}
 
 
+for $i = j$,
+\begin{align*}
+    \left( T^{-1} \right)_{i,i} = x_{i}^2 \sum_{k=i}^{n} y_{k}^2
+        = x_{j}^2 \sum_{k=j}^{n} y_{k}^2 = \left( T^{-1} \right)_{j,j}
+\end{align*}
+
+following the definition of \{1,1\}-Semiseparable matrix
+\begin{align}
+    S &= \begin{cases}
+        x_{i} y_{j} &  \text{if } i \leqslant j \ ; \\ 
+        x_{j} y_{i} &  \text{if } i \geqslant j .
+    \end{cases}\\
+    &= \triu\left(x y^{\T}\right) + \tril\left(y x^{\T}, -1\right) \\
+    % &= \triu\left(x y^{\T}, 1\right) + \tril\left(y x^{\T}\right) \\
+    % &=
+    % \begin{bNiceMatrix}[margin]
+    %     x_{1} y_{1} & x_{1} y_{2} & \cdots & x_{1} y_{n} \\
+    %     x_{1} y_{2} & x_{2} y_{2} & \cdots & x_{2} y_{n} \\
+    %     \vdots      & \vdots      & \ddots & \vdots      \\
+    %     x_{1} y_{n} & x_{2} y_{n} & \cdots & x_{n} y_{n} 
+    % \end{bNiceMatrix}
+\end{align}
+
+\begin{align}
+    \left( T^{-1} \right)_{i,j} &= 
+        \begin{cases}
+            x_{i} \left( x_{j} \sum_{k=j}^{n} y_{k}^2 \right) ,&  \text{if } i \leqslant j ; \\ 
+            x_{j} \left( x_{i} \sum_{k=i}^{n} y_{k}^2 \right) ,&  \text{if } i \geqslant j .
+        \end{cases}\\
+        &=  \begin{cases}
+            \tilde{x}_{i} \tilde{y}_{j} &  \text{if } i \leqslant j \ ; \\ 
+            \tilde{x}_{j} \tilde{y}_{i} &  \text{if } i \geqslant j .
+            \end{cases}\\
+        &= \triu\left(\tilde{x} \tilde{y}^{\T}\right) + \tril\left(\tilde{y} \tilde{x}^{\T}, -1\right) \\
+\end{align}
+where $\tilde{x}_{i} = x_{i}$ and $\tilde{y}_{i} = x_{i} \sum_{k=i}^{n} y_{k}^2$.
+
+
+\begin{align}
+    \tilde{x}_{i} &= x_{i} \\
+    \Rightarrow \tilde{x} &= x \\
+    \tilde{y}_{i} &= x_{i} \sum_{k=i}^{n} y_{k}^2 \\
+    \Rightarrow \tilde{y} &= 
+        \begin{bNiceMatrix}[margin]
+            x_{1} \left( \sum_{k=1}^{n} y_{k}^2 \right)  \\
+            x_{2} \left( \sum_{k=2}^{n} y_{k}^2 \right)  \\
+            \vdots  \\
+            x_{n} \left( \sum_{k=n}^{n} y_{k}^2 \right)  \\ 
+        \end{bNiceMatrix}\\
+        &= x \circ 
+        \begin{bNiceMatrix}[margin]
+            y^{\T} y \\
+            y_{\left[2:n\right]}^{\T} y_{\left[2:n\right]} \\
+            \vdots  \\
+            y_{n}^{2} \\
+        \end{bNiceMatrix}
+\end{align}
+
+
+
+
+
+
+
+$$
+\mathbbm{1} \mathds{1} \leqslant
+$$
+
+
+
+\newpage
 \section{28.06.2022 Meeting draft}
 
 
@@ -806,8 +1093,72 @@ Consider an upper banded matrix $U \in \mathbb{R}^{n \times n}$,
 then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
 
 
+
+
+
+
+
+
+
+
 \NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
 \setcounter{MaxMatrixCols}{30}
+
+
+
+\begin{align*}
+    \begin{bNiceMatrix}[first-row,first-col]
+          & \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$r$\end{turn}} & \hspace*{1mm} & 
+            \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm} & 
+            \hspace*{1mm} && \Cdots && \hspace*{1mm} & 
+            \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm} \\
+        \hspace*{1mm} &
+            d_{1} & \Cdots & b^{r-1}_{1} & b^{r}_{1} & \Cdots & b^{u}_{1} &&&&&&&&&&&& \\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$r$\end{sideways}} &
+            & \Ddots & \Vdots & \Vdots &&& \Ddots &&&&&&&&&&& \\
+        \hspace*{1mm} &
+            && d_{r} & b^{1}_{r} & \Cdots & \Cdots & \Cdots & b^{u}_{r} &&&&&&&&&&\\
+        % 
+        \hspace*{1mm} &
+            &&& d_{1+r} & \Cdots & \Cdots & \Cdots & b^{u-1}_{1+r} & b^{u}_{r+1} &&&&&&&&&\\
+          &
+            &&&& \Ddots &&& \Vdots & \Vdots & \Ddots &&&&&&&&\\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
+            &&&&& \Ddots && \Vdots & \Vdots && \Ddots &&&&&&&\\
+          &
+            &&&&&& \Ddots[draw-first] & \Vdots[draw-first] & \Vdots[draw-first] &&& \Ddots[draw-first] &&&&&&\\
+        \hspace*{1mm}  &&&&&&&& d_{u+r} & b^{1}_{u+r} & \Cdots & \Cdots & \Cdots & b^{u}_{u+r} &&&&&\\
+        % 
+        \hspace*{1mm} &
+            &&&&&&&&&&&&&&&&&\\
+          &
+            &&&&&&&&&&&&&&&&&\\
+        \Vdots &
+            &&&&&&&&&& \ddots && \vdots & \vdots && \ddots &&\\
+          &
+            &&&&&&&&&&&&&&&&&\\
+        \hspace*{1mm} &
+            &&&&&&&&&&&&&&&&&\\
+        % 
+        \hspace*{1mm} &
+            &&&&&&&&&&&&& d_{n-u+1} & \Cdots & \Cdots & \Cdots & b^{u}_{n-u+1}\\
+         &
+            &&&&&&&&&&&&&& \Ddots &&& \Vdots \\
+        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
+            &&&&&&&&&&&&&&& \Ddots && \Vdots \\
+         &
+            &&&&&&&&&&&&&&&& \Ddots[draw-first] & \Vdots \\
+        \hspace*{1mm} &
+            &&&&&&&&&&&&&&&&& d_{n}\\
+    \end{bNiceMatrix}
+\end{align*}
+
+
+
+
+
+
+
 \begin{align}
     U &=
     \begin{bNiceMatrix}[first-row,first-col,margin]
@@ -819,14 +1170,14 @@ then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
         \hspace*{1mm} &
             \alpha_{1} & \Cdots & \beta^{u-1}_{1} & \beta^{u}_{1} &&&&&&&&\\
         \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
-            & \Ddots & \Vdots & \Vdots & \Ddots &&&&&&&\\
+            & \Ddots & \Vdots & \Vdots & \Ddots[draw-first] &&&&&&&\\
         \hspace*{1mm} &
             && \alpha_{u} & \beta^{1}_{u} & \Cdots & \beta^{u}_{u} &&&&&&\\
         % 
         \hspace*{1mm} &
             &&& \alpha_{u+1} & \Cdots & \beta^{u-1}_{u+1} & \beta^{u}_{u+1} &&&&&\\
         \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
-            &&&& \Ddots & \Vdots & \Vdots & \Ddots &&&&\\
+            &&&& \Ddots[draw-first] & \Vdots[draw-first] & \Vdots[draw-first] & \Ddots[draw-first] &&&&\\
         \hspace*{1mm} &
             &&&&& \alpha_{2u} & \beta^{1}_{2u} & \Cdots & \beta^{u}_{2u} &&&\\
         % 
@@ -840,7 +1191,7 @@ then \eqref{U_banded} can be repersent as a block upper bidiagonal matrix,
         \hspace*{1mm} &
             &&&&&&&&& \alpha_{(k-1)u+1} & \Cdots & \beta^{u-1}_{(k-1)u+1} \\
         \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &
-            &&&&&&&&&& \Ddots & \Vdots \\
+            &&&&&&&&&& \Ddots[draw-first] & \Vdots[draw-first] \\
         \hspace*{1mm} &
             &&&&&&&&&&& \alpha_{ku}\\
     \end{bNiceMatrix}
@@ -1100,412 +1451,6 @@ zz\end{align}
 
 
 % hlines,
-
-
-
-\newpage
-\section{Test}
-
-\begin{align*}
-    \begin{bNiceMatrix}
-        d_{1} & b^{1}_{1} & b^{2}_{1} & \cdots & b^{u}_{1} &   &   &   \\
-          & d_{2} & b^{1}_{2} & b^{2}_{2} & \cdots & b^{u}_{2} &   &   \\
-          &   & \ddots & \ddots & \ddots & \cdots & \ddots &   \\
-          &   &   & \ddots & \ddots & \ddots & \cdots & b^{u}_{n-u} \\
-          &   &   &   & \ddots & \ddots & \ddots & \vdots \\
-          &   &   &   &   & \ddots & \ddots & b^{2}_{n-2} \\
-          &   &   &   &   &   & \ddots & b^{1}_{n-1} \\
-          &   &   &   &   &   &   & d_{n} \\
-        \CodeAfter
-        \OverBrace[shorten,yshift=3pt]{1-2}{1-5}{\text{bandwidth}=u}
-        % \OverBrace[shorten,yshift=3pt]{1-4}{2-6}{B}
-    \end{bNiceMatrix}
-\end{align*}
-
-%用array环境构造复杂矩阵
-$
-% @{内容} 添加任意内容，不占表项计数
-%  此处添加一个负值空白，表示向左移-5pt的距离,l代表左
-\begin{array}{c@{\hspace{-5pt}}l}
-%第一行，第一列
-\left(\begin{array}{ccc|ccc}
-    a   & \cdots & a & b & \cdots &b\\
-        & \ddots & \vdots & \vdots & \ddots \\
-        &        & a & b \\ \hline
-        &        &   & c &\cdots &c \\
-        &        &   & \vdots && \vdots \\
-    \multicolumn{3}{c|}{\raisebox{2ex}[0pt]{\Huge 0}}
-\end{array}\right)
-&
-%第一行第二列
-%效果是两个括号标识符
-\begin{array}{l}
-%left 仅仅与$\right$配对  ，什么都不输出
-\left.\rule{0mm}{7mm}\right\}p\\
-\\
-\left.\rule{0mm}{7mm}\right\}q\\
-\end{array}
-\\[-5pt]
-%第二行第二列
-\begin{array}{cc}
-\underbrace{\rule{17mm}{0mm}}_m%\underbrace{text}横向大括号
-\underbrace{\rule{17mm}{0mm}}_m%用下划线加字母的方式指定标识符
-\end{array}
-\end{array}
-$
-
-
-
-% \NiceMatrixOptions{nullify-dots,code-for-first-col = \color{blue}, code-for-first-row=\color{blue}}
-$\begin{pNiceMatrix}[first-row,first-col]
-& & \Ldots[line-style={solid,<->},shorten=0pt]^{n \text{ columns}} \\
-& 1 & 1 & 1 & \Ldots & 1 \\
-& 1 & 1 & 1 & & 1 \\
-\Vdots[line-style={solid,<->}]_{n \text{ rows}} & 1 & 1 & 1 & & 1 \\
-& 1 & 1 & 1 & & 1 \\
-& 1 & 1 & 1 & \Ldots & 1
-\end{pNiceMatrix}$
-
-
-\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle }
-\setcounter{MaxMatrixCols}{12}
-\newcommand{\blue}{\color{blue}}
-\[\begin{pNiceMatrix}[last-row,last-col,nullify-dots,xdots/line-style={dashed,blue}]
-1& & & \Vdots & & & & \Vdots \\
-& \Ddots[line-style=standard] \\
-& & 1 \\
-\Cdots[color=blue,line-style=dashed]& & & \blue 0 &
-\Cdots & & & \blue 1 & & & \Cdots & \blue \leftarrow i \\
-& & & & 1 \\
-& & &\Vdots & & \Ddots[line-style=standard] & & \Vdots \\
-& & & & & & 1 \\
-\Cdots & & & \blue 1 & \Cdots & & \Cdots & \blue 0 & & & \Cdots & \blue \leftarrow j \\
-& & & & & & & & 1 \\
-& & & & & & & & & \Ddots[line-style=standard] \\
-& & & \Vdots & & & & \Vdots & & & 1 \\
-& & & \blue \overset{\uparrow}{i} & & & & \blue \overset{\uparrow}{j} \\
-\end{pNiceMatrix}\]
-
-
-
-
-\begin{align*}
-    % \NiceMatrixOptions{nullify-dots,code-for-first-col = \color{blue}, code-for-first-row=\color{blue}}
-    \begin{pNiceMatrix}[first-row,first-col]
-    & & \Ldots[line-style={solid,<->},shorten=0pt]^{n \text{ columns}} \\
-    & 1 & 1 & 1 & \Ldots & 1 \\
-    & 1 & 1 & 1 & & 1 \\
-    \Vdots[line-style={solid,<->}]_{n \text{ rows}} & 1 & 1 & 1 & & 1 \\
-    & 1 & 1 & 1 & & 1 \\
-    & 1 & 1 & 1 & \Ldots & 1
-    \end{pNiceMatrix}
-\end{align*}
-
-
-
-\begin{align*}
-    \begin{pNiceMatrix}
-        \Block[borders={bottom,right,tikz=dashed}]{2-2}{}
-        1 & 2 & 0 & 0 & 0 & 0 \\
-        4 & 5 & 0 & 0 & 0 & 0 \\
-        0 & 0 & \Block[borders={bottom,top,right,left,tikz=dashed}]{2-2}{}
-        7 & 1 & 0 & 0 \\
-        0 & 0 & -1 & 2 & 0 & 0 \\
-        0 & 0 & 0 & 0 & \Block[borders={left,top,tikz=dashed}]{2-2}{}
-        3 & 4 \\
-        0 & 0 & 0 & 0 & 1 & 4
-    \end{pNiceMatrix}
-\end{align*}
-
-\begin{align*}
-    &\begin{bNiceMatrix}
-        \Block[borders={bottom,right,tikz=dashed}]{2-2}{}
-        d_{1} & b^{1}_{1} & 
-        \Block[borders={bottom,right,tikz=dashed}]{2-2}{}
-        b^{2}_{1} &   &   &   &   &   &   &   \\
-          & d_{2} & b^{1}_{2} & b^{2}_{2} &   &   &   &   &   &  \\
-          &   & \Block[borders={bottom,right,left,tikz=dashed}]{2-2}{}
-        d_{3} & b^{1}_{3} & \Block[borders={bottom,top,right,tikz=dashed}]{2-2}{}
-        b^{2}_{3} &   &   &   &   &  \\
-          &   &   & d_{4} & b^{1}_{4} & b^{2}_{4} &   &   &   &  \\
-          &   &   &   & \Block[borders={left,right,bottom,tikz=dashed}]{2-2}{}
-        \ddots &   & \Block[borders={bottom,top,right,tikz=dashed}]{2-2}{}
-        \ddots &   &   &  \\
-          &   &   &   &   & \ddots &   & \ddots &   &  \\
-          &   &   &   &   &   & \Block[borders={left,right,bottom,tikz=dashed}]{2-2}{}
-        d_{2k-3} & b^{1}_{2k-3} & \Block[borders={bottom,top,tikz=dashed}]{2-2}{}
-        b^{2}_{2k-3} &  \\
-          &   &   &   &   &   &   & d_{2k-2} & b^{1}_{2k-2} & b^{2}_{2k-2}\\
-          &   &   &   &   &   &   &   & \Block[borders={left,tikz=dashed}]{2-2}{}
-        d_{2k-1} & b^{1}_{2k-1}\\
-          &   &   &   &   &   &   &   &   & d_{2k}
-    \end{bNiceMatrix}\\
-    &= \mqty[
-        \mqty[d_{1} & b^{1}_{1} \\ & d_{2}] & \mqty[b^{2}_{1} &  \\ b^{1}_{2} & b^{2}_{2}] &   &   &  \\
-          & \mqty[d_{3} & b^{1}_{3} \\ & d_{4}] & \mqty[b^{2}_{3} & \\ b^{1}_{4} & b^{2}_{4}] &   &  \\
-          &   & \ddots & \ddots &  \\
-          &   &   & \mqty[d_{2k-3} & b^{1}_{2k-3} \\ & d_{2k-2}] & \mqty[b^{2}_{2k-3} & \\ b^{1}_{2k-2} & b^{2}_{2k-2}] \\
-          &   &   &   & \mqty[d_{2k-1} & b^{1}_{2k-1}\\ & d_{2k}]
-    ]\\
-\end{align*}
-
-\begin{align*}
-    \begin{bNiceMatrix}
-        1 & 2 & 0 & 0 & 0 & 0 \\
-        4 & 5 & 0 & 0 & 0 & 0 \\
-        0 & 0 & 7 & 1 & 0 & 0 \\
-        0 & 0 & 1 & 2 & 0 & 0 \\
-        0 & 0 & 0 & 0 & 3 & 4 \\
-        0 & 0 & 0 & 0 & 1 & 4
-        \CodeAfter
-        \SubMatrix[{1-1}{3-3}]
-        \SubMatrix[{1-4}{3-4}]
-    \end{bNiceMatrix}
-\end{align*}
-
-\begin{align*}
-    \begin{bNiceMatrix}
-        d_{1}       & b^{1}_{1} & \Cdots & b^{r-2}_{1} & b^{r-1}_{1} \\
-                    & d_{2}     &       &   & b^{r-2}_{2} \\
-                    &           & \Ddots    &   & \Vdots \\
-                    &           &       & d_{r-1} & b^{1}_{r-1} \\
-                    &           &   &   & d_{r}
-    \end{bNiceMatrix}
-    & \begin{bNiceMatrix}
-        b^{r}_{1}   & \Cdots    & b^{u}_{1} &   &   &   &   &   &   \\
-        b^{r-1}_{2} & b^{r}_{2} &           & b^{u}_{2} &   &   &   &   &   \\
-        \Vdots      &           & \Ddots    &   &  \\
-        b^{2}_{r-1} \\
-        b^{1}_{r}   & b^{2}_{r} & \Cdots    & b^{u}_{r} 
-    \end{bNiceMatrix}\\
-     & \begin{bNiceMatrix}
-        d_{1} & b^{1}_{1} & \Cdots & b^{r-2}_{1} & b^{r-1}_{1} \\
-        0 & d_{2} &   &   & b^{r-2}_{2} \\
-        \Vdots & \Ddots[draw-first] & \Ddots &   & \Vdots \\
-          &   &   & d_{r-1} & b^{1}_{r-1} \\
-        0 & \Cdots &   & 0 & d_{r}
-    \end{bNiceMatrix}\\
-\end{align*}
-
-
-
-\begin{align*}
-    \begin{bNiceMatrix}
-        d_{1}       & b^{1}_{1}   & \Cdots      & b^{r-2}_{1} & b^{r-1}_{1} \\
-                    & d_{2}       &             &             & b^{r-2}_{2} \\
-                    &             & \Ddots      &             & \Vdots      \\
-                    &             &             & d_{r-1}     & b^{1}_{r-1} \\
-                    &             &             &             & d_{r}       \\
-    \end{bNiceMatrix}
-    &
-    \begin{bNiceMatrix}
-        b^{r}_{1}   & b^{r+1}_{1} & \Cdots      & b^{u-1}_{1} & b^{u}_{1}  &             &             &             &             \\
-        b^{r-1}_{2} &             &             &             &            & b^{u}_{2}   &             &             &             \\
-        \Vdots      &             &             &             &            &             &  \Ddots     &             &             \\
-        b^{2}_{r-1} &             &             &             &            &             &             & b^{u}_{r-1} &             \\
-        b^{1}_{r}   & b^{2}_{r}   & \Cdots      &             &            &             &             & b^{u-1}_{r} & b^{u}_{r}   \\
-    \end{bNiceMatrix}
-\end{align*}
-
-\begin{align*}
-    \begin{bNiceMatrix}
-        d_{1}       & \Cdots      & b^{r-1}_{1} \\
-                    & \Ddots      & \Vdots      \\
-                    &             & d_{r}       
-    \end{bNiceMatrix}
-    &
-    \begin{bNiceMatrix}
-        b^{r}_{1}   & \Cdots      & b^{u}_{1}  &             &             \\
-        \Vdots      &             &            & \Ddots      &             \\
-        b^{1}_{r}   & \Cdots      &            &             & b^{u}_{r}   \\
-    \end{bNiceMatrix}
-    & \\
-    &
-     \begin{bNiceMatrix}
-        b^{r}_{1}   & \Cdots      & b^{u}_{1}  &             &             \\
-        \Vdots      &             &            & \Ddots      &             \\
-        b^{1}_{r}   & \Cdots      &            &             & b^{u}_{r}   \\
-    \end{bNiceMatrix}
-    &
-    \begin{bNiceMatrix}
-        b^{r}_{1}   & \Cdots      & b^{u}_{1}  &             &             \\
-        \Vdots      &             &            & \Ddots      &             \\
-        b^{1}_{r}   & \Cdots      &            &             & b^{u}_{r}   \\
-    \end{bNiceMatrix}
-\end{align*}
-
-
-\begin{align*}
-    \begin{bNiceMatrix}
-        d_{1}       & \Cdots & b^{r-1}_{1} & b^{r}_{1}   & \Cdots & b^{u}_{1}  &        &               \\
-                    & \Ddots & \Vdots      & \Vdots      &        &            & \Ddots &               \\
-                    &        & d_{r}       & b^{1}_{r}   & \Cdots &            &        & b^{u}_{r}     \\
-                    &        &             & d_{r+1}     & \Cdots &            &        & b^{u-1}_{r+1} \\
-                    &        &             &             &        &            &        &               \\
-                    &        &             &             &        & \Ddots     &        & \Vdots        \\
-                    &        &             &             &        &            &        &               \\
-                    &        &             &             &        &            &        & d_{r+u}       \\
-    \end{bNiceMatrix}
-\end{align*}
-
-
-% \NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
-% \setcounter{MaxMatrixCols}{30}
-% \begin{align*}
-%     \begin{bNiceMatrix}[first-row,first-col]
-%           & \underset{\downarrow}{1} & \Cdots & \underset{\downarrow}{r} & \underset{\downarrow}{r+1} & \Cdots & \underset{\downarrow}{u} & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18\\
-%         1 \rightarrow & d_{1} & \Cdots & b^{r-1}_{1} & b^{r}_{1} & \Cdots & b^{u}_{1} &&&&&&&&&&&&\\
-%         \Vdots[line-style={solid,<->}]_{r} && \Ddots & \Vdots & \Vdots &&& \Ddots &&&&&&&&&&&\\
-%         r \rightarrow &&& d_{r} & b^{1}_{r} & \Cdots &&& b^{u}_{r} &&&&&&&&&&\\
-%         % 
-%         1+r \rightarrow &&&& d_{1+r} & \Cdots &   &   & b^{u-1}_{1+r} & b^{u}_{r+1} &&&&&&&&&\\
-%           &&&&&&&&&&&&&&&&&&\\
-%         \Vdots[line-style={solid,<->}]_{u} &&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&&&&&&\\
-%           &&&&&&&&&&&&&&&&&&\\
-%         u+r \rightarrow  &&&&&&&& d_{u+r} & b^{1}_{u+r} && \Cdots && b^{u}_{u+r} &&&&&\\
-%         % 
-%           &&&&&&&&& \hspace*{5mm} &&& \Cdots && \hspace*{5mm} & \hspace*{5mm} &&&\\
-%           &&&&&&&&&&&&&&&&&&\\
-%           &&&&&&&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&\\
-%           &&&&&&&&&&&&&&&&&&\\
-%           &&&&&&&&&&&&& \hspace*{5mm} & \hspace*{5mm} && \Cdots && \hspace*{5mm}\\
-%         % 
-%         n-u+1 \rightarrow &&&&&&&&&&&&&& d_{n-u+1} && \Cdots && b^{u}_{n-u+1}\\
-%          &&&&&&&&&&&&&&&&&&  \\
-%         \Vdots[line-style={solid,<->}]_{u} &&&&&&&&&&&&&&&& \Ddots && \Vdots \\
-%         a &&&&&&&&&&&&&&&&&&  \\
-%         n \rightarrow &&&&&&&&&&&&&&&&&& d_{n}\\
-%     \end{bNiceMatrix}
-% \end{align*}
-
-
-
-\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
-\setcounter{MaxMatrixCols}{30}
-\begin{align*}
-    \begin{bNiceMatrix}[first-row,first-col]
-          & \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$r$\end{turn}} & \hspace*{1mm}
-          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}
-          & \hspace*{1mm} && \Cdots && \hspace*{1mm}
-          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}\\
-        \hspace*{1mm} & d_{1} & \Cdots & b^{r-1}_{1} & b^{r}_{1} & \Cdots & b^{u}_{1} &&&&&&&&&&&&\\
-        \Vdots[line-style={solid,<->}]_{\begin{sideways}$r$\end{sideways}} && \Ddots & \Vdots & \Vdots &&& \Ddots &&&&&&&&&&&\\
-        \hspace*{1mm} &&& d_{r} & b^{1}_{r} & \Cdots &&& b^{u}_{r} &&&&&&&&&&\\
-        % 
-        \hspace*{1mm} &&&& d_{1+r} & \Cdots &   &   & b^{u-1}_{1+r} & b^{u}_{r+1} &&&&&&&&&\\
-          &&&&&&&&&&&&&&&&&&\\
-        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&&&&&&\\
-          &&&&&&&&&&&&&&&&&&\\
-        \hspace*{1mm}  &&&&&&&& d_{u+r} & b^{1}_{u+r} && \Cdots && b^{u}_{u+r} &&&&&\\
-        % 
-        \hspace*{1mm} &&&&&&&&& \hspace*{5mm} &&& \Cdots && \hspace*{5mm} & \hspace*{5mm} &&&\\
-          &&&&&&&&&&&&&&&&&&\\
-        \Vdots &&&&&&&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&\\
-          &&&&&&&&&&&&&&&&&&\\
-        \hspace*{1mm} &&&&&&&&&&&&& \hspace*{5mm} & \hspace*{5mm} && \Cdots && \hspace*{5mm}\\
-        % 
-        \hspace*{1mm} &&&&&&&&&&&&&& d_{n-u+1} && \Cdots && b^{u}_{n-u+1}\\
-         &&&&&&&&&&&&&&&&&&  \\
-        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&&&&&&&&&&&&&&& \Ddots && \Vdots \\
-         &&&&&&&&&&&&&&&&&&  \\
-        \hspace*{1mm} &&&&&&&&&&&&&&&&&& d_{n}\\
-    \end{bNiceMatrix}
-\end{align*}
-
-
-\NiceMatrixOptions{code-for-first-row = \scriptstyle,code-for-first-col = \scriptstyle}
-\setcounter{MaxMatrixCols}{30}
-\begin{align*}
-    \begin{bNiceMatrix}[first-row,first-col]
-          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}
-          & \hspace*{1mm} && \Cdots && \hspace*{1mm}
-          & \hspace*{1mm} && \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} && \hspace*{1mm}\\
-        % 
-        \hspace*{1mm} & d_{1} & \Cdots &   &   & b^{u-1}_{1} & b^{u}_{r+1} &&&&&&&&&\\
-          &&&&&&&&&&&&&&&\\
-        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&& \Ddots && \Vdots & \Vdots && \Ddots &&&&&&&\\
-          &&&&&&&&&&&&&&&\\
-        \hspace*{1mm}  &&&&& d_{u} & b^{1}_{u} && \Cdots && b^{u}_{u} &&&&&\\
-        % 
-        \hspace*{1mm} &&&&&& \hspace*{5mm} &&& \Cdots && \hspace*{5mm} & \hspace*{5mm} &&&\\
-          &&&&&&&&&&&&&&&&\\
-        \Vdots &&&&&&&& \Ddots && \Vdots & \Vdots && \Ddots &&\\
-          &&&&&&&&&&&&&&&\\
-        \hspace*{1mm} &&&&&&&&&& \hspace*{5mm} & \hspace*{5mm} && \Cdots && \hspace*{5mm}\\
-        % 
-        \hspace*{1mm} &&&&&&&&&&& d_{n-u+1} && \Cdots && b^{u}_{n-u+1}\\
-         &&&&&&&&&&&&&&&  \\
-        \Vdots[line-style={solid,<->}]_{\begin{sideways}$u$\end{sideways}} &&&&&&&&&&&&& \Ddots && \Vdots \\
-         &&&&&&&&&&&&&&&  \\
-        \hspace*{1mm} &&&&&&&&&&&&&&& d_{n}\\
-    \end{bNiceMatrix}
-\end{align*}
-
-
-% \begin{sideways}将要打印的内容旋转90度\end{sideways}
-% \begin{turn}{45}将要打印的内容旋转自定义角度\end{turn}
-% \begin{rotate}{120}将要打印的内容旋转自定义角度，但是旋转结果并不能保证被旋转对象所需要的空间\end{rotate}
-
-
-\NiceMatrixOptions{
-    code-for-first-row = \scriptstyle,
-    code-for-last-col = \scriptstyle
-    }
-\begin{align*}
-    \begin{bNiceMatrix}[vlines,first-row,last-col]
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-    \end{bNiceMatrix}
-\end{align*}
-
-\NiceMatrixOptions{
-    code-for-first-row = \scriptstyle,
-    code-for-first-col = \scriptstyle,
-    code-for-last-row = \scriptstyle,
-    code-for-last-col = \scriptstyle
-    }
-\setcounter{MaxMatrixCols}{30}
-\begin{align*}
-    \begin{bNiceMatrix}[first-row,first-col,last-row,last-col]
-        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
-        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
-        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
-        0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 \\
-    \end{bNiceMatrix}
-\end{align*}
-
-
-\NiceMatrixOptions{
-    code-for-first-row = \scriptstyle,
-    code-for-first-col = \scriptstyle,
-    }
-\setcounter{MaxMatrixCols}{30}
-\begin{align*}
-    \begin{bNiceMatrix}[first-row,first-col]
-        % \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$1$\end{turn}}
-        % \Vdots[line-style={solid,<->}]_{\begin{sideways}$1$\end{sideways}}
-          && \hspace*{1mm} & \Cdots[line-style={solid,<->}]^{\begin{turn}{0}$u$\end{turn}} &&&\hspace*{1mm} 
-        &&&&&&\\
-         & d_{1} & b^{1}_{1} & b^{2}_{1} & \Cdots && b^{u}_{1} &&&&&&\\
-        \hspace*{1mm} & b^{-1}_{1} & d_{2} & \Ddots &&&& \Ddots &&&&&\\
-        \Vdots[line-style={solid,<->}]_{\begin{sideways}$l$\end{sideways}}
-            & b^{-2}_{1} & \Ddots & \Ddots &&&&&&&&&\\
-         & \Vdots &&&&&&&&&&&\\
-        \hspace*{1mm} & b^{-l}_{1} &&&&&&&&&&&\\
-         && \Ddots &&&&&&&&&&\\
-         &&&&&&&&&&&& b^{u}_{n-u}\\
-         &&&&&&&&&&&&  \\
-         &&&&&&&&&&&& \Vdots \\
-         &&&&&&&&&&&& b^{2}_{n-2}\\
-         &&&&&&&&&&&& b^{1}_{n-1}\\
-         &&&&&&&& b^{-l}_{n-l} & \Cdots & b^{-2}_{n-2} & b^{-1}_{n-1} & d_{n}\\
-    \end{bNiceMatrix}
-\end{align*}
-
 
 
 

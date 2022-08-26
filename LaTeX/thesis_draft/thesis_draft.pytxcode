@@ -1,0 +1,40 @@
+=>PYTHONTEX#jl#default#default#0#code#####586#
+function innerCoef(u, v)
+    T = eltype(u)
+    n = length(u)
+    coef = zeros(T, n)
+    coef[n] = u[n]*v[n]
+    for i in n-1:-1:1
+        coef[i] = coef[i+1] + u[i]*v[i]
+    end
+    coef;
+end
+=>PYTHONTEX#jl#default#default#1#i#####600#
+α²
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-thesis_draft
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|
+pygfamily=julia|julia|
+pygfamily=jl|julia|

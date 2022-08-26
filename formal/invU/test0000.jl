@@ -64,19 +64,19 @@ end
 
 
 
-n = 100
-A = Tridiagonal(rand(n,n))
+n = 1000
+A = big.(Tridiagonal(rand(n,n)))
 T = Matrix(A + A' + 100*I)
-@btime invSymTridiagSS(T);
-@btime inv(T);
+# @btime invSymTridiagSS(T);
+# @btime inv(T);
 # invSymTridiagSS(T)
 
 
 
 
-# Tinv = invSymTridiagSS(T)
+Tinv = invSymTridiagSS(T)
 
-# Tinv * T ≈ I
+Tinv * T ≈ I
 
 
 using BenchmarkTools
