@@ -1,13 +1,13 @@
 using LinearAlgebra
 
-include("backsub.jl")
+include("backSub.jl")
 
 function invBidiagUxy(U)
     T = eltype(U)
     n = size(U)[2]
     e_n = zeros(T, n)
     e_n[n] = one(T)
-    x = BandBackSubVec(U, e_n, 1)
+    x = bandedBackSubVec(U, e_n, 1)
     y = inv.(U[diagind(U)] .* x)
     (x, y);
 end

@@ -31,29 +31,41 @@ function invBiUexp(U)
 end
 
 
-using Test
+# n = size(U)[2]
+# # (sx, xE) = expBidiagBackSubEn(U)
+# e_n = zeros(T, n)
+# e_n[n] = one(T)
+# (sx, xE) = bandedBackSubVecExp(U, e_n, 1)
+# (sy, yE) = expInv(expTimes(fl2exp(U[diagind(U)]), (sx, xE)))
 
 
 
-n = 5000
-U = generateTestTriangular(n, 1, Bidiagonal, Float64)
-
-En = one(U)[:, n]
-U * (U \ En) ≈ En
-x = exp2fl(expBidiagBackSubEn(U))
-U * x ≈ En
-norm(U * x - En)
-U * invBiUexp(U) ≈ I
 
 
 
-norm(U * invBiUexp(U) - I)
-norm(U * inv(U) - I)
+# using Test
 
 
-using BenchmarkTools
-@btime UinvExp = invBiUexp(U);
 
-@btime Uinv = inv(U);
-# UinvEmod = invBidiagUexpmod(U)
+# n = 5000
+# U = generateTestTriangular(n, 1, Bidiagonal, Float64)
+
+# En = one(U)[:, n]
+# U * (U \ En) ≈ En
+# x = exp2fl(expBidiagBackSubEn(U))
+# U * x ≈ En
+# norm(U * x - En)
+# U * invBiUexp(U) ≈ I
+
+
+
+# norm(U * invBiUexp(U) - I)
+# norm(U * inv(U) - I)
+
+
+# using BenchmarkTools
+# @btime UinvExp = invBiUexp(U);
+
+# @btime Uinv = inv(U);
+# # UinvEmod = invBidiagUexpmod(U)
 

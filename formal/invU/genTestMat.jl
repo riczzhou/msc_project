@@ -1,24 +1,21 @@
 using LinearAlgebra, BandedMatrices
 
 function generateTestTriangular(dim, bw, typeM, typeElmt, isUpper=true)
-    if bw <= 0
+    if bw <= 0 || bw >= n
         return -1
     end
     
     U = rand(typeElmt, dim, dim) + dim*I
+    U = BandedMatrix(U, (0, bw))
 
-    if typeM == Matrix
-        U = triu(U) - triu(U, bw+1)
-    elseif typeM == Bidiagonal
-        bw == 1 ? U = Bidiagonal(U, :U) : return -1
-    elseif typeM == BandedMatrix
-        bw <= n-1 ? U = BandedMatrix(U, (0, bw)) : return -1
+    if typeM == Bidiagonal && bw == 1
+        U = Bidiagonal(U, :U)
     elseif typeM == UpperTriangular
-        bw == n-1 ? U = UpperTriangular(U) : return -1
-    else
-        return -1
+        U = UpperTriangular(U)
+    elseif typeM == Matrix
+        U = Matrix(U)
     end
-
+    
     if isUpper
         return U
     else
@@ -29,15 +26,12 @@ end
 
 function generateTestTridiagonal(dim, typeM, typeElmt, isSymPosiDef=true)
     T = rand(typeElmt, dim, dim) + dim*I
+    T = BandedMatrix(T, (1, 1))
 
-    if typeM == Matrix
-        T = triu(T, -1) - triu(T, 2)
-    elseif typeM == Tridiagonal
+    if typeM == Tridiagonal
         T = Tridiagonal(T)
-    elseif typeM == BandedMatrix
-        T = BandedMatrix(T, (1, 1))
-    else
-        return -1
+    elseif typeM == Matrix
+        T = Matrix(T)
     end
 
     if isSymPosiDef
