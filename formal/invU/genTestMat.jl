@@ -1,7 +1,7 @@
 using LinearAlgebra, BandedMatrices
 
 function generateTestTriangular(dim, bw, typeM, typeElmt, isUpper=true)
-    if bw <= 0 || bw >= n
+    if bw <= 0 || bw >= dim
         return -1
     end
     

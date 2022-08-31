@@ -7,7 +7,7 @@ function expBidiagBackSubEn(U)
     n = size(U)[2]
     T = eltype(U)
     sx, xE = zeros(T, n), zeros(T, n)
-    (sEn, EnE) = T.((1.0, 0.0))
+    # (sEn, EnE) = T.((1.0, 0.0))
     (sx[n], xE[n]) = expInv(fl2exp(U[n, n]))
     for i in n-1 : -1 : 1
         (sx[i], xE[i]) = expDivide(expTimes(fl2exp(-U[i, i+1]), (sx[i+1], xE[i+1])), fl2exp(U[i, i]))
@@ -47,17 +47,30 @@ end
 
 
 
-# n = 5000
-# U = generateTestTriangular(n, 1, Bidiagonal, Float64)
-
-# En = one(U)[:, n]
-# U * (U \ En) ≈ En
-# x = exp2fl(expBidiagBackSubEn(U))
-# U * x ≈ En
-# norm(U * x - En)
-# U * invBiUexp(U) ≈ I
+n = 5000
+U = generateTestTriangular(n, 1, Bidiagonal, Float64)
+# U -= 4900I
 
 
+
+
+
+En = one(U)[:, n]
+U * (U \ En) ≈ En
+x = exp2fl(expBidiagBackSubEn(U))
+U * x ≈ En
+norm(U * x - En)
+U * invBiUexp(U) ≈ I
+
+
+U * Bidiagonal(invBiUexp(U), :U) ≈ I
+norm(U * invBiUexp(U) - I)
+norm(U * Bidiagonal(invBiUexp(U), :U) - I)
+
+
+
+
+# invBiUexp(U)
 
 # norm(U * invBiUexp(U) - I)
 # norm(U * inv(U) - I)

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  26 AUG 2022 05:59
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.4.23)  30 AUG 2022 14:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -713,6 +713,9 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ) [1
 
 ] [2]
+
+LaTeX Warning: Citation `Cooper13' on page 3 undefined on input line 163.
+
 \g__nicematrix_max_cell_width_dim=\dimen315
 \c@iRow=\count345
 \c@jCol=\count346
@@ -738,40 +741,48 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 \l__nicematrix_final_j_int=\count352
 \l__nicematrix_l_dim=\dimen328
 
-Overfull \hbox (21.92387pt too wide) detected at line 249
+Overfull \hbox (21.92387pt too wide) detected at line 260
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--253
+Underfull \hbox (badness 10000) in paragraph at lines 262--264
 
  []
 
 [3] [4] [5] [6]
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 521.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 532.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 ) [7]
-LaTeX Font Info:    Trying to load font information for U+dsrom on input line 597.
+LaTeX Font Info:    Trying to load font information for U+dsrom on input line 608.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 ) [8] [9] [10] [11] [12] [13] [14]
 \l__nicematrix_local_start_int=\count353
 \l__nicematrix_local_end_int=\count354
  [15]
-Overfull \hbox (13.39647pt too wide) detected at line 1154
+Overfull \hbox (13.39647pt too wide) detected at line 1165
 []
  []
 
-[16] [17] [18] [19] [20] (./thesis_draft.aux)
+[16] [17] [18] [19]
+
+LaTeX Warning: Citation `nabben1999decay' on page 20 undefined on input line 1467.
+
+No file thesis_draft.bbl.
+[20] (./thesis_draft.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `thesis_draft.out' has not changed.
-(rerunfilecheck)             Checksum: 505AE6CAC53CF52C5E032D1AFD7A4FC6;4485.
+(rerunfilecheck)             Checksum: 7C1F1EC91FA2C4E879B86E59CA42A09C;4323.
  ) 
 Here is how much of TeX's memory you used:
- 47827 strings out of 476179
- 975402 string characters out of 5809544
- 1378618 words of memory out of 5000000
- 68128 multiletter control sequences out of 15000+600000
+ 47830 strings out of 476179
+ 975450 string characters out of 5809544
+ 1378658 words of memory out of 5000000
+ 68130 multiletter control sequences out of 15000+600000
  481168 words of font info for 89 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  76i,25n,97p,496b,1488s stack positions out of 10000i,1000n,20000p,200000b,200000s
