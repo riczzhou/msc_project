@@ -258,7 +258,7 @@ i.e.
         1      & \Cdots &        & 1      & 0
     \end{bNiceMatrix}.
 \end{align}
-
+% small
 where $|p| \leqslant n-1$ and $|q| \leqslant n-1$.
 \\
 
@@ -488,6 +488,44 @@ define symmetric \{1,1\}-semiseparable matrix, $S$
 \end{align}
 
 
+
+\newpage
+
+\section{Apply on expmod}
+
+\begin{align*}
+    x &\coloneqq U^{-1} e_n = \texttt{backsub}(U, e_n); \\
+    y_{i} &\coloneqq (d_{i} x_{i})^{-1} \qfor i=1:n.\\
+    \\
+    \\
+    x &= U \ \backslash \ e_n\\
+    x_n &= \frac{1}{d_n}\\
+    x_i &= -\frac{u_i x_{i+1}}{d_i} \qfor i=n-1, n-2, \cdots, 1\\
+    \\
+    \\
+    x_n &= \frac{1}{d_{n}}\\
+    x_{n-1} &=-\frac{u_{n-1}}{d_{n-1}} x_n = -\frac{u_{n-1}}{d_n d_{n-1}} \\
+    x_{n-2} &=-\frac{u_{n-2}}{d_{n-2}} x_{n-1} = \frac{u_{n-1} u_{n-2}}{d_n d_{n-1} d_{n-2}} \\
+    x_{1} &=-\frac{u_{n-2}}{d_{n-2}} x_{2} = (-1)^{n-1} \frac{u_{n-1} u_{n-2} \dots u_{1}}{d_n d_{n-1} d_{n-2} \dots d_{1}} \\
+    \\
+    x_k &= (-1)^{n-1} \frac{\prod_{i=k}^{n-1} u_i}{\prod_{i=k}^n d_i} = \left.\left(\prod_{i=k}^{n-1}\left(-\frac{u_i}{d_i}\right)\right) \right/ d_n \qfor k = 1:n\\
+\end{align*}
+
+where $\prod_{i=k}^{l} a_i = 1$ for any $k > l$
+
+
+% \left.-\frac{u_{n-1}}{d_{n-1}}\right/ d_n
+\begin{align*}
+    \begin{aligned}
+    &x=U \backslash e_n\\
+    &x_n=\frac{b_n}{d_n}=\frac{1}{d_n}\\
+    &x_i=-\frac{u_i x_{i+1}}{d_i} \quad i=n-1, n-2, \cdots, 1\\
+    &y_i=\frac{1}{d_i x_i} \quad i=1, \cdots, n\\
+    &y_k^2=\left(\prod_{i=k}^{n-1}\left(-\frac{d_i}{u_i}\right)^2 /\left(d_n^2 d_k^2\right)\right.\\
+    &y_k=\frac{1}{d_k x_k}=\prod_{i=k}^{n-1}\left(-\frac{d_i}{u_i}\right) /\left(d_n d_k\right)\\
+    &\frac{y_{k+1}}{y_k}=\frac{\prod_{i-k+1}^{n-1}() /\left(d_n d_{k+1}\right)}{\prod_{i=k}^{n-1}() /\left(d_n d_k\right)}
+    \end{aligned}
+\end{align*}
 
 
 
@@ -1464,11 +1502,11 @@ zz\end{align}
 % hlines,
 
 
-\cite{nabben1999decay}
+% \cite{nabben1999decay}
 
-% \bibliography{bibs/References}
-\bibliography{References}
-\bibliographystyle{siam}
+% % \bibliography{bibs/References}
+% \bibliography{References}
+% \bibliographystyle{siam}
 
 
 \end{document}

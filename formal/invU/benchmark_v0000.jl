@@ -15,7 +15,8 @@ function timeAvg4func(func, testMat, rept, nThreads)
     println(func)
     BLAS.set_num_threads(nThreads)
     time = 0.0
-    for _ in 1:rept
+    for i in 1:rept
+        println((func, i, size(testMat)))
         time += @elapsed func(testMat) # cannot use @belapsed, why?
     end
     time / rept;
@@ -23,18 +24,22 @@ end
 
 
 function timesData4funcs()
-    # M = generateTestTriangular(n, bw, typeM, typeElmt, isUpper)
-    # M = generateTestTridiagonal(n, typeM, typeElmt, isSymPosiDef)
+
     dims = [2^i for i = 2:8]
+    dims = [100*2^i for i in 0:10] # for bidiag only
     bw = 1
     typeM = Matrix
+    typeM = Bidiagonal
     typeElmt = Float64
     isUpper = true
-    rept = 16
+    rept = 8
     nThreads = 1
     funcs = [inv, invBidiagU, invBiUexp]
     saveData = false
     saveFig = false
+
+    saveData = true
+    saveFig = true
 
 
     timesData = zeros(length(dims), length(funcs))
@@ -65,11 +70,11 @@ function timesData4funcs()
         # loglog(dims, timesData[:, j], color=colorlist[j], linewidth=1.0, linestyle=linestylelist[j], base=2, label=string(func))
         loglog(dims, timesData[:, j], linewidth=1.0, linestyle=linestylelist[j], base=2, label=string(func))
     end
-    xlabel(L"Dimension of $U$, $N$"), ylabel("Wall time (s)")
+    xlabel(L"Dimension of $U$"), ylabel("Wall time (s)")
     # ylabel("Wall time (s)")
     grid()
     legend()
-    title(L"Time usage for computing $U^{-1} \in \mathbb{R}^{N \times N}$")
+    title(L"Time usage for computing $U^{-1}$")
     show()
     if saveFig
         # savefig("./figure/efficiency/$time$typeM$typeElmt.png", dpi=150)
