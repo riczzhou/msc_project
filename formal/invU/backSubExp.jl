@@ -34,8 +34,6 @@ function backSubMatExp(U, B)
 end
 
 
-
-
 function bandedBackSubVecExp(U, b, bw)
     T = eltype(U)
     n = size(U)[2]
@@ -52,7 +50,6 @@ function bandedBackSubVecExp(U, b, bw)
 end
 
 
-
 function bandedBackSubMatExp(U, B, bw)
     T = eltype(U)
     n = size(U)[2]
@@ -63,41 +60,3 @@ function bandedBackSubMatExp(U, B, bw)
     end
     sX, XE;
 end
-
-
-
-
-
-include("genTestMat.jl")
-
-
-n = 100
-bw = 32
-U = generateTestTriangular(n, n-1, UpperTriangular, Float64)
-U * exp2fl(backSubMatExp(U, one(U))) ≈ I
-
-
-U = generateTestTriangular(n, bw, BandedMatrix, Float64)
-U * exp2fl(bandedBackSubMatExp(U, one(U), bw)) ≈ I
-
-
-
-
-
-
-
-bw = 32
-U = generateTestTriangular(n, bw, BandedMatrix, Float64)
-
-b = rand(n)
-xx = exp2fl(backSubVecExp(U, b))
-norm(U * xx - b)
-
-yy = exp2fl(bandedBackSubVecExp(U, b, bw))
-norm(U * yy - b)
-
-
-
-
-
-

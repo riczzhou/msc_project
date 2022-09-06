@@ -8,7 +8,7 @@ end
 function bigfl2exp(x)
     sx = sign.(x)
     xE = log.(abs.(x))
-    Float64(sx), Float64(xE);
+    Float64.(sx), Float64.(xE);
 end
 
 
@@ -40,4 +40,3 @@ end
 function expInv((sx, xE))
     sx, -xE;
 end
-

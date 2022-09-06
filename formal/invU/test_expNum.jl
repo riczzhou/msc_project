@@ -15,7 +15,8 @@ include("expNum.jl")
         for _ in 1:5
             n = rand(1:10000)
             x = rand(n)
-            @test exp2bigfl(bigfl2exp(x)) ≈ x
+            @test exp2fl(bigfl2exp(x)) ≈ x
+            @test exp2bigfl(fl2exp(x)) ≈ x
         end
     end
 
