@@ -493,39 +493,6 @@ define symmetric \{1,1\}-semiseparable matrix, $S$
 
 \section{Apply on expmod}
 
-\begin{align*}
-    x &\coloneqq U^{-1} e_n = \texttt{backsub}(U, e_n); \\
-    y_{i} &\coloneqq (d_{i} x_{i})^{-1} \qfor i=1:n.\\
-    \\
-    \\
-    x &= U \ \backslash \ e_n\\
-    x_n &= \frac{1}{d_n}\\
-    x_i &= -\frac{u_i x_{i+1}}{d_i} \qfor i=n-1, n-2, \cdots, 1\\
-    \\
-    \\
-    x_n &= \frac{1}{d_{n}}\\
-    x_{n-1} &=-\frac{u_{n-1}}{d_{n-1}} x_n = -\frac{u_{n-1}}{d_n d_{n-1}} \\
-    x_{n-2} &=-\frac{u_{n-2}}{d_{n-2}} x_{n-1} = \frac{u_{n-1} u_{n-2}}{d_n d_{n-1} d_{n-2}} \\
-    x_{1} &=-\frac{u_{n-2}}{d_{n-2}} x_{2} = (-1)^{n-1} \frac{u_{n-1} u_{n-2} \dots u_{1}}{d_n d_{n-1} d_{n-2} \dots d_{1}} \\
-    \\
-    x_k &= (-1)^{n-1} \frac{\prod_{i=k}^{n-1} u_i}{\prod_{i=k}^n d_i} = \left.\left(\prod_{i=k}^{n-1}\left(-\frac{u_i}{d_i}\right)\right) \right/ d_n \qfor k = 1:n\\
-\end{align*}
-
-where $\prod_{i=k}^{l} a_i = 1$ for any $k > l$
-
-
-% \left.-\frac{u_{n-1}}{d_{n-1}}\right/ d_n
-\begin{align*}
-    \begin{aligned}
-    &x=U \backslash e_n\\
-    &x_n=\frac{b_n}{d_n}=\frac{1}{d_n}\\
-    &x_i=-\frac{u_i x_{i+1}}{d_i} \quad i=n-1, n-2, \cdots, 1\\
-    &y_i=\frac{1}{d_i x_i} \quad i=1, \cdots, n\\
-    &y_k^2=\left(\prod_{i=k}^{n-1}\left(-\frac{d_i}{u_i}\right)^2 /\left(d_n^2 d_k^2\right)\right.\\
-    &y_k=\frac{1}{d_k x_k}=\prod_{i=k}^{n-1}\left(-\frac{d_i}{u_i}\right) /\left(d_n d_k\right)\\
-    &\frac{y_{k+1}}{y_k}=\frac{\prod_{i-k+1}^{n-1}() /\left(d_n d_{k+1}\right)}{\prod_{i=k}^{n-1}() /\left(d_n d_k\right)}
-    \end{aligned}
-\end{align*}
 
 
 
@@ -638,14 +605,273 @@ where $\tilde{x}_{i} = x_{i}$ and $\tilde{y}_{i} = x_{i} \sum_{k=i}^{n} y_{k}^2$
 
 
 
+\begin{align*}
+    x &\coloneqq U^{-1} e_n = \texttt{backsub}(U, e_n); \\
+    y_{i} &\coloneqq (d_{i} x_{i})^{-1} \qfor i=1:n.
+\end{align*}
+
+\begin{align*}
+    x &= U \ \backslash \ e_n\\
+    x_n &= \frac{1}{d_n}\\
+    x_i &= -\frac{u_i x_{i+1}}{d_i} \qfor i=n-1, n-2, \cdots, 1\\
+\end{align*}
+
+
+\begin{align*}
+    x_n &= \frac{1}{d_{n}}\\
+    x_{n-1} &=-\frac{u_{n-1}}{d_{n-1}} x_n = -\frac{u_{n-1}}{d_n d_{n-1}} \\
+    x_{n-2} &=-\frac{u_{n-2}}{d_{n-2}} x_{n-1} = \frac{u_{n-1} u_{n-2}}{d_n d_{n-1} d_{n-2}} \\
+    x_{1} &=-\frac{u_{n-2}}{d_{n-2}} x_{2} = (-1)^{n-1} \frac{u_{n-1} u_{n-2} \dots u_{1}}{d_n d_{n-1} d_{n-2} \dots d_{1}} \\
+\end{align*}
+
+
+
+\begin{align*}
+    x_k &= \frac{\prod_{i=k}^{n-1} -b_i}{\prod_{i=k}^n d_i} 
+        = \left.\left(\prod_{i=k}^{n-1}-\frac{b_i}{d_i}\right) \right/ d_n \qfor k = 1:n\\
+\end{align*}
+
+where $\prod_{i=k}^{l} a_i = 1$ for any $k > l$
+
+
+
+\begin{align*}
+    x_k &= \left.\left(\prod_{i=k}^{n-1}-\frac{b_i}{d_i}\right) \right/ d_n \\
+    y_k &= \frac{1}{d_k x_k}
+        = \left(\frac{d_n}{d_k}\right) \left/ \prod_{i=k}^{n-1} -\frac{b_i}{d_i} \right.
+        = \frac{d_n}{d_k} \prod_{i=k}^{n-1} -\frac{d_i}{u_i} \\
+    &y_k^2=\frac{d_n^2}{d_k^2} \prod_{i=k}^{n-1} \left(\frac{d_i}{b_i}\right)^2
+\end{align*}
 
 
 
 
+
+\begin{align*}
+    \frac{\tilde{y}_{k+1}}
+        {\tilde{y}_k}
+        &=\frac{x_{k+1} \sum_{\ell=k+1}^n y_\ell^2}
+            {x_k \sum_{\ell=k}^n y_\ell^2}\\
+        &=\frac{x_{k+1}}{x_k} 
+            \left(1-
+            \frac{y_k^2}
+            {\sum_{\ell=k}^n y_\ell^2}\right)\\
+        &=-\frac{d_k}{b_k} 
+            \left(1- 
+            \frac{\frac{d_n^2}{d_k^2} \prod_{i=k}^{n-1}\left(\frac{d_i}{b_i}\right)^2}
+            {\sum_{\ell=k}^n \frac{d_n^2}{d_\ell^2} \prod_{i=\ell}^{n-1}\left(\frac{d_i}{b_i}\right)^2}\right) \\
+        &=r_k\left(1-
+            \frac{\frac{1}{d_k^2} \prod_{i=k}^{n-1} r_i^2}
+            { \sum_{\ell=k}^n \frac{1}{d_\ell^2} \prod_{i=\ell}^{n-1} r_i^2 } \right)\\
+        &\leqslant r_{\max }\left(1-
+            \frac{\frac{1}{d_k^2} \prod_{i=k}^{n-1} r_{\min }^2}
+            {\sum_{\ell=k}^n \frac{1}{d_\ell^2} \prod_{i=\ell}^{n-1} r_{i }^2 }\right) \qc
+            \text{as } r_{\min }^2 \leqslant r_i^2, \forall i,\\
+        &\leqslant r_{\max }\left(1-
+            \frac{\frac{1}{d_k^2} \prod_{i=k}^{n-1} r_{\min }^2}
+            {\sum_{\ell=k}^n \frac{1}{d_\ell^2} \prod_{i=\ell}^{n-1} r_{\max }^2 }\right) \qc
+            \text{as } r_{\max }^2 \geqslant r_i^2, \forall i,\\
+        &=r_{\max }\left(1-\frac{\frac{1}{d_{\max }^2} r_{\min }^{2(n-k)}}{\sum_{\ell=k}^n \frac{1}{d_{\min }^2} r_{\max }^{2(n-\ell)}}\right)\\
+        &=r_{\max }\left(1+\frac{d_{\min}^2\left(r_{\max }^2-1\right) r_{\max }^{2 k} r_{\min }^{2(n-k)}}{d_{\max }^2\left(r_{\max }^{2 k}-r_{\max }^{2(n+1)}\right)}\right)\\
+        &=r_{\max }\left(1+\frac{\left(r_{\max }^2-1\right) r_{\max }^{2 k} r_{\min }^{2(n-k)}}{r_{\max }^{2 k}-r_{\max }^{2(n+1)}} \left(\frac{d_{\min }}{d_{\max }}\right)^2\right)\\
+        &\leqslant r_{\max }\left(1+
+            \frac{\left(r_{\max }^2-1\right) r_{\max }^{2 k} r_{\min }^{2(n-k)}}
+            {r_{\max }^{2 k}-r_{\max }^{2(n+1)}} \right) \qc
+            \text{as } \left(\frac{d_{\min }}{d_{\max }}\right)^2 \leqslant 1,\\
+        &\leqslant r_{\max }\left(1+
+            \frac{\left(r_{\max }^2-1\right) r_{\max }^{2 k} r_{\max }^{2(n-k)}}
+            {r_{\max }^{2 k}-r_{\max }^{2(n+1)}} \right) \qc
+            \text{as } r_{\min }^2 \leqslant r_{\max }^2,\\
+        &= r\left(1+\frac{\left(r^2-1\right) r^{2 k} r^{2(n-k)}}{r^{2 k}-r^{2(n+1)}}\right)\\
+        &= r\left(1+\frac{\left(r^2-1\right) r^{2n}}{r^{2 k}-r^{2(n+1)}}\right)\\
+        &=r \left(\frac{r^{2k}-r^{2(n+1)}+r^{2(n+1)}-r^{2 n}}{r^{2 k}-r^{2(n+1)}}\right)\\
+        &=r \left(\frac{r^{2 k}-r^{2 n}}{r^{2 k}-r^{2(n+1)}}\right)\\
+        &=\frac{r^{2 k+1}-r^{2 n+1}}{r^{2 k}-r^{2 n+2}}\\
+        &=\frac{r^{2 n+1}-r^{2 k+1}}{r^{2 n+2}-r^{2 k}}\\
+        &< \frac{r^{2 n+1}-r^{2 k}}
+            {r^{2 n+2}-r^{2 k}} \qc
+            \text{as } r^{2 k+1} > r^{2 k},\\
+        &< \frac{r^{2 n+1}-r^{2 k}}
+            {r^{2 n+1}-r^{2 k}} \qc
+            \text{as } r^{2 n+1} < r^{2 n+2},\\
+        &=1
+\end{align*}
+
+
+
+where $d_{\max } = \max{d_k}$, $b_{\max } = \max{b_k}$, $r_k = -\frac{d_k}{b_k}$, $r_{\max } = -\frac{d_{\max }}{b_{\min }}$, and $r_{\min } = -\frac{d_{\min }}{b_{\max }}$, with $r_{\max } \geqslant r_k \geqslant r_{\min }, \forall k=1:n$.
+
+
+\begin{align*}
+    \begin{aligned}
+        &=\frac{r^{2 k+1}-r^{2 n+1}}{r^{2 k}-r^{2 n+2}}
+    \end{aligned}
+\end{align*}
+
+
+
+\begin{align}
+    T^{-1} &= \left(U^{-1}\right)\left(U^{\T}\right)^{-1} = \triu{x y^{\T}} \tril{y x^{\T}} \nonumber\\
+    \left( T^{-1} \right)_{i,j} &= \sum_{k=1}^{n} 
+            \left[\triu{x y^{\T}}\right]_{i,k}
+            \left[\tril{y x^{\T}}\right]_{k,j} \nonumber\\
+        &= \sum_{k=1}^{n}
+            \left( \begin{cases}
+                x_{i} y_{k} ,&  \text{if } i \leqslant j ; \\ 
+                0           ,&  \text{if } i > j .
+                   \end{cases}\right)
+            \left( \begin{cases}
+                0           ,&  \text{if } k < j ; \\ 
+                y_{k} x_{j} ,&  \text{if } k \geqslant j .
+                   \end{cases}\right) \nonumber\\
+        &= \sum_{k=1}^{n}
+            \left(x_{i} y_{k} \mathbbm{1}_{\{i:n\}}\left( k \right)\right)
+            \left(y_{k} x_{j} \mathbbm{1}_{\{j:n\}}\left( k \right)\right) \nonumber\\
+        &= x_{i} x_{j} \sum_{k=1}^{n}
+            y_{k}^2 \left( \mathbbm{1}_{\{i:n\}}\left( k \right)
+            \mathbbm{1}_{\{j:n\}}\left( k \right)\right) \nonumber\\
+        &= x_{i} x_{j} \sum_{k=1}^{n}
+            y_{k}^2 \mathbbm{1}_{\{\max\left(i,j \right):n\}}\left( k \right)
+\end{align}
+
+
+
+
+\begin{equation*}
+    \begin{rcases*}
+    x \coloneqq U^{-1} e_n = \texttt{backsub}(U, e_n), \\
+    y_{i} \coloneqq (d_{i} x_{i})^{-1} \qfor i=1:n.
+\end{rcases*} \rightarrow (U^{-1})_{i,j} = x_i y_j \qfor j=i:n
+\end{equation*}
+
+\newpage
+
+
+
+\begin{equation*}
+    T = \tilde{L} U = \tilde{U}^{\T} U \quad \Rightarrow \quad 
+        T^{-1} = \left(\tilde{U}^{\T} U\right)^{-1}= \left(U^{-1}\right)\left(\tilde{U}^{\T}\right)^{-1}
+        = \left(U^{-1}\right)\left(\tilde{U}^{-1}\right)^{\T}
+\end{equation*}\par
+where $\tilde{L} = \tilde{U}^{\T}$
+
+
+
+Let $U^{-1} = \triu{u v^{\T}}$, $\tilde{U}^{-1} = \triu{q p^{\T}}$, then $\left(\tilde{U}^{-1}\right)^{\T} = \tril{p q^{\T}}$ by Algorithm XXX and Lemma XXXXX
+
+Then, Equations XXXX and XXX for nonsymmetric bidiagonal $T$ becomes,
+
+
+
+
+
+
+\begin{align*}
+    T^{-1} &= \triu{u v^{\T}} \tril{p q^{\T}},\\
+    \left( T^{-1} \right)_{i,j} &= \sum_{k=1}^{n} 
+            \left[\triu{u v^{\T}}\right]_{i,k}
+            \left[\tril{p q^{\T}}\right]_{k,j}\\
+        &= \sum_{k=1}^{n}
+            \left(u_{i} v_{k} \mathbbm{1}_{\{i:n\}}\left( k \right)\right)
+            \left(p_{k} q_{j} \mathbbm{1}_{\{j:n\}}\left( k \right)\right)\\
+        &= u_{i} q_{j} \sum_{k=1}^{n}
+        v_{k} p_{k} \mathbbm{1}_{\{\max\left(i,j \right):n\}}\left( k \right)\\
+        &= \begin{cases}
+            u_{i} q_{j} \sum_{k=j}^{n} v_{k} p_{k} ,&  \text{if } i \leqslant j ; \\ 
+            q_{j} u_{i} \sum_{k=i}^{n} v_{k} p_{k} ,&  \text{if } i \geqslant j .
+        \end{cases}\\
+        &=  \begin{cases}
+            \tilde{u}_{i} \tilde{v}_{j} &  \text{if } i \leqslant j \ ; \\ 
+            \tilde{p}_{j} \tilde{q}_{i} &  \text{if } i \geqslant j .
+            \end{cases} \\
+        &= \triu{\tilde{u} \tilde{v}^{\T}} + \tril{\tilde{q} \tilde{p}^{\T}, -1}
+\end{align*}\par
+where
+\begin{equation*}
+    \begin{cases}
+        \tilde{u}_{i} = u_{i}; \\ 
+        \tilde{v}_{j} = q_{j} \sum_{k=j}^{n} v_{k} p_{k} .
+    \end{cases}, \qand
+    \begin{cases}
+        \tilde{p}_{j} = q_{j}; \\ 
+        \tilde{q}_{i} = u_{i} \sum_{k=j}^{n} v_{k} p_{k} .
+    \end{cases} .
+\end{equation*}\par
+
+
+
+The equality holds as, when $i=j$
+\begin{equation*}
+    \tilde{u}_i \tilde{v}_i=u_i q_i \sum_{k=i}^n v_k p_k=q_i u_i \sum_{k=i}^n v_k p_k=\tilde{p}_i \tilde{q}_i
+\end{equation*}
+
+
+
+\newpage
+
+
+
+
+\begin{align*}
+    \left(\triu{x y^{\T}} b\right)_i &= \sum_{k=1}^{n} 
+            \left[\triu{x y^{\T}}\right]_{i,k} b_{k} \\
+        &= \sum_{k=1}^{n}
+            \left( \begin{cases}
+                x_{i} y_{k} ,&  \text{if } i \leqslant k ; \\ 
+                0           ,&  \text{if } i > k .
+                   \end{cases}\right) b_{k}\\
+        &= \sum_{k=1}^{n}
+            \left[x_{i} y_{k} \mathbbm{1}_{\{i:n\}}\left( k \right)\right] b_{k} \\
+        &= x_{i} \sum_{k=i}^{n}
+            y_{k} b_{k}\\
+        &= x \circ 
+        \begin{bNiceMatrix}[margin,vlines]
+            y^{\T} b & y_{\left[2:n\right]}^{\T} b_{\left[2:n\right]} & \cdots  & y_{n} b_{n}
+        \end{bNiceMatrix}^{\T}\\
+        &= x \circ \texttt{normCoef}(y, b, \texttt{false})
+\end{align*}
+
+
+
+\begin{align*}
+    \left(\tril{y x^{\T}, -1} b\right)_i &= \sum_{k=1}^{n} 
+            \left[\triu{x y^{\T}}\right]_{i,k} b_{k} \\
+        &= \sum_{k=1}^{n}
+            \left( \begin{cases}
+                0           ,&  \text{if } i < k+1 ; \\ 
+                y_{i} x_{k} ,&  \text{if } i \geqslant k+1 .
+                   \end{cases}\right) b_{k}\\
+        &= y_{i} \sum_{k=1}^{i-1}
+            x_{k} b_{k}\\
+        &= y \circ 
+        \begin{bNiceMatrix}[margin,vlines]
+            0 & x_{1} b_{1} & x_{\left[1:2\right]}^{\T} b_{\left[1:2\right]} & \cdots  & x_{\left[1:n-1\right]}^{\T} b_{\left[1:n-1\right]}
+        \end{bNiceMatrix}^{\T}\\
+        &= y \circ \begin{bNiceMatrix}[margin,vlines]
+            0 & \texttt{normCoef}(x_{\left[1:n-1\right]}, b_{\left[1:n-1\right]}, \texttt{true})
+        \end{bNiceMatrix}^{\T}
+\end{align*}
+
+
+\begin{align*}
+    x=T^{-1} b = \triu{\tilde{x} \tilde{y}^{\T}} + \tril{\tilde{y} \tilde{x}^{\T}, -1} b 
+    =\triu{\tilde{x} \tilde{y}^{\T}} b + \tril{\tilde{y} \tilde{x}^{\T}, -1} b
+\end{align*}
+
+
+
+\NiceMatrixOptions{
+    code-for-first-row = \scriptstyle,
+    code-for-first-col = \scriptstyle,
+    code-for-last-row = \scriptstyle,
+    code-for-last-col = \scriptstyle,
+    }
 $$
-\mathbbm{1} \mathds{1} \leqslant
+\begin{bNiceMatrix}[last-row,last-col,vlines]
+    n & \tilde{E_{0}} & E_{1} & E_{2} \\
+    & r & u & u &
+\end{bNiceMatrix}
 $$
-
 
 
 \newpage
