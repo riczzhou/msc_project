@@ -3,11 +3,19 @@ using Test
 include("expNum.jl")
 
 @testset "Exponential Number" begin
-    @testset "Transformation" begin
+    @testset "Transformation (Float64)" begin
         for _ in 1:5
             n = rand(1:10000)
             x = rand(n)
             @test exp2fl(fl2exp(x)) ≈ x
+        end
+    end
+
+    @testset "Transformation (BigFloat)" begin
+        for _ in 1:5
+            n = rand(1:10000)
+            x = rand(n)
+            @test exp2bigfl(bigfl2exp(x)) ≈ x
         end
     end
 
