@@ -40,12 +40,15 @@ end
 
 
 
-function invSymT2SS(T)
-    C = cholesky(T)
+function invSymT2SS(T, exactInv=true)
+    C = cholesky(Matrix(T))
     U = Bidiagonal(C.U)
     (x, y) = invBidiagU(U,false)
     (xhat, yhat) = onepairSymSS(x, y)
-    SS = generateSymSS(xhat, yhat)
-    SS;
+    if exactInv
+        S = generateSymSS(xhat, yhat)
+        return S;
+    end
+    xhat, yhat;
 end
 

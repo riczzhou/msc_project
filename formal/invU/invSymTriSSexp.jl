@@ -42,12 +42,15 @@ function onepairSymSSexp((sx, xE), (sy, yE))
 end
 
 
-function invSymT2SSexp(T)
-    C = cholesky(T)
+function invSymT2SSexp(T, exactInv=true)
+    C = cholesky(Matrix(T))
     U = Bidiagonal(C.U)
     (sx, xE), (sy, yE) = invBiUexp(U,false)
     (sxh, xhE), (syh, yhE) = onepairSymSSexp((sx, xE), (sy, yE))
-    SS = generateSymSSexp((sxh, xhE), (syh, yhE))
-    SS
+    if exactInv
+        S = generateSymSSexp((sxh, xhE), (syh, yhE))
+        return S;
+    end
+    (sxh, xhE), (syh, yhE);
 end
 
