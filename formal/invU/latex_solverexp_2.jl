@@ -1,7 +1,3 @@
-include("invBiUexp.jl")
-include("expNum.jl")
-
-
 function normCoefexp((sa, aE), (sb, bE), isReverse=false)
     n = length(sa)
     scoef, coefE = zeros(n), zeros(n)
@@ -23,6 +19,9 @@ function normCoefexp((sa, aE), (sb, bE), isReverse=false)
     scoef, coefE;
 end
 
+function onepairSymSSexp((sx, xE), (sy, yE))
+    (sx, xE), expTimes((sx, xE), normCoefexp((sy, yE), (sy, yE)));
+end
 
 function generateSymSSexp((sxh, xhE), (syh, yhE))
     n = length(sxh)
@@ -34,33 +33,4 @@ function generateSymSSexp((sxh, xhE), (syh, yhE))
         end
     end
     S + triu(S, 1)';
-end
-
-
-function onepairSymSSexp((sx, xE), (sy, yE))
-    (sx, xE), expTimes((sx, xE), normCoefexp((sy, yE), (sy, yE)));
-end
-
-
-function invSymT2SSexp(T, exactInv=true)
-    C = cholesky(Matrix(T))
-    U = Bidiagonal(C.U)
-    (sx, xE), (sy, yE) = invBiUexp(U,false)
-    (sxh, xhE), (syh, yhE) = onepairSymSSexp((sx, xE), (sy, yE))
-    if exactInv
-        S = generateSymSSexp((sxh, xhE), (syh, yhE))
-        return S;
-    end
-    (sxh, xhE), (syh, yhE);
-end
-
-
-function invSymT2SSexp_U(U, exactInv=true)
-    (sx, xE), (sy, yE) = invBiUexp(U,false)
-    (sxh, xhE), (syh, yhE) = onepairSymSSexp((sx, xE), (sy, yE))
-    if exactInv
-        S = generateSymSSexp((sxh, xhE), (syh, yhE))
-        return S;
-    end
-    (sxh, xhE), (syh, yhE);
 end

@@ -1,6 +1,3 @@
-include("invBiU.jl")
-
-
 function normCoef(a, b, isReverse=false)
     T = eltype(a)
     n = length(a)
@@ -19,6 +16,9 @@ function normCoef(a, b, isReverse=false)
     coef;
 end
 
+function onepairSymSS(x, y)
+    x, x .* normCoef(y,y);
+end
 
 function generateSymSS(xhat, yhat)
     T = eltype(xhat)
@@ -30,35 +30,4 @@ function generateSymSS(xhat, yhat)
         end
     end
     S + triu(S, 1)';
-end
-
-
-function onepairSymSS(x, y)
-    x, x .* normCoef(y,y);
-end
-
-
-
-
-function invSymT2SS(T, exactInv=true)
-    C = cholesky(Matrix(T))
-    U = Bidiagonal(C.U)
-    (x, y) = invBidiagU(U,false)
-    (xhat, yhat) = onepairSymSS(x, y)
-    if exactInv
-        S = generateSymSS(xhat, yhat)
-        return S;
-    end
-    xhat, yhat;
-end
-
-
-function invSymT2SS_U(U, exactInv=true)
-    (x, y) = invBidiagU(U,false)
-    (xhat, yhat) = onepairSymSS(x, y)
-    if exactInv
-        S = generateSymSS(xhat, yhat)
-        return S;
-    end
-    xhat, yhat;
 end

@@ -1,9 +1,9 @@
 using LinearAlgebra, BandedMatrices
 
 function generateTestTriangular(dim, bw, typeM, typeElmt, isUpper=true)
-    if bw <= 0 || bw >= dim
-        return -1
-    end
+    # if bw <= 0 || bw >= dim
+    #     return -1
+    # end
     
     U = rand(typeElmt, dim, dim) + dim*I
     U = BandedMatrix(U, (0, bw))

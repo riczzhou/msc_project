@@ -91,10 +91,36 @@ end
 
 
 
-timesData4funcs()
+# timesData4funcs()
 
 
 
+
+n = 100
+
+A = rand(n,n)
+T = abs.(Matrix(Tridiagonal(A + A' + n*I)))
+
+U = zero(T)
+
+U[1,1] = sqrt(T[1,1])
+U[1,2] = T[1,2]/U[1,1]
+
+for i in 2:n-1
+    U[i,i] = sqrt(T[i,i]-U[i-1,i]^2)
+    U[i,i+1] = T[i,i+1] / U[i,i]
+end
+U[n,n] = sqrt(T[n,n] - U[n-1,n]^2)
+
+
+
+U
+
+C = cholesky(T)
+UU = C.U
+
+U - UU
+U' * U - T
 
 
 
